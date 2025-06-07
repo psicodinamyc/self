@@ -266,7 +266,19 @@
 <option value="Multidisciplinario">Multidisciplinario</option>
 <option value="Otros">Otros</option>
 </select>
-<textarea class="form-control mt-2" placeholder="Observación" rows="2"></textarea><button class="btn btn-sm btn-secondary ms-2" onclick="dictar('textarea3)'" type="button">🎤 Dictar</button>
+<textarea class="form-control mt-2" placeholder="Observación" rows="2"></textarea>
+  <!-- Botones -->
+  <button onclick="iniciarDictado('motivoConsulta')">🎤 Dictar</button>
+  <button onclick="leerTexto('motivoConsulta')">🔊 Leer</button>
+
+  <hr>
+
+  <label for="antecedentes"><strong>Antecedentes:</strong></label><br>
+  <textarea id="antecedentes" rows="5" cols="60" placeholder="Dictá o escribí los antecedentes..."></textarea><br>
+
+  <button onclick="iniciarDictado('antecedentes')">🎤 Dictar</button>
+  <button onclick="leerTexto('antecedentes')">🔊 Leer</button>
+
 </div>
 <div class="mb-3">
 <label class="form-label">Frecuencia de seguimiento</label>
