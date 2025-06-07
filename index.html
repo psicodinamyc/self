@@ -2,16 +2,30 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Test Dictado</title>
+  <title>Dictado + Lectura</title>
 </head>
 <body>
-  <h1>🎤 Dictado de Voz</h1>
-  <textarea id="salida" rows="5" cols="60" placeholder="Habla aquí..."></textarea><br>
-  <button onclick="empezarDictado()">🎙 Empezar dictado</button>
+  <h1>Historia Clínica Digital</h1>
 
+  <label for="motivoConsulta"><strong>Motivo de consulta:</strong></label><br>
+  <textarea id="motivoConsulta" rows="5" cols="60" placeholder="Dictá o escribí el motivo..."></textarea><br>
+
+  <!-- Botones -->
+  <button onclick="iniciarDictado('motivoConsulta')">🎤 Dictar</button>
+  <button onclick="leerTexto('motivoConsulta')">🔊 Leer</button>
+
+  <hr>
+
+  <label for="antecedentes"><strong>Antecedentes:</strong></label><br>
+  <textarea id="antecedentes" rows="5" cols="60" placeholder="Dictá o escribí los antecedentes..."></textarea><br>
+
+  <button onclick="iniciarDictado('antecedentes')">🎤 Dictar</button>
+  <button onclick="leerTexto('antecedentes')">🔊 Leer</button>
+
+  <!-- Scripts -->
   <script>
-    function empezarDictado() {
-      const campo = document.getElementById("salida");
+    function iniciarDictado(idCampo) {
+      const campo = document.getElementById(idCampo);
       const Reconocimiento = window.SpeechRecognition || window.webkitSpeechRecognition;
 
       if (!Reconocimiento) {
@@ -24,21 +38,27 @@
       reconocimiento.interimResults = false;
       reconocimiento.maxAlternatives = 1;
 
-      reconocimiento.onstart = () => {
-        console.log("Escuchando...");
-      };
-
       reconocimiento.onresult = (event) => {
         const texto = event.results[0][0].transcript;
         campo.value += texto + " ";
       };
 
       reconocimiento.onerror = (event) => {
-        console.error("Error de dictado:", event.error);
-        alert("Error: " + event.error);
+        alert("Error de dictado: " + event.error);
       };
 
       reconocimiento.start();
+    }
+
+    function leerTexto(idCampo) {
+      const texto = document.getElementById(idCampo).value;
+      if (texto.trim() === "") {
+        alert("El campo está vacío.");
+        return;
+      }
+      const voz = new SpeechSynthesisUtterance(texto);
+      voz.lang = "es-AR";
+      speechSynthesis.speak(voz);
     }
   </script>
 </body>
