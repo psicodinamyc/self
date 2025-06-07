@@ -378,28 +378,36 @@
 <!-- Custom JS -->
 <script src="/js/world_script.js"></script>
 <script>
-function dictar(idCampo) {
-    const campo = document.getElementById(idCampo);
-    const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!Recognition) return alert('Tu navegador no soporta reconocimiento de voz.');
+<script function empezarDictado() {
+            const campo = document.getElementById("salida");
+             const Reconocimiento = window.SpeechRecognition || window.webkitSpeechRecognition;
 
-    const reco = new Recognition();
-    reco.lang = 'es-AR';
-    reco.interimResults = false;
-    reco.continuous = false;
+          if (!Reconocimiento) {
+        alert("Tu navegador no soporta reconocimiento de voz.");
+        return;
+      }
 
-    reco.onresult = (event) => {
+      const reconocimiento = new Reconocimiento();
+      reconocimiento.lang = "es-AR";
+      reconocimiento.interimResults = false;
+      reconocimiento.maxAlternatives = 1;
+
+      reconocimiento.onstart = () => {
+        console.log("Escuchando...");
+      };
+
+      reconocimiento.onresult = (event) => {
         const texto = event.results[0][0].transcript;
-        campo.value += texto + ' ';
-    };
+        campo.value += texto + " ";
+      };
 
-    reco.onerror = (event) => {
-        alert('Error al dictar: ' + event.error);
-    };
+      reconocimiento.onerror = (event) => {
+        console.error("Error de dictado:", event.error);
+        alert("Error: " + event.error);
+      };
 
-    reco.start();
-}
-
+      reconocimiento.start();
+    }
 function exportarWord() {
     const contenido = document.body.innerHTML;
     const blob = new Blob(['\ufeff', contenido], { type: 'application/msword' });
@@ -411,5 +419,8 @@ function exportarWord() {
     link.click();
     document.body.removeChild(link);
 }
-</script><button class="btn btn-success mt-4" onclick="exportarWord()" type="button">💾 Guardar como Word</button></body>
+  <button class="btn btn-success mt-4" onclick="exportarWord()" type="button">💾 Guardar como Word</button></body>
+
+</script>
+
 </html>
