@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Test Dictado</title>
+</head>
+<body>
+  <h1>🎤 Dictado de Voz</h1>
+  <textarea id="salida" rows="5" cols="60" placeholder="Habla aquí..."></textarea><br>
+  <button onclick="empezarDictado()">🎙 Empezar dictado</button>
+
+  <script>
+    function empezarDictado() {
+      const campo = document.getElementById("salida");
+      const Reconocimiento = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+      if (!Reconocimiento) {
+        alert("Tu navegador no soporta reconocimiento de voz.");
+        return;
+      }
+
+      const reconocimiento = new Reconocimiento();
+      reconocimiento.lang = "es-AR";
+      reconocimiento.interimResults = false;
+      reconocimiento.maxAlternatives = 1;
+
+      reconocimiento.onstart = () => {
+        console.log("Escuchando...");
+      };
+
+      reconocimiento.onresult = (event) => {
+        const texto = event.results[0][0].transcript;
+        campo.value += texto + " ";
+      };
+
+      reconocimiento.onerror = (event) => {
+        console.error("Error de dictado:", event.error);
+        alert("Error: " + event.error);
+      };
+
+      reconocimiento.start();
+    }
+  </script>
+</body>
+</html>
