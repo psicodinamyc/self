@@ -159,6 +159,34 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+/ En lugar de llamar speechSynthesis.speak() directamente:
+function hablar(texto) {
+  // Crear una nueva instancia de SpeechSynthesisUtterance
+  const utterance = new SpeechSynthesisUtterance(texto);
+  
+  // En móviles, necesitamos que esto se ejecute tras una interacción del usuario
+  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    // Solicitar permiso táctil primero
+    const boton = document.createElement('button');
+    boton.textContent = 'Presiona para hablar';
+    boton.style.position = 'fixed';
+    boton.style.bottom = '20px';
+    boton.style.left = '50%';
+    boton.style.transform = 'translateX(-50%)';
+    boton.style.zIndex = '1000';
+    boton.style.padding = '10px 20px';
+    document.body.appendChild(boton);
+    
+    boton.addEventListener('click', () => {
+      window.speechSynthesis.speak(utterance);
+      document.body.removeChild(boton);
+    });
+  } else {
+    // En PC, funciona normalmente
+    window.speechSynthesis.speak(utterance);
+  }
+}
+
 function leer(idCampo) {
   const texto = document.getElementById(idCampo).value;
   if (!texto) return;
@@ -206,3 +234,7 @@ function leer(idCampo) {
   speechSynthesis.cancel(); // Cancela lectura anterior
   speechSynthesis.speak(voz);
 }
+if (!('speechSynthesis' in window)) {
+  alert('Lo siento, tu navegador no soporta la síntesis de voz.');
+}
+
