@@ -1698,87 +1698,105 @@
             document.getElementById('edad').value = edad;
         }
         
-        // Variables para reconocimiento de voz
-        let reconocimiento;
-        let vocesDisponibles = [];
+        script>
+// Variables globales para el reconocimiento de voz
+let reconocimiento;
+let vocesDisponibles = [];
+let vozActual = null;
+
+// Cargar voces cuando la página esté lista
+document.addEventListener('DOMContentLoaded', function() {
+    cargarVoces();
+    
+    // Configurar el selector de voces
+    const vozSelect = document.getElementById('vozSelect');
+    vozSelect.addEventListener('change', function() {
+        const indiceVoz = parseInt(this.value);
+        vozActual = isNaN(indiceVoz) ? null : vocesDisponibles[indiceVoz];
+    });
+});
+
+// Función para cargar las voces disponibles
+function cargarVoces() {
+    // Esperar a que las voces estén cargadas
+    const cargar = () => {
+        vocesDisponibles = window.speechSynthesis.getVoices();
+        const select = document.getElementById('vozSelect');
+        select.innerHTML = '<option value="">Seleccionar voz...</option>';
         
-        // Función para iniciar dictado
-        function iniciarDictado(idCampo) {
-            const campo = document.getElementById(idCampo);
-            window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        // Filtrar voces en español para simplificar la selección
+        const vocesEspanol = vocesDisponibles.filter(voz => voz.lang.includes('es'));
         
-            if (!window.SpeechRecognition) {
-                alert("Tu navegador no soporta reconocimiento de voz.");
-                return;
-            }
+        vocesEspanol.forEach((voz, i) => {
+            const option = document.createElement('option');
+            option.value = i;
+            option.textContent = `${voz.name} (${voz.lang})`;
+            select.appendChild(option);
+        });
         
-            reconocimiento = new SpeechRecognition();
-            reconocimiento.lang = 'es-ES';
-            reconocimiento.continuous = false;
-            reconocimiento.interimResults = false;
-        
-            reconocimiento.onresult = (event) => {
-                const resultado = event.results[0][0].transcript;
-                campo.value += (campo.value ? " " : "") + resultado;
-            };
-        
-            reconocimiento.onerror = (event) => {
-                console.error('Error en el reconocimiento de voz:', event.error);
-            };
-        
-            reconocimiento.start();
+        // Seleccionar una voz en español por defecto si existe
+        if (vocesEspanol.length > 0) {
+            vozActual = vocesEspanol[0];
+            select.value = vocesDisponibles.indexOf(vozEspanol[0]);
         }
-        
-        // Función para cargar las voces disponibles
-        function cargarVoces() {
-            vocesDisponibles = window.speechSynthesis.getVoices();
-            const select = document.getElementById("vozSelect");
-            select.innerHTML = "";
-            
-            const opcionDefault = document.createElement("option");
-            opcionDefault.value = "";
-            opcionDefault.textContent = "Seleccionar voz...";
-            select.appendChild(opcionDefault);
-            
-            vocesDisponibles.forEach((voz, i) => {
-                const option = document.createElement("option");
-                option.value = i;
-                option.textContent = `${voz.name} (${voz.lang})`;
-                select.appendChild(option);
-            });
+    };
+    
+    // Las voces se cargan asíncronamente
+    if (speechSynthesis.onvoiceschanged !== undefined) {
+        speechSynthesis.onvoiceschanged = cargar;
+    }
+    
+    // Intentar cargar de inmediato
+    cargar();
+}
+
+// Función mejorada para leer texto
+function leer(idCampo) {
+    const campo = document.getElementById(idCampo);
+    const texto = campo.value.trim();
+    
+    if (!texto) {
+        alert('El campo está vacío.');
+        return;
+    }
+    
+    // Detener cualquier lectura previa
+    window.speechSynthesis.cancel();
+    
+    // Crear el mensaje de voz
+    const mensaje = new SpeechSynthesisUtterance(texto);
+    mensaje.rate = 1.0; // Velocidad normal
+    mensaje.pitch = 1.0; // Tono normal
+    mensaje.volume = 1.0; // Volumen máximo
+    
+    // Usar la voz seleccionada o una voz en español por defecto
+    if (vozActual) {
+        mensaje.voice = vozActual;
+        mensaje.lang = vozActual.lang;
+    } else {
+        // Buscar cualquier voz en español si no hay selección
+        const vozEspanol = vocesDisponibles.find(voz => voz.lang.includes('es'));
+        if (vozEspanol) {
+            mensaje.voice = vozEspanol;
+            mensaje.lang = vozEspanol.lang;
         }
-        
-        // Evento cuando las voces cambian
-        window.speechSynthesis.onvoiceschanged = cargarVoces;
-        
-        // Función para leer texto
-        function leer(idCampo) {
-            const texto = document.getElementById(idCampo).value;
-            if (!texto.trim()) {
-                alert("El campo está vacío.");
-                return;
-            }
-        
-            const mensaje = new SpeechSynthesisUtterance(texto);
-            const vozSeleccionada = document.getElementById("vozSelect").value;
-            
-            if (vozSeleccionada && vocesDisponibles[vozSeleccionada]) {
-                mensaje.voice = vocesDisponibles[vozSeleccionada];
-                mensaje.lang = vocesDisponibles[vozSeleccionada].lang;
-            } else {
-                // Buscar una voz en español por defecto
-                const vozEspanol = vocesDisponibles.find(voz => voz.lang.includes('es'));
-                if (vozEspanol) {
-                    mensaje.voice = vozEspanol;
-                    mensaje.lang = vozEspanol.lang;
-                }
-            }
-            
-            window.speechSynthesis.speak(mensaje);
-        }
-        
-        // Cargar voces al inicio
-        document.addEventListener('DOMContentLoaded', cargarVoces);
+    }
+    
+    // Manejar errores
+    mensaje.onerror = function(event) {
+        console.error('Error en la síntesis de voz:', event.error);
+        alert('Error al leer el texto. Por favor intente nuevamente.');
+    };
+    
+    // Iniciar la lectura
+    window.speechSynthesis.speak(mensaje);
+}
+
+// Función para detener la lectura
+function detenerLectura() {
+    window.speechSynthesis.cancel();
+}
+</script>
         
         // Función para imprimir el documento
         function imprimirDocumento() {
