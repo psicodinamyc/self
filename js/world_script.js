@@ -158,3 +158,51 @@ document.addEventListener('DOMContentLoaded', function() {
         printBtn.addEventListener('click', generateWordDocument);
     }
 });
+
+function leer(idCampo) {
+  const texto = document.getElementById(idCampo).value;
+  if (!texto) return;
+  
+  const voz = new SpeechSynthesisUtterance(texto);
+  voz.lang = "es-ES"; // o "es-AR"
+  window.speechSynthesis.cancel(); // Cancela voces previas
+  window.speechSynthesis.speak(voz);
+}
+// Cargar voces compatibles con español al selector
+function cargarVoces() {
+  const select = document.getElementById('vozSelect');
+  if (!select) return;
+  const voces = speechSynthesis.getVoices();
+
+  // Vaciar y repoblar
+  select.innerHTML = '';
+  voces.forEach(voz => {
+    if (voz.lang.startsWith('es')) {
+      const option = document.createElement('option');
+      option.value = voz.name;
+      option.textContent = `${voz.name} (${voz.lang})`;
+      select.appendChild(option);
+    }
+  });
+}
+
+// Ejecutar después de cargar voces
+speechSynthesis.onvoiceschanged = cargarVoces;
+
+// Leer texto desde un campo por ID
+function leer(idCampo) {
+  const texto = document.getElementById(idCampo)?.value;
+  const select = document.getElementById('vozSelect');
+  if (!texto || !select) return;
+
+  const vozSeleccionada = select.value;
+  const voz = new SpeechSynthesisUtterance(texto);
+  voz.lang = "es-ES";
+
+  const voces = speechSynthesis.getVoices();
+  const seleccionada = voces.find(v => v.name === vozSeleccionada);
+  if (seleccionada) voz.voice = seleccionada;
+
+  speechSynthesis.cancel(); // Cancela lectura anterior
+  speechSynthesis.speak(voz);
+}
