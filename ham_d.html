@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escala de depresión de Hammilton [HAM - D]</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+     <link rel="stylesheet" href="/self-main/css/style o_o.css">
+    <style>
+        body {
+            font-family: 'EB Garamond', serif;
+            line-height: 1.6;
+             margin: 0;
+            padding: 20px;
+            color: #333;
+
+        }
+        
+        .form-section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-radius: 0.5rem;
+            border-left: 4px solid #0d6efd;
+        }
+        
+        .form-section h1, .form-section h2, .form-section h3 {
+            color: #0d6efd;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .checkbox-group, .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .checkbox-group label, .radio-group label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+        
+        .signature-section {
+            margin-top: 3rem;
+            text-align: center;
+        }
+        
+        .signature-line {
+            border-top: 1px solid #000;
+            width: 300px;
+            margin: 0 auto;
+            padding-top: 1rem;
+        }
+        
+        .footer {
+            background-color: #343a40;
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .footer p {
+            margin-bottom: 0.5rem;
+        }
+        
+        .btn-print, .btn-save, .btn-next {
+            margin: 0 0.5rem;
+        }
+        
+        .voice-controls {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .voice-controls button {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.875rem;
+        }
+        
+        .scales-toolbar {
+            background-color: #e9ecef;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            border-radius: 0.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+        
+        .scales-toolbar button {
+            white-space: nowrap;
+        }
+        
+        textarea {
+            min-height: 100px;
+        }
+        
+        @media print {
+            .no-print, .scales-toolbar, .voice-controls {
+                display: none !important;
+            }
+            
+            body {
+                font-size: 12pt;
+                line-height: 1.5;
+            }
+            
+            .form-section {
+                page-break-inside: avoid;
+                border-left: none;
+                padding: 0;
+                background-color: transparent;
+            }
+        }
+         .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+        }
+        button:hover {
+            background: #2980b9;
+        }
+        #result {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            background: #e8f4fc;
+            display: none;
+        }
+        .interpretation {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+    </style>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;700&family=Consolas&display=swap" rel="stylesheet">
+</head>
+
+<style>
+        body {
+            font-family: 'EB Garamond', serif;
+            line-height: 1.6;
+        }
+        
+        .form-section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background-color: #f8f9fa;
+            border-radius: 0.5rem;
+            border-left: 4px solid #0d6efd;
+        }
+        
+        .form-section h1, .form-section h2, .form-section h3 {
+            color: #0d6efd;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .checkbox-group, .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .checkbox-group label, .radio-group label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+        
+        .signature-section {
+            margin-top: 3rem;
+            text-align: center;
+        }
+        
+        .signature-line {
+            border-top: 1px solid #000;
+            width: 300px;
+            margin: 0 auto;
+            padding-top: 1rem;
+        }
+        
+        .footer {
+            background-color: #343a40;
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .footer p {
+            margin-bottom: 0.5rem;
+        }
+        
+        .btn-print, .btn-save, .btn-next {
+            margin: 0 0.5rem;
+        }
+        
+        .voice-controls {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .voice-controls button {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.875rem;
+        }
+        
+        .scales-toolbar {
+            background-color: #e9ecef;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            border-radius: 0.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+        
+        .scales-toolbar button {
+            white-space: nowrap;
+        }
+        
+        textarea {
+            min-height: 100px;
+        }
+        
+        @media print {
+            .no-print, .scales-toolbar, .voice-controls {
+                display: none !important;
+            }
+            
+            body {
+                font-size: 12pt;
+                line-height: 1.5;
+            }
+            
+            .form-section {
+                page-break-inside: avoid;
+                border-left: none;
+                padding: 0;
+                background-color: transparent;
+            }
+        }
+    </style>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;700&family=Consolas&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="/self-main/images/logo_comun.png" alt="Logo" height="40">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/self-main/index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Servicios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contacto</a>
+                    </li>
+                </ul>
+                <div class="d-flex flex-wrap gap-2">
+                    <a href="https://wa.me/543625314001?text=Hola%20Dr.%20Villamandos%2C%20quisiera%20hacer%20una%20consulta" 
+                       target="_blank" class="btn btn-success btn-sm">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    </a>
+                    <a href="https://www.facebook.com/mauricio.villamandos?locale=es_LA" 
+                       target="_blank" class="btn btn-primary btn-sm">
+                        <i class="fab fa-facebook-f"></i> Facebook
+                    </a>
+                    <a href="https://www.instagram.com/elperrofenrir/" 
+                       target="_blank" class="btn btn-danger btn-sm">
+                        <i class="fab fa-instagram"></i> Instagram
+                    </a>
+                    <a href="https://twitter.com/tuusuario" 
+                       target="_blank" class="btn btn-dark btn-sm">
+                        <i class="fab fa-x-twitter"></i> X
+                    </a>
+                    <a href="https://www.linkedin.com/in/mauricio-villamandos-48b29a16a" 
+                       target="_blank" class="btn btn-info btn-sm">
+                        <i class="fab fa-linkedin-in"></i> LinkedIn
+                    </a>
+                    
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="bg-light py-4 mb-4 border-bottom">
+        <div class="container text-center">
+            <h1 class="display-5 fw-bold">HCPE - Historia Clínica Psiquiátrica</h1>
+            <div class="doctor-info">
+                <p class="mb-1"><strong>Dr. Mauricio Villamandos - Médico Especialista en Psiquiatría - MP: 07489</strong></p>
+                <p class="mb-0"><strong>Posadas, Misiones – Argentina | infopsicodinamyc@gmail.com | Teléfono: 3765 041832</strong></p>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Botonera de escalas e instrumentos -->
+    <div class="container scales-toolbar no-print">
+        <h4 class="w-100 text-center mb-3">Instrumentos de Evaluación</h4>
+        <button class="btn btn-outline-primary" onclick="window.open('https://gonzalov85.github.io/Inventario-SCL-90-R/', '_blank')">
+            <i class="fas fa-clipboard-list"></i> SCL-90-R
+        </button>
+        <button class="btn btn-outline-primary" onclick="window.open('escala_hamd.html', '_blank')">
+            <i class="fas fa-brain"></i> HAM-D
+        </button>
+        <button class="btn btn-outline-primary" onclick="window.open('escala_ham_a.html', '_blank')">
+            <i class="fas fa-brain"></i> HAM-A
+        </button>
+        <button class="btn btn-outline-primary" onclick="window.open('escala_moca.html', '_blank')">
+            <i class="fas fa-brain"></i> MoCA
+        </button>
+        <button class="btn btn-outline-primary" onclick="window.open('escala_mmse.html', '_blank')">
+            <i class="fas fa-brain"></i> MMSE
+        </button>
+        <button class="btn btn-outline-primary" onclick="window.open('escala_panss.html', '_blank')">
+            <i class="fas fa-brain"></i> PANSS
+        </button>
+        <button class="btn btn-outline-primary" onclick="window.open('escala_ymrs.html', '_blank')">
+            <i class="fas fa-brain"></i> YMRS
+        </button>
+        <button class="btn btn-outline-primary" onclick="window.open('escala_cage.html', '_blank')">
+            <i class="fas fa-brain"></i> CAGE
+        </button>
+        <button class="btn btn-outline-primary" onclick="window.open('escala_audit.html', '_blank')">
+            <i class="fas fa-brain"></i> AUDIT
+        </button>
+    </div>
+    <body>
+
+    <main class="container">
+        <section class="form-section">
+            <h1>1. DATOS GENERALES</h1>
+        <h2>Hamilton Depression Rating Scale (HDRS)</h2>
+        
+        <form id="hamiltonForm">
+            <div class="section">
+                <div class="item">
+                    <div class="item-title">1. Humor depresivo (tristeza, desesperanza, desamparo, sentimiento de inutilidad)</div>
+                    <div class="options">
+                        <div class="option"><input type="radio" name="item1" value="0" required> Ausente (0)</div>
+                        <div class="option"><input type="radio" name="item1" value="1"> Estas sensaciones las expresa solamente si le preguntan como se siente (1)</div>
+                        <div class="option"><input type="radio" name="item1" value="2"> Estas sensaciones las relata espontáneamente (2)</div>
+                        <div class="option"><input type="radio" name="item1" value="3"> Sensaciones no comunicadas verbalmente (expresión facial, postura, voz, tendencia al llanto) (3)</div>
+                        <div class="option"><input type="radio" name="item1" value="4"> Manifiesta estas sensaciones en su comunicación verbal y no verbal en forma espontánea (4)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="item">
+                    <div class="item-title">2. Sentimientos de culpa</div>
+                    <div class="options">
+                        <div class="option"><input type="radio" name="item2" value="0" required> Ausente (0)</div>
+                        <div class="option"><input type="radio" name="item2" value="1"> Se culpa a sí mismo, cree haber decepcionado a la gente (1)</div>
+                        <div class="option"><input type="radio" name="item2" value="2"> Tiene ideas de culpabilidad o medita sobre errores pasados o malas acciones (2)</div>
+                        <div class="option"><input type="radio" name="item2" value="3"> Siente que la enfermedad actual es un castigo (3)</div>
+                        <div class="option"><input type="radio" name="item2" value="4"> Oye voces acusatorias o de denuncia y/o experimenta alucinaciones visuales de amenaza (4)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="item">
+                    <div class="item-title">3. Suicidio</div>
+                    <div class="options">
+                        <div class="option"><input type="radio" name="item3" value="0" required> Ausente (0)</div>
+                        <div class="option"><input type="radio" name="item3" value="1"> Le parece que la vida no vale la pena ser vivida (1)</div>
+                        <div class="option"><input type="radio" name="item3" value="2"> Desearía estar muerto o tiene pensamientos sobre la posibilidad de morirse (2)</div>
+                        <div class="option"><input type="radio" name="item3" value="3"> Ideas de suicidio o amenazas (3)</div>
+                        <div class="option"><input type="radio" name="item3" value="4"> Intentos de suicidio (cualquier intento serio) (4)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="item">
+                    <div class="item-title">4. Insomnio precoz</div>
+                    <div class="options">
+                        <div class="option"><input type="radio" name="item4" value="0" required> No tiene dificultad (0)</div>
+                        <div class="option"><input type="radio" name="item4" value="1"> Dificultad ocasional para dormir, por ej. más de media hora el conciliar el sueño (1)</div>
+                        <div class="option"><input type="radio" name="item4" value="2"> Dificultad para dormir cada noche (2)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="item">
+                    <div class="item-title">5. Insomnio intermedio</div>
+                    <div class="options">
+                        <div class="option"><input type="radio" name="item5" value="0" required> No hay dificultad (0)</div>
+                        <div class="option"><input type="radio" name="item5" value="1"> Esta desvelado e inquieto o se despierta varias veces durante la noche (1)</div>
+                        <div class="option"><input type="radio" name="item5" value="2"> Esta despierto durante la noche, cualquier ocasión de levantarse de la cama se clasifica en 2 (excepto por motivos de evacuar) (2)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="item">
+                    <div class="item-title">6. Insomnio tardío</div>
+                    <div class="options">
+                        <div class="option"><input type="radio" name="item6" value="0" required> No hay dificultad (0)</div>
+                        <div class="option"><input type="radio" name="item6" value="1"> Se despierta a primeras horas de la madrugada, pero se vuelve a dormir (1)</div>
+                        <div class="option"><input type="radio" name="item6" value="2"> No puede volver a dormirse si se levanta de la cama (2)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="item">
+                    <div class="item-title">7. Trabajo y actividades</div>
+                    <div class="options">
+                        <div class="option"><input type="radio" name="item7" value="0" required> No hay dificultad (0)</div>
+                        <div class="option"><input type="radio" name="item7" value="1"> Ideas y sentimientos de incapacidad, fatiga o debilidad (trabajos, pasatiempos) (1)</div>
+                        <div class="option"><input type="radio" name="item7" value="2"> Pérdida de interés en su actividad (disminución de la atención, indecisión y vacilación) (2)</div>
+                        <div class="option"><input type="radio" name="item7" value="3"> Disminución del tiempo actual dedicado a actividades o disminución de la productividad (3)</div>
+                        <div class="option"><input type="radio" name="item7" value="4"> Dejó de trabajar por la presente enfermedad. Solo se compromete en las pequeñas tareas, o no puede realizar estas sin ayuda. (4)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="item">
+                    <div class="item-title">8. Inhibición psicomotora (lentitud de pensamiento y lenguaje, facultad de concentración disminuida, disminución de la actividad motora)</div>
+                    <div class="options">
+                        <div class="option"><input type="radio" name="item8" value="0" required> Palabra y pensamiento normales (0)</div>
+                        <div class="option"><input type="radio" name="item8" value="1"> Ligero retraso en el habla (1)</div>
+                        <div class="option"><input type="radio" name="item8" value="2"> Evidente retraso en el habla (2)</div>
+                        <div class="option"><input type="radio" name="item8" value="3"> Dificultad para expresarse (3)</div>
+                        <div class="option"><input type="radio" name="item8" value="4"> Incapacidad para expresarse (4)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="item">
+                    <div class="item-title">9. Agitación psicomotora</div>
+                    <div class="options">
+                        <div class="option"><input type="radio" name="item9" value="0" required> Ninguna (0)</div>
+                        <div class="option"><input type="radio" name="item9" value="1"> Juega con sus dedos (1)</div>
+                        <div class="option"><input type="radio" name="item9" value="2"> Juega con sus manos, cabello, etc. (2)</div>
+                        <div class="option"><input type="radio" name="item9" value="3"> No puede quedarse quieto ni permanecer sentado (3)</div>
+                        <div class="option"><input type="radio" name="item9" value="4"> Retuerce las manos, se muerde las uñas, se tira de los cabellos, se muerde los labios (4)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="item">
+                    <div class="item-title">10. Ansiedad psíquica</div>
+                    <div class="options">
+                        <div class="option"><input type="radio" name="item10" value="0" required> No hay dificultad (0)</div>
+                        <div class="option"><input type="radio" name="item10" value="1"> Tensión subjetiva e irritabilidad (1)</div>
+                        <div class="option"><input type="radio" name="item10" value="2"> Preocupación por pequeñas cosas (2)</div>
+                        <div class="option"><input type="radio" name="item10" value="3"> Actitud aprensiva en la expresión o en el habla (3)</div>
+                        <div class="option"><input type="radio" name="item10" value="4"> Expresa sus temores sin que le pregunten (4)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="item">
+                    <div class="item-title">11. Ansiedad somática (signos físicos de ansiedad: gastrointestinales, cardiovasculares, respiratorios, etc.)</div>
+                    <div class="options">
+                        <div class="option"><input type="radio" name="item11" value="0" required> Ausente (0)</div>
+                        <div class="option"><input type="radio" name="item11" value="1"> Ligera (1)</div>
+                        <div class="option"><input type="radio" name="item11" value="2"> Moderada (2)</div>
+                        <div class="option"><input type="radio" name="item11" value="3"> Severa (3)</div>
+                        <div class="option"><input type="radio" name="item11" value="4"> Incapacitante (4)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="item">
+                    <div class="item-title">12. Síntomas somáticos gastrointestinales</div>
+                    <div class="options">
+                        <div class="option"><input type="radio" name="item12" value="0" required> Ninguno (0)</div>
+                        <div class="option"><input type="radio" name="item12" value="1"> Pérdida del apetito pero come sin necesidad de que lo estimulen. Sensación de pesadez en el abdomen (1)</div>
+                        <div class="option"><input type="radio" name="item12" value="2"> Dificultad en comer si no se le insiste. Solicita laxantes o medicación intestinal para sus síntomas gastrointestinales (2)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="item">
+                    <div class="item-title">13. Síntomas somáticos generales</div>
+                    <div class="options">
+                        <div class="option"><input type="radio" name="item13" value="0" required> Ninguno (0)</div>
+                        <div class="option"><input type="radio" name="item13" value="1"> Pesadez en las extremidades, espalda o cabeza. Dorsalgias. Cefaleas, algias musculares. (1)</div>
+                        <div class="option"><input type="radio" name="item13" value="2"> Pérdida de energía y fatigabilidad. Cualquier síntoma bien definido (2)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="item">
+                    <div class="item-title">14. Síntomas genitales (disminución de la libido y trastornos menstruales)</div>
+                    <div class="options">
+                        <div class="option"><input type="radio" name="item14" value="0" required> Ausente (0)</div>
+                        <div class="option"><input type="radio" name="item14" value="1"> Débil (1)</div>
+                        <div class="option"><input type="radio" name="item14" value="2"> Grave (2)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="item">
+                    <div class="item-title">15. Hipocondría</div>
+                    <div class="options">
+                        <div class="option"><input type="radio" name="item15" value="0" required> Ausente (0)</div>
+                        <div class="option"><input type="radio" name="item15" value="1"> Preocupado de si mismo (corporalmente) (1)</div>
+                        <div class="option"><input type="radio" name="item15" value="2"> Preocupado por su salud (2)</div>
+                        <div class="option"><input type="radio" name="item15" value="3"> Se lamenta constantemente, solicita ayuda (3)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="item">
+                    <div class="item-title">16. Pérdida de peso</div>
+                    <div class="options">
+                        <div class="option"><input type="radio" name="item16" value="0" required> Pérdida de peso inferior a 500 gr. en una semana (0)</div>
+                        <div class="option"><input type="radio" name="item16" value="1"> Pérdida de más de 500 gr. en una semana (1)</div>
+                        <div class="option"><input type="radio" name="item16" value="2"> Pérdida de más de 1 Kg. en una semana (2)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="item">
+                    <div class="item-title">17. Introspección (insight)</div>
+                    <div class="options">
+                        <div class="option"><input type="radio" name="item17" value="0" required> Se da cuenta que está deprimido y enfermo (0)</div>
+                        <div class="option"><input type="radio" name="item17" value="1"> Se da cuenta de su enfermedad pero atribuye la causa a la mala alimentación, clima, exceso de trabajo, virus, necesidad de descanso, etc. (1)</div>
+                        <div class="option"><input type="radio" name="item17" value="2"> No se da cuenta que está enfermo (2)</div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" id="calculateBtn">Calcular Puntuación</button>
+        </form>
+
+        <div id="result">
+            <h3>Resultado de la Escala de Hamilton</h3>
+            <p>Puntuación total: <span id="totalScore">0</span>/52</p>
+            <div class="interpretation" id="interpretation"></div>
+        </div>
+
+        <div class="reference">
+            <p>Basado en la versión de 17 ítems recomendada por el Instituto Nacional de Salud Mental de los Estados Unidos</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('calculateBtn').addEventListener('click', function() {
+            let total = 0;
+            
+
+    </script>
+    <script src="/self-main/js/world_script.js"></script>
+
+    </body>
+    </html>
+            
+            
+            
+
