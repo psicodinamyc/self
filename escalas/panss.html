@@ -1,0 +1,1927 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escala PANSS - Versión Digital con Gráficos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/self-main/css/style o_o.css">
+    <style>
+        .scale-section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            background-color: #f8f9fa;
+        }
+        .scale-title {
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #dee2e6;
+        }
+        .item-row {
+            margin-bottom: 0.8rem;
+            align-items: center;
+        }
+        .item-name {
+            font-weight: 500;
+        }
+        .rating-options {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .form-check-input {
+            cursor: pointer;
+        }
+        .results-card {
+            position: sticky;
+            top: 20px;
+        }
+        .total-score {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        .subscale-score {
+            font-weight: 500;
+        }
+        .patient-info-card {
+            margin-bottom: 2rem;
+        }
+        .chart-container {
+            position: relative;
+            height: 200px;
+            margin-bottom: 1.5rem;
+        }
+        .chart-title {
+            font-size: 0.9rem;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        .tab-content {
+            padding: 1rem 0;
+        }
+    </style>
+</head>
+<body class="bg-light">
+     <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="/images/index_logo.png" alt="Logo" height="40">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Servicios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contacto</a>
+                    </li>
+                </ul>
+                <div class="d-flex flex-wrap gap-2">
+                    <a href="https://wa.me/543625314001?text=Hola%20Dr.%20Villamandos%2C%20quisiera%20hacer%20una%20consulta" 
+                       target="_blank" class="btn btn-success btn-sm">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    </a>
+                    <a href="https://www.facebook.com/mauricio.villamandos?locale=es_LA" 
+                       target="_blank" class="btn btn-primary btn-sm">
+                        <i class="fab fa-facebook-f"></i> Facebook
+                    </a>
+                    <a href="https://www.instagram.com/elperrofenrir/" 
+                       target="_blank" class="btn btn-danger btn-sm">
+                        <i class="fab fa-instagram"></i> Instagram
+                    </a>
+                    <a href="https://twitter.com/tuusuario" 
+                       target="_blank" class="btn btn-dark btn-sm">
+                        <i class="fab fa-x-twitter"></i> X
+                    </a>
+                    <a href="https://www.linkedin.com/in/mauricio-villamandos-48b29a16a" 
+                       target="_blank" class="btn btn-info btn-sm">
+                        <i class="fab fa-linkedin-in"></i> LinkedIn
+                    </a>
+                    
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="bg-light py-4 mb-4 border-bottom">
+        <div class="container text-center">
+            <h1 class="display-5 fw-bold">HCPE - Historia Clínica Psiquiátrica</h1>
+            <div class="doctor-info">
+                <p class="mb-1"><strong>Dr. Mauricio Villamandos - Médico Especialista en Psiquiatría - MP: 07489</strong></p>
+                <p class="mb-0"><strong>Posadas, Misiones – Argentina | infopsicodinamyc@gmail.com | Teléfono: 3765 041832</strong></p>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Botonera de escalas e instrumentos -->
+    <div class="container scales-toolbar no-print">
+
+        <h4 class="w-100 text-center mb-3">Instrumentos de Evaluación</h4>
+
+        <button class="btn btn-outline-primary" onclick="window.open('https://gonzalov85.github.io/Inventario-SCL-90-R/', '_blank')">
+            <i class="fas fa-clipboard-list"></i> SCL-90-R
+        </button>
+        
+        <button class="btn btn-outline-primary" onclick="window.open('/escalas/ham_d.html', '_blank')">
+            <i class="fas fa-brain"></i> HAM-D
+        </button>
+        
+        <button class="btn btn-outline-primary" onclick="window.open('/ham_d.html', '_blank')">
+            <i class="fas fa-brain"></i> HAM-A
+        </button>
+
+        <button class="btn btn-outline-primary" onclick="window.open('/escalas/moca.html', '_blank')">
+            <i class="fas fa-brain"></i> MoCA
+        </button>
+
+        <button class="btn btn-outline-primary" onclick="window.open('/escalas/mmse.html', '_blank')">
+            <i class="fas fa-brain"></i> MMSE
+        </button>
+
+
+        <button class="btn btn-outline-primary" onclick="window.open('/escalas/panss.html', '_blank')">
+            <i class="fas fa-brain"></i> PANSS
+        </button>
+
+        <button class="btn btn-outline-primary" onclick="window.open('escalas/whoqol_breef.html', '_blank')">
+            <i class="fas fa-brain"></i> WHOQOL-BREEF
+        </button>
+        <button class="btn btn-outline-primary" onclick="window.open('escalas/barrero_s.html', '_blank')">
+            <i class="fas fa-brain"></i> Barrero/S
+            
+        </button>
+
+        <button class="btn btn-outline-primary" onclick="window.open('/escalas/audit.html', '_blank')">
+            <i class="fas fa-brain"></i> AUDIT
+        </button>
+        
+    </div>
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-lg-9">
+                <div class="card patient-info-card">
+                    <div class="card-body">
+                        <h1 class="card-title text-center mb-4">Escala de Síndrome Positivo y Negativo (PANSS)</h1>
+                        
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="patientName" class="form-label">Nombre y apellido</label>
+                                <input type="text" class="form-control" id="patientName">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="patientDate" class="form-label">Fecha</label>
+                                <input type="date" class="form-control" id="patientDate">
+                            </div>
+                            <div class="col-md-3">
+                                <label for="patientAge" class="form-label">Edad</label>
+                                <input type="number" class="form-control" id="patientAge">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="patientDni" class="form-label">DNI</label>
+                                <input type="text" class="form-control" id="patientDni">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="patientGender" class="form-label">Sexo</label>
+                                <select class="form-select" id="patientGender">
+                                    <option value="">Seleccionar...</option>
+                                    <option value="Masculino">Masculino</option>
+                                    <option value="Femenino">Femenino</option>
+                                    <option value="Otro">Otro</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert alert-info mb-4">
+                    <strong>Instrucciones:</strong> [1= Ausente, 2= mínimo, 3= Leve, 4= Moderado, 5= Moderadamente Severo, 6= Severo, 7= Extremo.]
+                </div>
+
+                <!-- Subescala Positiva -->
+                <div class="scale-section" id="positive-scale">
+                    <h3 class="scale-title">Subescala Positiva (P)</h3>
+                    
+                    <div class="container-fluid">
+                        <!-- P1 -->
+                        <div class="row item-row">
+                            <div class="col-md-5 item-name">P1 Delirios</div>
+                            <div class="col-md-7 rating-options">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p1" id="p1-1" value="1">
+                                    <label class="form-check-label" for="p1-1">1</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p1" id="p1-2" value="2">
+                                    <label class="form-check-label" for="p1-2">2</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p1" id="p1-3" value="3">
+                                    <label class="form-check-label" for="p1-3">3</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p1" id="p1-4" value="4">
+                                    <label class="form-check-label" for="p1-4">4</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p1" id="p1-5" value="5">
+                                    <label class="form-check-label" for="p1-5">5</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p1" id="p1-6" value="6">
+                                    <label class="form-check-label" for="p1-6">6</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p1" id="p1-7" value="7">
+                                    <label class="form-check-label" for="p1-7">7</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- P2 -->
+                        <div class="row item-row">
+                            <div class="col-md-5 item-name">P2 Desorganización conceptual</div>
+                            <div class="col-md-7 rating-options">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p2" id="p2-1" value="1">
+                                    <label class="form-check-label" for="p2-1">1</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p2" id="p2-2" value="2">
+                                    <label class="form-check-label" for="p2-2">2</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p2" id="p2-3" value="3">
+                                    <label class="form-check-label" for="p2-3">3</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p2" id="p2-4" value="4">
+                                    <label class="form-check-label" for="p2-4">4</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p2" id="p2-5" value="5">
+                                    <label class="form-check-label" for="p2-5">5</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p2" id="p2-6" value="6">
+                                    <label class="form-check-label" for="p2-6">6</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p2" id="p2-7" value="7">
+                                    <label class="form-check-label" for="p2-7">7</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- P3 -->
+                        <div class="row item-row">
+                            <div class="col-md-5 item-name">P3 Comportamiento alucinatorio</div>
+                            <div class="col-md-7 rating-options">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p3" id="p3-1" value="1">
+                                    <label class="form-check-label" for="p3-1">1</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p3" id="p3-2" value="2">
+                                    <label class="form-check-label" for="p3-2">2</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p3" id="p3-3" value="3">
+                                    <label class="form-check-label" for="p3-3">3</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p3" id="p3-4" value="4">
+                                    <label class="form-check-label" for="p3-4">4</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p3" id="p3-5" value="5">
+                                    <label class="form-check-label" for="p3-5">5</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p3" id="p3-6" value="6">
+                                    <label class="form-check-label" for="p3-6">6</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p3" id="p3-7" value="7">
+                                    <label class="form-check-label" for="p3-7">7</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- P4 -->
+                        <div class="row item-row">
+                            <div class="col-md-5 item-name">P4 Excitación</div>
+                            <div class="col-md-7 rating-options">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p4" id="p4-1" value="1">
+                                    <label class="form-check-label" for="p4-1">1</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p4" id="p4-2" value="2">
+                                    <label class="form-check-label" for="p4-2">2</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p4" id="p4-3" value="3">
+                                    <label class="form-check-label" for="p4-3">3</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p4" id="p4-4" value="4">
+                                    <label class="form-check-label" for="p4-4">4</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p4" id="p4-5" value="5">
+                                    <label class="form-check-label" for="p4-5">5</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p4" id="p4-6" value="6">
+                                    <label class="form-check-label" for="p4-6">6</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p4" id="p4-7" value="7">
+                                    <label class="form-check-label" for="p4-7">7</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- P5 -->
+                        <div class="row item-row">
+                            <div class="col-md-5 item-name">P5 Grandiosidad</div>
+                            <div class="col-md-7 rating-options">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p5" id="p5-1" value="1">
+                                    <label class="form-check-label" for="p5-1">1</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p5" id="p5-2" value="2">
+                                    <label class="form-check-label" for="p5-2">2</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p5" id="p5-3" value="3">
+                                    <label class="form-check-label" for="p5-3">3</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p5" id="p5-4" value="4">
+                                    <label class="form-check-label" for="p5-4">4</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p5" id="p5-5" value="5">
+                                    <label class="form-check-label" for="p5-5">5</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p5" id="p5-6" value="6">
+                                    <label class="form-check-label" for="p5-6">6</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p5" id="p5-7" value="7">
+                                    <label class="form-check-label" for="p5-7">7</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- P6 -->
+                        <div class="row item-row">
+                            <div class="col-md-5 item-name">P6 Desconfianza</div>
+                            <div class="col-md-7 rating-options">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p6" id="p6-1" value="1">
+                                    <label class="form-check-label" for="p6-1">1</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p6" id="p6-2" value="2">
+                                    <label class="form-check-label" for="p6-2">2</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p6" id="p6-3" value="3">
+                                    <label class="form-check-label" for="p6-3">3</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p6" id="p6-4" value="4">
+                                    <label class="form-check-label" for="p6-4">4</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p6" id="p6-5" value="5">
+                                    <label class="form-check-label" for="p6-5">5</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p6" id="p6-6" value="6">
+                                    <label class="form-check-label" for="p6-6">6</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p6" id="p6-7" value="7">
+                                    <label class="form-check-label" for="p6-7">7</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- P7 -->
+                        <div class="row item-row">
+                            <div class="col-md-5 item-name">P7 Hostilidad</div>
+                            <div class="col-md-7 rating-options">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p7" id="p7-1" value="1">
+                                    <label class="form-check-label" for="p7-1">1</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p7" id="p7-2" value="2">
+                                    <label class="form-check-label" for="p7-2">2</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p7" id="p7-3" value="3">
+                                    <label class="form-check-label" for="p7-3">3</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p7" id="p7-4" value="4">
+                                    <label class="form-check-label" for="p7-4">4</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p7" id="p7-5" value="5">
+                                    <label class="form-check-label" for="p7-5">5</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p7" id="p7-6" value="6">
+                                    <label class="form-check-label" for="p7-6">6</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input positive-item" type="radio" name="p7" id="p7-7" value="7">
+                                    <label class="form-check-label" for="p7-7">7</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Subescala Negativa -->
+                <div class="scale-section" id="negative-scale">
+                    <h3 class="scale-title">Subescala Negativa (N)</h3>
+                    
+                    <div class="container-fluid">
+                        <!-- N1 -->
+                        <div class="row item-row">
+                            <div class="col-md-5 item-name">N1 Embotamiento afectivo</div>
+                            <div class="col-md-7 rating-options">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n1" id="n1-1" value="1">
+                                    <label class="form-check-label" for="n1-1">1</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n1" id="n1-2" value="2">
+                                    <label class="form-check-label" for="n1-2">2</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n1" id="n1-3" value="3">
+                                    <label class="form-check-label" for="n1-3">3</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n1" id="n1-4" value="4">
+                                    <label class="form-check-label" for="n1-4">4</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n1" id="n1-5" value="5">
+                                    <label class="form-check-label" for="n1-5">5</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n1" id="n1-6" value="6">
+                                    <label class="form-check-label" for="n1-6">6</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n1" id="n1-7" value="7">
+                                    <label class="form-check-label" for="n1-7">7</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- N2 -->
+                        <div class="row item-row">
+                            <div class="col-md-5 item-name">N2 Retraimiento emocional</div>
+                            <div class="col-md-7 rating-options">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n2" id="n2-1" value="1">
+                                    <label class="form-check-label" for="n2-1">1</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n2" id="n2-2" value="2">
+                                    <label class="form-check-label" for="n2-2">2</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n2" id="n2-3" value="3">
+                                    <label class="form-check-label" for="n2-3">3</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n2" id="n2-4" value="4">
+                                    <label class="form-check-label" for="n2-4">4</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n2" id="n2-5" value="5">
+                                    <label class="form-check-label" for="n2-5">5</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n2" id="n2-6" value="6">
+                                    <label class="form-check-label" for="n2-6">6</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n2" id="n2-7" value="7">
+                                    <label class="form-check-label" for="n2-7">7</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- N3 -->
+                        <div class="row item-row">
+                            <div class="col-md-5 item-name">N3 Contacto pobre</div>
+                            <div class="col-md-7 rating-options">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n3" id="n3-1" value="1">
+                                    <label class="form-check-label" for="n3-1">1</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n3" id="n3-2" value="2">
+                                    <label class="form-check-label" for="n3-2">2</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n3" id="n3-3" value="3">
+                                    <label class="form-check-label" for="n3-3">3</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n3" id="n3-4" value="4">
+                                    <label class="form-check-label" for="n3-4">4</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n3" id="n3-5" value="5">
+                                    <label class="form-check-label" for="n3-5">5</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n3" id="n3-6" value="6">
+                                    <label class="form-check-label" for="n3-6">6</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n3" id="n3-7" value="7">
+                                    <label class="form-check-label" for="n3-7">7</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- N4 -->
+                        <div class="row item-row">
+                            <div class="col-md-5 item-name">N4 Retraimiento social - pasividad/apatía</div>
+                            <div class="col-md-7 rating-options">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n4" id="n4-1" value="1">
+                                    <label class="form-check-label" for="n4-1">1</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n4" id="n4-2" value="2">
+                                    <label class="form-check-label" for="n4-2">2</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n4" id="n4-3" value="3">
+                                    <label class="form-check-label" for="n4-3">3</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n4" id="n4-4" value="4">
+                                    <label class="form-check-label" for="n4-4">4</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n4" id="n4-5" value="5">
+                                    <label class="form-check-label" for="n4-5">5</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n4" id="n4-6" value="6">
+                                    <label class="form-check-label" for="n4-6">6</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n4" id="n4-7" value="7">
+                                    <label class="form-check-label" for="n4-7">7</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- N5 -->
+                        <div class="row item-row">
+                            <div class="col-md-5 item-name">N5 Dificultad en el pensamiento abstracto</div>
+                            <div class="col-md-7 rating-options">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n5" id="n5-1" value="1">
+                                    <label class="form-check-label" for="n5-1">1</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n5" id="n5-2" value="2">
+                                    <label class="form-check-label" for="n5-2">2</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n5" id="n5-3" value="3">
+                                    <label class="form-check-label" for="n5-3">3</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n5" id="n5-4" value="4">
+                                    <label class="form-check-label" for="n5-4">4</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n5" id="n5-5" value="5">
+                                    <label class="form-check-label" for="n5-5">5</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n5" id="n5-6" value="6">
+                                    <label class="form-check-label" for="n5-6">6</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n5" id="n5-7" value="7">
+                                    <label class="form-check-label" for="n5-7">7</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- N6 -->
+                        <div class="row item-row">
+                            <div class="col-md-5 item-name">N6 Falta de espontaneidad y fluidez en la conversación</div>
+                            <div class="col-md-7 rating-options">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n6" id="n6-1" value="1">
+                                    <label class="form-check-label" for="n6-1">1</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n6" id="n6-2" value="2">
+                                    <label class="form-check-label" for="n6-2">2</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n6" id="n6-3" value="3">
+                                    <label class="form-check-label" for="n6-3">3</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n6" id="n6-4" value="4">
+                                    <label class="form-check-label" for="n6-4">4</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n6" id="n6-5" value="5">
+                                    <label class="form-check-label" for="n6-5">5</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n6" id="n6-6" value="6">
+                                    <label class="form-check-label" for="n6-6">6</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n6" id="n6-7" value="7">
+                                    <label class="form-check-label" for="n6-7">7</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- N7 -->
+                        <div class="row item-row">
+                            <div class="col-md-5 item-name">N7 Pensamiento estereotipado</div>
+                            <div class="col-md-7 rating-options">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n7" id="n7-1" value="1">
+                                    <label class="form-check-label" for="n7-1">1</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n7" id="n7-2" value="2">
+                                    <label class="form-check-label" for="n7-2">2</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n7" id="n7-3" value="3">
+                                    <label class="form-check-label" for="n7-3">3</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n7" id="n7-4" value="4">
+                                    <label class="form-check-label" for="n7-4">4</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n7" id="n7-5" value="5">
+                                    <label class="form-check-label" for="n7-5">5</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n7" id="n7-6" value="6">
+                                    <label class="form-check-label" for="n7-6">6</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input negative-item" type="radio" name="n7" id="n7-7" value="7">
+                                    <label class="form-check-label" for="n7-7">7</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Subescala de Psicopatología General -->
+                <div class="scale-section" id="general-scale">
+                    <h3 class="scale-title">Subescala de Psicopatología General (PG)</h3>
+                    
+                    <div class="container-fluid">
+                        <!-- G1 -->
+                        <div class="row item-row">
+                            <div class="col-md-5 item-name">G1 Preocupación somática</div>
+                            <div class="col-md-7 rating-options">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g1" id="g1-1" value="1">
+                                    <label class="form-check-label" for="g1-1">1</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g1" id="g1-2" value="2">
+                                    <label class="form-check-label" for="g1-2">2</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g1" id="g1-3" value="3">
+                                    <label class="form-check-label" for="g1-3">3</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g1" id="g1-4" value="4">
+                                    <label class="form-check-label" for="g1-4">4</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g1" id="g1-5" value="5">
+                                    <label class="form-check-label" for="g1-5">5</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g1" id="g1-6" value="6">
+                                    <label class="form-check-label" for="g1-6">6</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g1" id="g1-7" value="7">
+                                    <label class="form-check-label" for="g1-7">7</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- G2 -->
+                        <div class="row item-row">
+                            <div class="col-md-5 item-name">G2 Ansiedad</div>
+                            <div class="col-md-7 rating-options">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g2" id="g2-1" value="1">
+                                    <label class="form-check-label" for="g2-1">1</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g2" id="g2-2" value="2">
+                                    <label class="form-check-label" for="g2-2">2</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g2" id="g2-3" value="3">
+                                    <label class="form-check-label" for="g2-3">3</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g2" id="g2-4" value="4">
+                                    <label class="form-check-label" for="g2-4">4</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g2" id="g2-5" value="5">
+                                    <label class="form-check-label" for="g2-5">5</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g2" id="g2-6" value="6">
+                                    <label class="form-check-label" for="g2-6">6</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g2" id="g2-7" value="7">
+                                    <label class="form-check-label" for="g2-7">7</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- G3 -->
+                        <div class="row item-row">
+                            <div class="col-md-5 item-name">G3 Sentimientos de culpa</div>
+                            <div class="col-md-7 rating-options">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g3" id="g3-1" value="1">
+                                    <label class="form-check-label" for="g3-1">1</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g3" id="g3-2" value="2">
+                                    <label class="form-check-label" for="g3-2">2</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g3" id="g3-3" value="3">
+                                    <label class="form-check-label" for="g3-3">3</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g3" id="g3-4" value="4">
+                                    <label class="form-check-label" for="g3-4">4</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g3" id="g3-5" value="5">
+                                    <label class="form-check-label" for="g3-5">5</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g3" id="g3-6" value="6">
+                                    <label class="form-check-label" for="g3-6">6</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g3" id="g3-7" value="7">
+                                    <label class="form-check-label" for="g3-7">7</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- G4 -->
+                        <div class="row item-row">
+                            <div class="col-md-5 item-name">G4 Tensión motora</div>
+                            <div class="col-md-7 rating-options">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g4" id="g4-1" value="1">
+                                    <label class="form-check-label" for="g4-1">1</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g4" id="g4-2" value="2">
+                                    <label class="form-check-label" for="g4-2">2</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g4" id="g4-3" value="3">
+                                    <label class="form-check-label" for="g4-3">3</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g4" id="g4-4" value="4">
+                                    <label class="form-check-label" for="g4-4">4</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g4" id="g4-5" value="5">
+                                    <label class="form-check-label" for="g4-5">5</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g4" id="g4-6" value="6">
+                                    <label class="form-check-label" for="g4-6">6</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g4" id="g4-7" value="7">
+                                    <label class="form-check-label" for="g4-7">7</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- G5 -->
+                        <div class="row item-row">
+                            <div class="col-md-5 item-name">G5 Manierismo y postura</div>
+                            <div class="col-md-7 rating-options">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g5" id="g5-1" value="1">
+                                    <label class="form-check-label" for="g5-1">1</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g5" id="g5-2" value="2">
+                                    <label class="form-check-label" for="g5-2">2</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g5" id="g5-3" value="3">
+                                    <label class="form-check-label" for="g5-3">3</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g5" id="g5-4" value="4">
+                                    <label class="form-check-label" for="g5-4">4</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g5" id="g5-5" value="5">
+                                    <label class="form-check-label" for="g5-5">5</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g5" id="g5-6" value="6">
+                                    <label class="form-check-label" for="g5-6">6</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g5" id="g5-7" value="7">
+                                    <label class="form-check-label" for="g5-7">7</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- G6 -->
+                        <div class="row item-row">
+                            <div class="col-md-5 item-name">G6 Depresión</div>
+                            <div class="col-md-7 rating-options">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g6" id="g6-1" value="1">
+                                    <label class="form-check-label" for="g6-1">1</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g6" id="g6-2" value="2">
+                                    <label class="form-check-label" for="g6-2">2</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g6" id="g6-3" value="3">
+                                    <label class="form-check-label" for="g6-3">3</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g6" id="g6-4" value="4">
+                                    <label class="form-check-label" for="g6-4">4</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g6" id="g6-5" value="5">
+                                    <label class="form-check-label" for="g6-5">5</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g6" id="g6-6" value="6">
+                                    <label class="form-check-label" for="g6-6">6</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g6" id="g6-7" value="7">
+                                    <label class="form-check-label" for="g6-7">7</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- G7 -->
+                        <div class="row item-row">
+                            <div class="col-md-5 item-name">G7 Retardo motor</div>
+                            <div class="col-md-7 rating-options">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g7" id="g7-1" value="1">
+                                    <label class="form-check-label" for="g7-1">1</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g7" id="g7-2" value="2">
+                                    <label class="form-check-label" for="g7-2">2</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g7" id="g7-3" value="3">
+                                    <label class="form-check-label" for="g7-3">3</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g7" id="g7-4" value="4">
+                                    <label class="form-check-label" for="g7-4">4</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g7" id="g7-5" value="5">
+                                    <label class="form-check-label" for="g7-5">5</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g7" id="g7-6" value="6">
+                                    <label class="form-check-label" for="g7-6">6</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g7" id="g7-7" value="7">
+                                    <label class="form-check-label" for="g7-7">7</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- G8 -->
+                        <div class="row item-row">
+                            <div class="col-md-5 item-name">G8 Falta de cooperación</div>
+                            <div class="col-md-7 rating-options">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g8" id="g8-1" value="1">
+                                    <label class="form-check-label" for="g8-1">1</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g8" id="g8-2" value="2">
+                                    <label class="form-check-label" for="g8-2">2</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g8" id="g8-3" value="3">
+                                    <label class="form-check-label" for="g8-3">3</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g8" id="g8-4" value="4">
+                                    <label class="form-check-label" for="g8-4">4</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g8" id="g8-5" value="5">
+                                    <label class="form-check-label" for="g8-5">5</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g8" id="g8-6" value="6">
+                                    <label class="form-check-label" for="g8-6">6</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g8" id="g8-7" value="7">
+                                    <label class="form-check-label" for="g8-7">7</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- G9 -->
+                        <div class="row item-row">
+                            <div class="col-md-5 item-name">G9 Contenido inusual del pensamiento</div>
+                            <div class="col-md-7 rating-options">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g9" id="g9-1" value="1">
+                                    <label class="form-check-label" for="g9-1">1</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g9" id="g9-2" value="2">
+                                    <label class="form-check-label" for="g9-2">2</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g9" id="g9-3" value="3">
+                                    <label class="form-check-label" for="g9-3">3</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g9" id="g9-4" value="4">
+                                    <label class="form-check-label" for="g9-4">4</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g9" id="g9-5" value="5">
+                                    <label class="form-check-label" for="g9-5">5</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g9" id="g9-6" value="6">
+                                    <label class="form-check-label" for="g9-6">6</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g9" id="g9-7" value="7">
+                                    <label class="form-check-label" for="g9-7">7</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- G10 -->
+                        <div class="row item-row">
+                            <div class="col-md-5 item-name">G10 Desorientación</div>
+                            <div class="col-md-7 rating-options">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g10" id="g10-1" value="1">
+                                    <label class="form-check-label" for="g10-1">1</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g10" id="g10-2" value="2">
+                                    <label class="form-check-label" for="g10-2">2</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g10" id="g10-3" value="3">
+                                    <label class="form-check-label" for="g10-3">3</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g10" id="g10-4" value="4">
+                                    <label class="form-check-label" for="g10-4">4</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g10" id="g10-5" value="5">
+                                    <label class="form-check-label" for="g10-5">5</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g10" id="g10-6" value="6">
+                                    <label class="form-check-label" for="g10-6">6</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g10" id="g10-7" value="7">
+                                    <label class="form-check-label" for="g10-7">7</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- G11 -->
+                        <div class="row item-row">
+                            <div class="col-md-5 item-name">G11 Falta de atención</div>
+                            <div class="col-md-7 rating-options">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g11" id="g11-1" value="1">
+                                    <label class="form-check-label" for="g11-1">1</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g11" id="g11-2" value="2">
+                                    <label class="form-check-label" for="g11-2">2</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g11" id="g11-3" value="3">
+                                    <label class="form-check-label" for="g11-3">3</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g11" id="g11-4" value="4">
+                                    <label class="form-check-label" for="g11-4">4</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g11" id="g11-5" value="5">
+                                    <label class="form-check-label" for="g11-5">5</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g11" id="g11-6" value="6">
+                                    <label class="form-check-label" for="g11-6">6</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g11" id="g11-7" value="7">
+                                    <label class="form-check-label" for="g11-7">7</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- G12 -->
+                        <div class="row item-row">
+                            <div class="col-md-5 item-name">G12 Falta de juicio de introspección</div>
+                            <div class="col-md-7 rating-options">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g12" id="g12-1" value="1">
+                                    <label class="form-check-label" for="g12-1">1</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g12" id="g12-2" value="2">
+                                    <label class="form-check-label" for="g12-2">2</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g12" id="g12-3" value="3">
+                                    <label class="form-check-label" for="g12-3">3</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g12" id="g12-4" value="4">
+                                    <label class="form-check-label" for="g12-4">4</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g12" id="g12-5" value="5">
+                                    <label class="form-check-label" for="g12-5">5</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g12" id="g12-6" value="6">
+                                    <label class="form-check-label" for="g12-6">6</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g12" id="g12-7" value="7">
+                                    <label class="form-check-label" for="g12-7">7</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- G13 -->
+                        <div class="row item-row">
+                            <div class="col-md-5 item-name">G13 Trastornos de la voluntad</div>
+                            <div class="col-md-7 rating-options">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g13" id="g13-1" value="1">
+                                    <label class="form-check-label" for="g13-1">1</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g13" id="g13-2" value="2">
+                                    <label class="form-check-label" for="g13-2">2</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g13" id="g13-3" value="3">
+                                    <label class="form-check-label" for="g13-3">3</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g13" id="g13-4" value="4">
+                                    <label class="form-check-label" for="g13-4">4</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g13" id="g13-5" value="5">
+                                    <label class="form-check-label" for="g13-5">5</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g13" id="g13-6" value="6">
+                                    <label class="form-check-label" for="g13-6">6</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g13" id="g13-7" value="7">
+                                    <label class="form-check-label" for="g13-7">7</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- G14 -->
+                        <div class="row item-row">
+                            <div class="col-md-5 item-name">G14 Deficiente control de los impulsos</div>
+                            <div class="col-md-7 rating-options">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g14" id="g14-1" value="1">
+                                    <label class="form-check-label" for="g14-1">1</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g14" id="g14-2" value="2">
+                                    <label class="form-check-label" for="g14-2">2</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g14" id="g14-3" value="3">
+                                    <label class="form-check-label" for="g14-3">3</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g14" id="g14-4" value="4">
+                                    <label class="form-check-label" for="g14-4">4</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g14" id="g14-5" value="5">
+                                    <label class="form-check-label" for="g14-5">5</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g14" id="g14-6" value="6">
+                                    <label class="form-check-label" for="g14-6">6</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g14" id="g14-7" value="7">
+                                    <label class="form-check-label" for="g14-7">7</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- G15 -->
+                        <div class="row item-row">
+                            <div class="col-md-5 item-name">G15 Introversión</div>
+                            <div class="col-md-7 rating-options">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g15" id="g15-1" value="1">
+                                    <label class="form-check-label" for="g15-1">1</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g15" id="g15-2" value="2">
+                                    <label class="form-check-label" for="g15-2">2</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g15" id="g15-3" value="3">
+                                    <label class="form-check-label" for="g15-3">3</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g15" id="g15-4" value="4">
+                                    <label class="form-check-label" for="g15-4">4</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g15" id="g15-5" value="5">
+                                    <label class="form-check-label" for="g15-5">5</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g15" id="g15-6" value="6">
+                                    <label class="form-check-label" for="g15-6">6</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g15" id="g15-7" value="7">
+                                    <label class="form-check-label" for="g15-7">7</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- G16 -->
+                        <div class="row item-row">
+                            <div class="col-md-5 item-name">G16 Activa evasión social</div>
+                            <div class="col-md-7 rating-options">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g16" id="g16-1" value="1">
+                                    <label class="form-check-label" for="g16-1">1</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g16" id="g16-2" value="2">
+                                    <label class="form-check-label" for="g16-2">2</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g16" id="g16-3" value="3">
+                                    <label class="form-check-label" for="g16-3">3</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g16" id="g16-4" value="4">
+                                    <label class="form-check-label" for="g16-4">4</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g16" id="g16-5" value="5">
+                                    <label class="form-check-label" for="g16-5">5</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g16" id="g16-6" value="6">
+                                    <label class="form-check-label" for="g16-6">6</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input general-item" type="radio" name="g16" id="g16-7" value="7">
+                                    <label class="form-check-label" for="g16-7">7</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Columna de resultados -->
+            <div class="col-lg-3">
+                <div class="card results-card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="card-title mb-0">Resultados PANSS</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="nav nav-tabs" id="resultsTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="scores-tab" data-bs-toggle="tab" data-bs-target="#scores" type="button" role="tab" aria-controls="scores" aria-selected="true">
+                                    <i class="bi bi-bar-chart"></i> Puntuaciones
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="charts-tab" data-bs-toggle="tab" data-bs-target="#charts" type="button" role="tab" aria-controls="charts" aria-selected="false">
+                                    <i class="bi bi-graph-up"></i> Gráficos
+                                </button>
+                            </li>
+                        </ul>
+                        
+                        <div class="tab-content" id="resultsTabContent">
+                            <div class="tab-pane fade show active" id="scores" role="tabpanel" aria-labelledby="scores-tab">
+                                <div class="mb-3">
+                                    <h6>Subescala Positiva (P)</h6>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span>Puntuación:</span>
+                                        <span id="positive-score" class="subscale-score">0</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <h6>Subescala Negativa (N)</h6>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span>Puntuación:</span>
+                                        <span id="negative-score" class="subscale-score">0</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <h6>Psicopatología General (PG)</h6>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span>Puntuación:</span>
+                                        <span id="general-score" class="subscale-score">0</span>
+                                    </div>
+                                </div>
+                                
+                                <hr>
+                                
+                                <div class="mb-3">
+                                    <h6>Total PANSS</h6>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span>Puntuación total:</span>
+                                        <span id="total-score" class="total-score">0</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="alert alert-info mt-3">
+                                    <small>
+                                        <strong>Interpretación:</strong><br>
+                                        Puntuación máxima posible: 210<br>
+                                        Puntuación mínima posible: 30<br>
+                                        Puntuaciones más altas indican mayor severidad de síntomas.
+                                    </small>
+                                </div>
+                            </div>
+                            
+                            <div class="tab-pane fade" id="charts" role="tabpanel" aria-labelledby="charts-tab">
+                                <div class="chart-container">
+                                    <div class="chart-title">Distribución de Subescalas</div>
+                                    <canvas id="subscalesChart"></canvas>
+                                </div>
+                                
+                                <div class="chart-container">
+                                    <div class="chart-title">Puntuación Total por Área</div>
+                                    <canvas id="totalChart"></canvas>
+                                </div>
+                                
+                                <div class="chart-container">
+                                    <div class="chart-title">Comparación de Subescalas</div>
+                                    <canvas id="comparisonChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button id="print-btn" class="btn btn-primary w-100 mt-2">
+                            <i class="bi bi-printer-fill"></i> Imprimir o Guardar
+                        </button>
+                        
+                        <button id="reset-btn" class="btn btn-outline-secondary w-100 mt-2">
+                            <i class="bi bi-arrow-counterclockwise"></i> Reiniciar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializar gráficos
+            const subscalesCtx = document.getElementById('subscalesChart').getContext('2d');
+            const totalCtx = document.getElementById('totalChart').getContext('2d');
+            const comparisonCtx = document.getElementById('comparisonChart').getContext('2d');
+            
+            const subscalesChart = new Chart(subscalesCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Positiva', 'Negativa', 'General'],
+                    datasets: [{
+                        data: [0, 0, 0],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.7)',
+                            'rgba(54, 162, 235, 0.7)',
+                            'rgba(255, 206, 86, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+            
+            const totalChart = new Chart(totalCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Positiva', 'Negativa', 'General', 'Total'],
+                    datasets: [{
+                        label: 'Puntuación',
+                        data: [0, 0, 0, 0],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.7)',
+                            'rgba(54, 162, 235, 0.7)',
+                            'rgba(255, 206, 86, 0.7)',
+                            'rgba(75, 192, 192, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 120 // Ajustar según necesidad
+                        }
+                    }
+                }
+            });
+            
+            const comparisonChart = new Chart(comparisonCtx, {
+                type: 'radar',
+                data: {
+                    labels: ['Positiva', 'Negativa', 'General'],
+                    datasets: [{
+                        label: 'Puntuación',
+                        data: [0, 0, 0],
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        pointBackgroundColor: 'rgba(75, 192, 192, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(75, 192, 192, 1)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: {
+                                display: true
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 50 // Ajustar según necesidad
+                        }
+                    }
+                }
+            });
+            
+            // Calcular puntuaciones cuando cambia cualquier radio button
+            const radioButtons = document.querySelectorAll('input[type="radio"]');
+            radioButtons.forEach(radio => {
+                radio.addEventListener('change', calculateScores);
+            });
+            
+            // Botón de reinicio
+            document.getElementById('reset-btn').addEventListener('click', function() {
+                if(confirm('¿Estás seguro de que quieres reiniciar todos los valores?')) {
+                    radioButtons.forEach(radio => {
+                        radio.checked = false;
+                    });
+                    calculateScores();
+                    
+                    // Limpiar datos del paciente
+                    document.getElementById('patientName').value = '';
+                    document.getElementById('patientDate').value = '';
+                    document.getElementById('patientAge').value = '';
+                    document.getElementById('patientDni').value = '';
+                    document.getElementById('patientGender').value = '';
+                }
+            });
+            
+            // Botón de imprimir (funcionalidad básica)
+            document.getElementById('print-btn').addEventListener('click', function() {
+                window.print();
+            });
+            
+            // Función para calcular las puntuaciones
+            function calculateScores() {
+                // Calcular subescala positiva (P1-P7)
+                let positiveScore = 0;
+                document.querySelectorAll('.positive-item:checked').forEach(item => {
+                    positiveScore += parseInt(item.value);
+                });
+                document.getElementById('positive-score').textContent = positiveScore;
+                
+                // Calcular subescala negativa (N1-N7)
+                let negativeScore = 0;
+                document.querySelectorAll('.negative-item:checked').forEach(item => {
+                    negativeScore += parseInt(item.value);
+                });
+                document.getElementById('negative-score').textContent = negativeScore;
+                
+                // Calcular psicopatología general (G1-G16)
+                let generalScore = 0;
+                document.querySelectorAll('.general-item:checked').forEach(item => {
+                    generalScore += parseInt(item.value);
+                });
+                document.getElementById('general-score').textContent = generalScore;
+                
+                // Calcular total
+                const totalScore = positiveScore + negativeScore + generalScore;
+                document.getElementById('total-score').textContent = totalScore;
+                
+                // Actualizar gráficos
+                updateCharts(positiveScore, negativeScore, generalScore, totalScore);
+            }
+            
+            // Función para actualizar los gráficos
+            function updateCharts(positiveScore, negativeScore, generalScore, totalScore) {
+                // Actualizar gráfico de subescalas (doughnut)
+                subscalesChart.data.datasets[0].data = [positiveScore, negativeScore, generalScore];
+                subscalesChart.update();
+                
+                // Actualizar gráfico de barras
+                totalChart.data.datasets[0].data = [positiveScore, negativeScore, generalScore, totalScore];
+                totalChart.update();
+                
+                // Actualizar gráfico de radar
+                comparisonChart.data.datasets[0].data = [positiveScore, negativeScore, generalScore];
+                comparisonChart.update();
+            }
+        });
+    </script>
+
+<!-- Este es solo un fragmento con la estructura de los gráficos para insertar en el archivo HTML existente -->
+
+<!-- Agregar esto dentro del <head> -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<br>
+<div style="text-align: center;">
+   <br>
+  
+           
+        <p>_____________________________________</p>
+            <br>
+            <br>
+            <p>Firma y sello profesional</p>
+            <p><strong>Dr. Mauricio Villamandos</strong></p>
+            <p>Psiquiatra - M.P.: 07489</p>
+            <div class="signature-line"></div>
+</div>
+    </main>
+    <br>
+  <br>
+
+
+  
+
+   
+
+
+
+
+
+    
+        <div class="container">
+            <div class="d-flex justify-content-center gap-3 mb-3">
+                <button class="btn btn-primary btn-print no-print" onclick="imprimirDocumento()">
+                    <i class="fas fa-print"></i> Imprimir
+                </button>
+                <button class="btn btn-success btn-save no-print" onclick="guardarDocumento()">
+                    <i class="fas fa-save"></i> Guardar
+                </button>
+                <button class="btn btn-info btn-export no-print" onclick="exportarAWord()">
+                    <i class="fas fa-file-word"></i> Exportar a Word
+                </button>
+                <button class="btn btn-warning btn-next no-print" onclick="siguienteParte()">
+                    <i class="fas fa-arrow-right"></i> Siguiente Parte
+                </button>
+                </div>
+                <footer class="footer" style="text-align: center;"></footer>
+                <p><strong>[HCPE] v2.0® &copy; 2025 - [Historia Clínica Psiquiátrica Electrónica]</strong></p>
+                <p><strong>[Dr. Mauricio Villamandos / Ing. Fernando Gallardo]</strong></p>
+                <p><strong>Posadas, Misiones - Argentina</strong></p>
+                 </div>
+         
+        
+             </footer> 
+  
+
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- FileSaver.js para exportar a Word -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    
+    <!-- Docx.js para generar documentos Word -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/7.1.0/docx.min.js"></script>
+    
+    <script>
+        // Función para calcular la edad
+        function calcularEdad(fechaNacimiento) {
+            const fechaNac = new Date(fechaNacimiento);
+            const hoy = new Date();
+            let edad = hoy.getFullYear() - fechaNac.getFullYear();
+            const mes = hoy.getMonth() - fechaNac.getMonth();
+            
+            if (mes < 0 || (mes === 0 && hoy.getDate() < fechaNac.getDate())) {
+                edad--;
+            }
+            
+            document.getElementById('edad').value = edad;
+        }
+        
+        // Variables para reconocimiento de voz
+        let reconocimiento;
+        let vocesDisponibles = [];
+        
+        // Función para iniciar dictado
+        function iniciarDictado(idCampo) {
+            const campo = document.getElementById(idCampo);
+            window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        
+            if (!window.SpeechRecognition) {
+                alert("Tu navegador no soporta reconocimiento de voz.");
+                return;
+            }
+        
+            reconocimiento = new SpeechRecognition();
+            reconocimiento.lang = 'es-ES';
+            reconocimiento.continuous = false;
+            reconocimiento.interimResults = false;
+        
+            reconocimiento.onresult = (event) => {
+                const resultado = event.results[0][0].transcript;
+                campo.value += (campo.value ? " " : "") + resultado;
+            };
+        
+            reconocimiento.onerror = (event) => {
+                console.error('Error en el reconocimiento de voz:', event.error);
+            };
+        
+            reconocimiento.start();
+        }
+        
+        // Función para cargar las voces disponibles
+        function cargarVoces() {
+            vocesDisponibles = window.speechSynthesis.getVoices();
+            const select = document.getElementById("vozSelect");
+            select.innerHTML = "";
+            
+            const opcionDefault = document.createElement("option");
+            opcionDefault.value = "";
+            opcionDefault.textContent = "Seleccionar voz...";
+            select.appendChild(opcionDefault);
+            
+            vocesDisponibles.forEach((voz, i) => {
+                const option = document.createElement("option");
+                option.value = i;
+                option.textContent = `${voz.name} (${voz.lang})`;
+                select.appendChild(option);
+            });
+        }
+        
+        // Evento cuando las voces cambian
+        window.speechSynthesis.onvoiceschanged = cargarVoces;
+        
+        // Función para leer texto
+        function leer(idCampo) {
+            const texto = document.getElementById(idCampo).value;
+            if (!texto.trim()) {
+                alert("El campo está vacío.");
+                return;
+            }
+        
+            const mensaje = new SpeechSynthesisUtterance(texto);
+            const vozSeleccionada = document.getElementById("vozSelect").value;
+            
+            if (vozSeleccionada && vocesDisponibles[vozSeleccionada]) {
+                mensaje.voice = vocesDisponibles[vozSeleccionada];
+                mensaje.lang = vocesDisponibles[vozSeleccionada].lang;
+            } else {
+                // Buscar una voz en español por defecto
+                const vozEspanol = vocesDisponibles.find(voz => voz.lang.includes('es'));
+                if (vozEspanol) {
+                    mensaje.voice = vozEspanol;
+                    mensaje.lang = vozEspanol.lang;
+                }
+            }
+            
+            window.speechSynthesis.speak(mensaje);
+        }
+        
+        // Cargar voces al inicio
+        document.addEventListener('DOMContentLoaded', cargarVoces);
+        
+        // Función para imprimir el documento
+        function imprimirDocumento() {
+            window.print();
+        }
+        
+        // Función para guardar el documento
+        function guardarDocumento() {
+            // Aquí puedes implementar la lógica para guardar en base de datos o localStorage
+            alert("Documento guardado correctamente.");
+        }
+        
+        // Función para exportar a Word
+        function exportarAWord() {
+            const { Document, Paragraph, TextRun, Packer } = docx;
+            
+            // Crear un array con todos los párrafos del documento
+            const docContent = [];
+            
+            // Agregar título del documento
+            docContent.push(
+                new Paragraph({
+                    children: [
+                        new TextRun({
+                            text: "HISTORIA CLÍNICA PSIQUIÁTRICA ELECTRÓNICA",
+                            bold: true,
+                            size: 28,
+                        }),
+                    ],
+                    spacing: { after: 200 },
+                })
+            );
+            
+            // Agregar información del profesional
+            docContent.push(
+                new Paragraph({
+                    children: [
+                        new TextRun({
+                            text: "Dr. Mauricio Villamandos - Médico Especialista en Psiquiatría - MP: 07489",
+                            bold: true,
+                        }),
+                    ],
+                }),
+                new Paragraph({
+                    children: [
+                        new TextRun({
+                            text: "Posadas, Misiones – Argentina | infopsicodinamyc@gmail.com | Teléfono: 3765 041832",
+                        }),
+                    ],
+                    spacing: { after: 400 },
+                })
+            );
+            
+            // Función para agregar secciones
+            function agregarSeccion(titulo, contenido) {
+                docContent.push(
+                    new Paragraph({
+                        children: [
+                            new TextRun({
+                                text: titulo,
+                                bold: true,
+                                size: 22,
+                            }),
+                        ],
+                        spacing: { before: 400, after: 200 },
+                    })
+                );
+                
+                if (typeof contenido === 'string') {
+                    docContent.push(
+                        new Paragraph({
+                            children: [
+                                new TextRun({
+                                    text: contenido,
+                                }),
+                            ],
+                            spacing: { after: 200 },
+                        })
+                    );
+                } else if (Array.isArray(contenido)) {
+                    contenido.forEach(item => {
+                        docContent.push(
+                            new Paragraph({
+                                children: [
+                                    new TextRun({
+                                        text: item,
+                                    }),
+                                ],
+                                indent: { left: 400 },
+                                spacing: { after: 100 },
+                            })
+                        );
+                    });
+                }
+            }
+            
+            // Agregar datos generales
+            const lugarEvaluacion = document.querySelector('input[type="text"]').value;
+            const fechaEvaluacion = document.querySelector('input[type="date"]').value;
+            const nombre = document.querySelectorAll('input[type="text"]')[3].value;
+            const apellido = document.querySelectorAll('input[type="text"]')[4].value;
+            
+            agregarSeccion("1. DATOS GENERALES", [
+                `Lugar de evaluación: ${lugarEvaluacion}`,
+                `Fecha de evaluación: ${fechaEvaluacion}`,
+                `Paciente: ${nombre} ${apellido}`,
+                // Agregar más datos según sea necesario
+            ]);
+            
+            // Agregar motivo de consulta
+            const motivoConsulta = document.getElementById('motivoConsulta').value;
+            agregarSeccion("2. MOTIVO DE CONSULTA", motivoConsulta);
+            
+            // Agregar antecedentes de enfermedad actual
+            const antecedentesEnfermedad = document.getElementById('antecedentesEnfermedad').value;
+            agregarSeccion("3. ANTECEDENTES DE ENFERMEDAD ACTUAL", antecedentesEnfermedad);
+            
+            // Continuar con las demás secciones...
+            
+            // Crear el documento
+            const doc = new Document({
+                sections: [{
+                    properties: {},
+                    children: docContent,
+                }],
+            });
+            
+            // Generar el archivo Word
+            Packer.toBlob(doc).then(blob => {
+                saveAs(blob, "Historia_Clinica_Psiquiatrica.docx");
+            });
+        }
+        
+        // Función para ir a la siguiente parte
+        function siguienteParte() {
+            // Aquí puedes implementar la navegación a otra parte del formulario
+            alert("Funcionalidad de siguiente parte en desarrollo.");
+        }
+    </script>
+
+<script>
+function renderChart(id, label) {
+  const ctx = document.getElementById(id).getContext("2d");
+  const gradient = ctx.createLinearGradient(0, 200, 0, 0);
+  gradient.addColorStop(0, 'rgba(255, 150, 150, 0.4)');
+  gradient.addColorStop(0.57, 'rgba(255,150,150,0.4)');
+  gradient.addColorStop(0.58, 'rgba(255,255,255,0)');
+  gradient.addColorStop(1, 'rgba(255,255,255,0)');
+
+  return new Chart(ctx, {
+    type: 'scatter',
+    data: {
+      datasets: [{
+        label: label,
+        data: [],
+        backgroundColor: '#4a90e2',
+        pointRadius: 5
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: {
+          min: 1,
+          max: 7,
+          grid: {
+            color: function(context) {
+              return context.tick.value >= 3 && context.tick.value <= 7 ? 'rgba(255,0,0,0.1)' : 'rgba(0,0,0,0.05)';
+            }
+          },
+          ticks: {
+            stepSize: 1
+          }
+        },
+        x: {
+          display: false
+        }
+      },
+      plugins: {
+        legend: {
+          display: false
+        }
+      }
+    }
+  });
+}
+
+let chartPositive = renderChart("chartPositive", "Positiva");
+let chartNegative = renderChart("chartNegative", "Negativa");
+let chartGeneral = renderChart("chartGeneral", "General");
+
+function actualizarGraficos(p, n, g) {
+  chartPositive.data.datasets[0].data = p.map((val, i) => ({ x: i, y: val }));
+  chartNegative.data.datasets[0].data = n.map((val, i) => ({ x: i, y: val }));
+  chartGeneral.data.datasets[0].data = g.map((val, i) => ({ x: i, y: val }));
+
+  chartPositive.update();
+  chartNegative.update();
+  chartGeneral.update();
+}
+</script>
+</body>
+</html>
