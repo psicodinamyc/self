@@ -1,2 +1,0 @@
-# self
-El ser.
