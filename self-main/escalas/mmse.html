@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mini Examen del Estado Mental (MMSE)</title>
+<style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+            text-align: center;
+        }
+        .header-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .header-info div {
+            margin-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .section-title {
+            font-weight: bold;
+            background-color: #f2f2f2;
+        }
+        .score-input {
+            width: 40px;
+            text-align: center;
+        }
+        .result {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .normal {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .suspicious {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        .abnormal {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            display: block;
+            margin: 20px auto;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .note {
+            font-style: italic;
+            color: #666;
+            text-align: center;
+        }
+        .two-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .centered {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="container my-5">
+<h1>MINI MENTAL STATE EXAMINATION (MMSE)</h1>
+<p class="centered"><strong>Basado en Foistein et al. (1975), Lobo et al. (1979)</strong></p>
+<div class="header-info">
+<div>
+<strong>NOMBRE:</strong> <input style="width: 200px;" type="text"/><br/>
+<strong>FECHA:</strong> <input type="date"/><br/>
+<strong>ESTUDIOS/PROFESIÓN:</strong> <input style="width: 150px;" type="text"/>
+</div>
+<div>
+<strong>F. NACIMIENTO:</strong> <input type="date"/><br/>
+<strong>VARÓN / MUJER:</strong>
+<select>
+<option value="varon">Varón</option>
+<option value="mujer">Mujer</option>
+</select><br/>
+<strong>OBSERVACIONES:</strong> <input style="width: 150px;" type="text"/>
+</div>
+</div>
+<table>
+<tr>
+<td>
+<p><strong>¿En qué año estamos?</strong> <select class="score-input" id="year" onchange="calculateScore()">
+<option value="0">0</option>
+<option value="1">1</option>
+</select></p>
+<p><strong>¿En qué estación?</strong> <select class="score-input" id="season" onchange="calculateScore()">
+<option value="0">0</option>
+<option value="1">1</option>
+</select></p>
+<p><strong>¿En qué día(fecha)?</strong> <select class="score-input" id="day" onchange="calculateScore()">
+<option value="0">0</option>
+<option value="1">1</option>
+</select></p>
+<p><strong>¿En qué mes?</strong> <select class="score-input" id="month" onchange="calculateScore()">
+<option value="0">0</option>
+<option value="1">1</option>
+</select></p>
+<p><strong>¿En qué día de la semana?</strong> <select class="score-input" id="weekday" onchange="calculateScore()">
+<option value="0">0</option>
+<option value="1">1</option>
+</select></p>
+</td>
+<td class="section-title">ORIENTACIÓN TEMPORAL (Máx.5)</td>
+<td id="temp-orientation">0</td>
+</tr>
+<tr>
+<td>
+<p><strong>¿En qué hospital (o lugar) estamos?</strong> <select class="score-input" id="place" onchange="calculateScore()">
+<option value="0">0</option>
+<option value="1">1</option>
+</select></p>
+<p><strong>¿En qué piso (o planta, sala, servicio)?</strong> <select class="score-input" id="floor" onchange="calculateScore()">
+<option value="0">0</option>
+<option value="1">1</option>
+</select></p>
+<p><strong>¿En qué pueblo (ciudad)?</strong> <select class="score-input" id="city" onchange="calculateScore()">
+<option value="0">0</option>
+<option value="1">1</option>
+</select></p>
+<p><strong>¿En qué provincia estamos?</strong> <select class="score-input" id="province" onchange="calculateScore()">
+<option value="0">0</option>
+<option value="1">1</option>
+</select></p>
+<p><strong>¿En qué país (o nación, autonomía)?</strong> <select class="score-input" id="country" onchange="calculateScore()">
+<option value="0">0</option>
+<option value="1">1</option>
+</select></p>
+</td>
+<td class="section-title">ORIENTACIÓN ESPACIAL (Máx.5)</td>
+<td id="spatial-orientation">0</td>
+</tr>
+</table>
+<h3>Memoria Inmediata</h3>
+<p>Nombre tres palabras (Peseta-Caballo-Manzana o Balón-Bandera-Árbol) a razón de 1 por segundo. Luego se pide al paciente que las repita.</p>
+<div class="two-columns">
+<div>
+<p><strong>Peseta</strong> <select class="score-input" id="peseta" onchange="calculateScore()">
+<option value="0">0</option>
+<option value="1">1</option>
+</select></p>
+<p><strong>Caballo</strong> <select class="score-input" id="caballo" onchange="calculateScore()">
+<option value="0">0</option>
+<option value="1">1</option>
+</select></p>
+<p><strong>Manzana</strong> <select class="score-input" id="manzana" onchange="calculateScore()">
+<option value="0">0</option>
+<option value="1">1</option>
+</select></p>
+</div>
+<div>
+<p><strong>Balón</strong> <select class="score-input" id="balon" onchange="calculateScore()">
+<option value="0">0</option>
+<option value="1">1</option>
+</select></p>
+<p><strong>Bandera</strong> <select class="score-input" id="bandera" onchange="calculateScore()">
+<option value="0">0</option>
+<option value="1">1</option>
+</select></p>
+<p><strong>Árbol</strong> <select class="score-input" id="arbol" onchange="calculateScore()">
+<option value="0">0</option>
+<option value="1">1</option>
+</select></p>
+</div>
+</div>
+<h3>Atención y Cálculo</h3>
+<p>Si tiene 30 pesetas y me va dando de tres en tres, ¿Cuántas le van quedando? Detenga la prueba tras 5 sustracciones.</p>
+<div class="two-columns">
+<div>
+<p><strong>30</strong> <select class="score-input" id="calc30" onchange="calculateScore()">
+<option value="0">0</option>
+<option value="1">1</option>
+</select></p>
+<p><strong>27</strong> <select class="score-input" id="calc27" onchange="calculateScore()">
+<option value="0">0</option>
+<option value="1">1</option>
+</select></p>
+<p><strong>24</strong> <select class="score-input" id="calc24" onchange="calculateScore()">
+<option value="0">0</option>
+<option value="1">1</option>
+</select></p>
+<p><strong>21</strong> <select class="score-input" id="calc21" onchange="calculateScore()">
+<option value="0">0</option>
+<option value="1">1</option>
+</select></p>
+<p><strong>18</strong> <select class="score-input" id="calc18" onchange="calculateScore()">
+<option value="0">0</option>
+<option value="1">1</option>
+</select></p>
+</div>
+<div>
+<p>Si el sujeto no puede realizar esta prueba, pídale que deletree la palabra MUNDO al revés:</p>
+<p><strong>O</strong> <select class="score-input" id="letraO" onchange="calculateScore()">
+<option value="0">0</option>
+<option value="1">1</option>
+</select></p>
+<p><strong>D</strong> <select class="score-input" id="letraD" onchange="calculateScore()">
+<option value="0">0</option>
+<option value="1">1</option>
+</select></p>
+<p><strong>N</strong> <select class="score-input" id="letraN" onchange="calculateScore()">
+<option value="0">0</option>
+<option value="1">1</option>
+</select></p>
+<p><strong>U</strong> <select class="score-input" id="letraU" onchange="calculateScore()">
+<option value="0">0</option>
+<option value="1">1</option>
+</select></p>
+<p><strong>M</strong> <select class="score-input" id="letraM" onchange="calculateScore()">
+<option value="0">0</option>
+<option value="1">1</option>
+</select></p>
+</div>
+</div>
+<h3>Recuerdo Diferido (Máx.3)</h3>
+<p>Preguntar por las tres palabras mencionadas anteriormente:</p>
+<div class="two-columns">
+<div>
+<p><strong>Peseta</strong> <select class="score-input" id="rec-peseta" onchange="calculateScore()">
+<option value="0">0</option>
+<option value="1">1</option>
+</select></p>
+<p><strong>Caballo</strong> <select class="score-input" id="rec-caballo" onchange="calculateScore()">
+<option value="0">0</option>
+<option value="1">1</option>
+</select></p>
+<p><strong>Manzana</strong> <select class="score-input" id="rec-manzana" onchange="calculateScore()">
+<option value="0">0</option>
+<option value="1">1</option>
+</select></p>
+</div>
+<div>
+<p><strong>Balón</strong> <select class="score-input" id="rec-balon" onchange="calculateScore()">
+<option value="0">0</option>
+<option value="1">1</option>
+</select></p>
+<p><strong>Bandera</strong> <select class="score-input" id="rec-bandera" onchange="calculateScore()">
+<option value="0">0</option>
+<option value="1">1</option>
+</select></p>
+<p><strong>Árbol</strong> <select class="score-input" id="rec-arbol" onchange="calculateScore()">
+<option value="0">0</option>
+<option value="1">1</option>
+</select></p>
+</div>
+</div>
+<p id="recuerdo-diferido">Puntuación: 0/3</p>
+<h3>Lenguaje y Praxias</h3>
+<div class="two-columns">
+<div>
+<p><strong>DENOMINACIÓN:</strong></p>
+<p>Mostrarle un lápiz o un bolígrafo y preguntar ¿qué es esto?</p>
+<p><strong>Lápiz</strong> <select class="score-input" id="lapiz" onchange="calculateScore()">
+<option value="0">0</option>
+<option value="1">1</option>
+</select></p>
+<p>Hacer lo mismo con un reloj de pulsera.</p>
+<p><strong>Reloj</strong> <select class="score-input" id="reloj" onchange="calculateScore()">
+<option value="0">0</option>
+<option value="1">1</option>
+</select></p>
+<p><strong>REPETICIÓN:</strong></p>
+<p>Pedirle que repita la frase: "ni si, ni no, ni pero" (o "En un trigal había 5 perros")</p>
+<p><strong>Repetición</strong> <select class="score-input" id="repeticion" onchange="calculateScore()">
+<option value="0">0</option>
+<option value="1">1</option>
+</select></p>
+</div>
+<div>
+<p><strong>ÓRDENES:</strong></p>
+<p>Pedirle que siga la orden: "coja un papel con la mano derecha, dóblelo por la mitad, y póngalo en el suelo"</p>
+<p><strong>Coge con mano</strong> <select class="score-input" id="orden1" onchange="calculateScore()">
+<option value="0">0</option>
+<option value="1">1</option>
+</select></p>
+<p><strong>Dobla por mitad</strong> <select class="score-input" id="orden2" onchange="calculateScore()">
+<option value="0">0</option>
+<option value="1">1</option>
+</select></p>
+<p><strong>Pone en suelo</strong> <select class="score-input" id="orden3" onchange="calculateScore()">
+<option value="0">0</option>
+<option value="1">1</option>
+</select></p>
+<p><strong>LECTURA:</strong></p>
+<p>Escriba legiblemente en un papel "Cierre los ojos". Pídale que lo lea y haga lo que dice la frase</p>
+<p><strong>Lectura</strong> <select class="score-input" id="lectura" onchange="calculateScore()">
+<option value="0">0</option>
+<option value="1">1</option>
+</select></p>
+</div>
+</div>
+<div>
+<p><strong>ESCRITURA:</strong></p>
+<p>Que escriba una frase (con sujeto y predicado)</p>
+<p><strong>Escritura</strong> <select class="score-input" id="escritura" onchange="calculateScore()">
+<option value="0">0</option>
+<option value="1">1</option>
+</select></p>
+<p><strong>COPIA:</strong></p>
+<p>Dibuje 2 pentágonos intersectados y pida al sujeto que los copie tal cual. Para otorgar un punto deben estar presentes los 10 ángulos y la intersección.</p>
+<p><strong>Copia</strong> <select class="score-input" id="copia" onchange="calculateScore()">
+<option value="0">0</option>
+<option value="1">1</option>
+</select></p>
+</div>
+<div class="result" id="result">
+        Puntuación TOTAL: <span id="totalScore">0</span>/30 puntos
+    </div>
+<div class="result normal" id="interpretation">
+        Interpretación: Normal (27 ó más puntos)
+    </div>
+<button onclick="printEvaluation()">Imprimir Evaluación</button>
+<p class="note">Puntuaciones de referencia: 27 ó más = normal | 24 ó menos = sospecha patológica</p>
+<script>
+        function calculateScore() {
+            // ORIENTACIÓN TEMPORAL (5 puntos)
+            const tempOrientation = 
+                parseInt(document.getElementById('year').value) +
+                parseInt(document.getElementById('season').value) +
+                parseInt(document.getElementById('day').value) +
+                parseInt(document.getElementById('month').value) +
+                parseInt(document.getElementById('weekday').value);
+            document.getElementById('temp-orientation').textContent = tempOrientation;
+            
+            // ORIENTACIÓN ESPACIAL (5 puntos)
+            const spatialOrientation = 
+                parseInt(document.getElementById('place').value) +
+                parseInt(document.getElementById('floor').value) +
+                parseInt(document.getElementById('city').value) +
+                parseInt(document.getElementById('province').value) +
+                parseInt(document.getElementById('country').value);
+            document.getElementById('spatial-orientation').textContent = spatialOrientation;
+            
+            // MEMORIA INMEDIATA (3 puntos)
+            const immediateMemory = 
+                Math.max(
+                    parseInt(document.getElementById('peseta').value) +
+                    parseInt(document.getElementById('caballo').value) +
+                    parseInt(document.getElementById('manzana').value),
+                    parseInt(document.getElementById('balon').value) +
+                    parseInt(document.getElementById('bandera').value) +
+                    parseInt(document.getElementById('arbol').value)
+                );
+            
+            // ATENCIÓN Y CÁLCULO (5 puntos)
+            let attentionCalc = 0;
+            const calcMethod1 = 
+                parseInt(document.getElementById('calc30').value) +
+                parseInt(document.getElementById('calc27').value) +
+                parseInt(document.getElementById('calc24').value) +
+                parseInt(document.getElementById('calc21').value) +
+                parseInt(document.getElementById('calc18').value);
+            
+            const calcMethod2 = 
+                parseInt(document.getElementById('letraO').value) +
+                parseInt(document.getElementById('letraD').value) +
+                parseInt(document.getElementById('letraN').value) +
+                parseInt(document.getElementById('letraU').value) +
+                parseInt(document.getElementById('letraM').value);
+            
+            attentionCalc = Math.max(calcMethod1, calcMethod2);
+            
+            // RECUERDO DIFERIDO (3 puntos)
+            const delayedRecall = 
+                Math.max(
+                    parseInt(document.getElementById('rec-peseta').value) +
+                    parseInt(document.getElementById('rec-caballo').value) +
+                    parseInt(document.getElementById('rec-manzana').value),
+                    parseInt(document.getElementById('rec-balon').value) +
+                    parseInt(document.getElementById('rec-bandera').value) +
+                    parseInt(document.getElementById('rec-arbol').value)
+                );
+            document.getElementById('recuerdo-diferido').textContent = `Puntuación: ${delayedRecall}/3`;
+            
+            // LENGUAJE Y PRAXIAS (9 puntos)
+            const language = 
+                parseInt(document.getElementById('lapiz').value) +
+                parseInt(document.getElementById('reloj').value) +
+                parseInt(document.getElementById('repeticion').value) +
+                parseInt(document.getElementById('orden1').value) +
+                parseInt(document.getElementById('orden2').value) +
+                parseInt(document.getElementById('orden3').value) +
+                parseInt(document.getElementById('lectura').value) +
+                parseInt(document.getElementById('escritura').value) +
+                parseInt(document.getElementById('copia').value);
+            
+            // TOTAL (30 puntos)
+            const totalScore = tempOrientation + spatialOrientation + immediateMemory + attentionCalc + delayedRecall + language;
+            document.getElementById('totalScore').textContent = totalScore;
+            
+            // INTERPRETACIÓN
+            const interpretation = document.getElementById('interpretation');
+            if (totalScore >= 27) {
+                interpretation.textContent = "Interpretación: Normal (27 ó más puntos)";
+                interpretation.className = "result normal";
+            } else if (totalScore >= 21 && totalScore <= 26) {
+                interpretation.textContent = "Interpretación: Deterioro cognitivo leve (21-26 puntos)";
+                interpretation.className = "result suspicious";
+            } else {
+                interpretation.textContent = "Interpretación: Sospecha de patología cognitiva (24 o menos puntos)";
+                interpretation.className = "result abnormal";
+            }
+        }
+        
+        function printEvaluation() {
+            window.print();
+        }
+        
+        // Calcular puntuación inicial
+        calculateScore();
+    </script>
+</div>
+</body>
+</html>
