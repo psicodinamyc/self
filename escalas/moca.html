@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>MoCA Premium Gold Standard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #FFD700;
+            --dark-blue: #003366;
+            --light-blue: #3498db;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+        }
+        
+        body {
+            font-family: 'Montserrat', Arial, sans-serif;
+            line-height: 1.8;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px;
+            color: #333;
+            background-color: #f9f9f9;
+            background-image: linear-gradient(to bottom, rgba(255,215,0,0.05) 0%, rgba(255,255,255,1) 100%);
+        }
+        
+        .gold-border {
+            border: 3px solid var(--gold);
+            border-radius: 10px;
+            padding: 25px;
+            background-color: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .gold-border::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--gold), #c9a227, var(--gold));
+        }
+        
+        h1 {
+            color: var(--dark-blue);
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 10px;
+            text-align: center;
+            font-weight: 700;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+        }
+        
+        h1::after {
+            content: "PREMIUM GOLD STANDARD";
+            display: block;
+            font-size: 0.6em;
+            color: var(--gold);
+            letter-spacing: 2px;
+            margin-top: 5px;
+        }
+        
+        h3 {
+            color: var(--dark-blue);
+            border-left: 4px solid var(--gold);
+            padding-left: 10px;
+            margin-top: 25px;
+            font-weight: 600;
+        }
+        
+        .header-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #eee;
+        }
+        
+        .header-info div {
+            margin-bottom: 15px;
+        }
+        
+        .header-info strong {
+            color: var(--dark-blue);
+            display: inline-block;
+            width: 100px;
+        }
+        
+        input, select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--light-blue);
+            box-shadow: 0 0 0 3px rgba(52,152,219,0.2);
+        }
+        
+        .score-input {
+            width: 60px;
+            text-align: center;
+            padding: 6px;
+            font-weight: 500;
+            border: 1px solid #ced4da;
+            background-color: white;
+            transition: all 0.3s;
+        }
+        
+        .score-input:hover {
+            border-color: var(--gold);
+        }
+        
+        .section-title {
+            font-weight: bold;
+            background-color: #f2f2f2;
+            padding: 8px 12px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+        
+        .two-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 15px 0;
+        }
+        
+        .result-container {
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .total-score {
+            font-size: 2em;
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            display: inline-block;
+            min-width: 200px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .interpretation {
+            font-size: 1.3em;
+            font-weight: bold;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px auto;
+            max-width: 600px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .normal {
+            background: linear-gradient(135deg, #d4edda, #c3e6cb);
+            color: #155724;
+            border-left: 5px solid var(--success);
+        }
+        
+        .suspicious {
+            background: linear-gradient(135deg, #fff3cd, #ffeeba);
+            color: #856404;
+            border-left: 5px solid var(--warning);
+        }
+        
+        .abnormal {
+            background: linear-gradient(135deg, #f8d7da, #f5c6cb);
+            color: #721c24;
+            border-left: 5px solid var(--danger);
+        }
+        
+        button {
+            background: linear-gradient(to right, var(--dark-blue), var(--light-blue));
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            display: block;
+            margin: 30px auto;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            letter-spacing: 0.5px;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            background: linear-gradient(to right, #002244, #2980b9);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .note {
+            font-style: italic;
+            color: #666;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9em;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin-left: 10px;
+            background-color: var(--gold);
+            color: var(--dark-blue);
+        }
+        
+        .max-points {
+            float: right;
+            font-weight: normal;
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        @media print {
+            body {
+                background: none;
+                padding: 0;
+            }
+            
+            .gold-border {
+                border: none;
+                box-shadow: none;
+                padding: 0;
+            }
+            
+            button {
+                display: none;
+            }
+        }
+        
+        /* Tooltip styles */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+        }
+        
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: var(--dark-blue);
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.9em;
+            font-weight: normal;
+        }
+        
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: var(--dark-blue) transparent transparent transparent;
+        }
+        
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+<div class="gold-border">
+    <h1>MONTREAL COGNITIVE ASSESSMENT (MoCA)</h1>
+    <p class="centered"><strong>Versión 7.1 - Nasreddine et al. (2005)</strong> <span class="badge">PREMIUM EDITION</span></p>
+    
+    <div class="header-info">
+        <div>
+            <strong>NOMBRE:</strong> <input style="width: 200px;" type="text"/><br/><br/>
+            <strong>FECHA:</strong> <input type="date"/><br/><br/>
+            <strong>EDUCACIÓN:</strong> 
+            <select id="education" onchange="calculateScore()" class="tooltip" title="Seleccione los años de educación">
+                <option value="0">≤12 años</option>
+                <option value="1">>12 años</option>
+            </select>
+        </div>
+        <div>
+            <strong>EDAD:</strong> <input type="number" min="18" max="120"/><br/><br/>
+            <strong>SEXO:</strong>
+            <select>
+                <option value="male">Varón</option>
+                <option value="female">Mujer</option>
+            </select><br/><br/>
+            <strong>OBSERVACIONES:</strong> <input style="width: 150px;" type="text"/>
+        </div>
+    </div>
+
+    <h3>1. Tarea de Alternancia (Funciones Ejecutivas) <span class="max-points">Máx. 1 punto</span></h3>
+    <p>Dibujar una línea alternando entre números y letras: 1-A-2-B-3-C-4-D-5-E</p>
+    <select class="score-input" id="alternancia" onchange="calculateScore()">
+        <option value="0">0 (Error)</option>
+        <option value="1">1 (Correcto)</option>
+    </select>
+
+    <h3>2. Copia de Cubo (Visuoespacial) <span class="max-points">Máx. 1 punto</span></h3>
+    <p>Copiar el dibujo de un cubo tridimensional:</p>
+    <select class="score-input" id="cubo" onchange="calculateScore()">
+        <option value="0">0 (Error)</option>
+        <option value="1">1 (Correcto)</option>
+    </select>
+
+    <h3>3. Reloj (Visuoespacial/Ejecutivo) <span class="max-points">Máx. 3 puntos</span></h3>
+    <p>Dibujar un reloj marcando las 11:10:</p>
+    <div class="two-columns">
+        <div>
+            <p><strong>Contorno</strong> <select class="score-input" id="reloj-contorno" onchange="calculateScore()">
+                <option value="0">0 (Incorrecto)</option>
+                <option value="1">1 (Correcto)</option>
+            </select></p>
+            <p><strong>Números</strong> <select class="score-input" id="reloj-numeros" onchange="calculateScore()">
+                <option value="0">0 (Incorrecto)</option>
+                <option value="1">1 (Correcto)</option>
+            </select></p>
+        </div>
+        <div>
+            <p><strong>Manecillas</strong> <select class="score-input" id="reloj-manecillas" onchange="calculateScore()">
+                <option value="0">0 (Incorrecto)</option>
+                <option value="1">1 (Correcto)</option>
+            </select></p>
+        </div>
+    </div>
+
+    <h3>4. Denominación (Lenguaje) <span class="max-points">Máx. 3 puntos</span></h3>
+    <p>Nombrar: León, Rinoceronte, Camello</p>
+    <div class="two-columns">
+        <div>
+            <p><strong>León</strong> <select class="score-input" id="leon" onchange="calculateScore()">
+                <option value="0">0 (Error)</option>
+                <option value="1">1 (Correcto)</option>
+            </select></p>
+            <p><strong>Rinoceronte</strong> <select class="score-input" id="rinoceronte" onchange="calculateScore()">
+                <option value="0">0 (Error)</option>
+                <option value="1">1 (Correcto)</option>
+            </select></p>
+        </div>
+        <div>
+            <p><strong>Camello</strong> <select class="score-input" id="camello" onchange="calculateScore()">
+                <option value="0">0 (Error)</option>
+                <option value="1">1 (Correcto)</option>
+            </select></p>
+        </div>
+    </div>
+
+    <h3>5. Memoria (Repetición Inmediata) <span class="max-points">Máx. 5 puntos</span></h3>
+    <p>Repetir: "Cara, Velcro, Iglesia, Azul, Cielo" (2 intentos, mejor puntuación)</p>
+    <div class="two-columns">
+        <div>
+            <p><strong>Cara</strong> <select class="score-input" id="memoria-cara" onchange="calculateScore()">
+                <option value="0">0 (Error)</option>
+                <option value="1">1 (Correcto)</option>
+            </select></p>
+            <p><strong>Velcro</strong> <select class="score-input" id="memoria-velcro" onchange="calculateScore()">
+                <option value="0">0 (Error)</option>
+                <option value="1">1 (Correcto)</option>
+            </select></p>
+        </div>
+        <div>
+            <p><strong>Iglesia</strong> <select class="score-input" id="memoria-iglesia" onchange="calculateScore()">
+                <option value="0">0 (Error)</option>
+                <option value="1">1 (Correcto)</option>
+            </select></p>
+            <p><strong>Azul</strong> <select class="score-input" id="memoria-azul" onchange="calculateScore()">
+                <option value="0">0 (Error)</option>
+                <option value="1">1 (Correcto)</option>
+            </select></p>
+            <p><strong>Cielo</strong> <select class="score-input" id="memoria-cielo" onchange="calculateScore()">
+                <option value="0">0 (Error)</option>
+                <option value="1">1 (Correcto)</option>
+            </select></p>
+        </div>
+    </div>
+
+    <h3>6. Atención (Series y Cálculo) <span class="max-points">Máx. 6 puntos</span></h3>
+    <div class="two-columns">
+        <div>
+            <p><strong>Atención:</strong> Repetir: 5-8-2 / 6-9-4 / 5-2-9</p>
+            <p><strong>Serie 1</strong> <select class="score-input" id="serie1" onchange="calculateScore()">
+                <option value="0">0 (Error)</option>
+                <option value="1">1 (Correcto)</option>
+            </select></p>
+            <p><strong>Serie 2</strong> <select class="score-input" id="serie2" onchange="calculateScore()">
+                <option value="0">0 (Error)</option>
+                <option value="1">1 (Correcto)</option>
+            </select></p>
+            <p><strong>Serie 3</strong> <select class="score-input" id="serie3" onchange="calculateScore()">
+                <option value="0">0 (Error)</option>
+                <option value="1">1 (Correcto)</option>
+            </select></p>
+        </div>
+        <div>
+            <p><strong>Cálculo:</strong> Restar 7 de 100 (5 veces): 100-7=93, 93-7=86...</p>
+            <p><strong>Aciertos</strong> <select class="score-input" id="calculo" onchange="calculateScore()">
+                <option value="0">0 (Ninguno)</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5 (Todos)</option>
+            </select></p>
+        </div>
+    </div>
+
+    <h3>7. Repetición de Frases (Lenguaje) <span class="max-points">Máx. 2 puntos</span></h3>
+    <p>Repetir: "El perro corrió tras el gato" / "Solo cuando llueve se moja"</p>
+    <div class="two-columns">
+        <div>
+            <p><strong>Frase 1</strong> <select class="score-input" id="frase1" onchange="calculateScore()">
+                <option value="0">0 (Error)</option>
+                <option value="1">1 (Correcto)</option>
+            </select></p>
+        </div>
+        <div>
+            <p><strong>Frase 2</strong> <select class="score-input" id="frase2" onchange="calculateScore()">
+                <option value="0">0 (Error)</option>
+                <option value="1">1 (Correcto)</option>
+            </select></p>
+        </div>
+    </div>
+
+    <h3>8. Fluidez Verbal (Lenguaje) <span class="max-points">Máx. 1 punto</span></h3>
+    <p>Decir el máximo de palabras que empiecen por "F" en 1 minuto (≥11 palabras = 1 punto)</p>
+    <select class="score-input" id="fluidez" onchange="calculateScore()">
+        <option value="0">0 (<11 palabras)</option>
+        <option value="1">1 (≥11 palabras)</option>
+    </select>
+
+    <h3>9. Abstracción (Pensamiento Abstracto) <span class="max-points">Máx. 2 puntos</span></h3>
+    <p>Explicar similitudes entre: Plátano-Naranja / Tren-Bicicleta / Regla-Reloj</p>
+    <div class="two-columns">
+        <div>
+            <p><strong>Pareja 1</strong> <select class="score-input" id="abstraccion1" onchange="calculateScore()">
+                <option value="0">0 (Error)</option>
+                <option value="1">1 (Correcto)</option>
+            </select></p>
+            <p><strong>Pareja 2</strong> <select class="score-input" id="abstraccion2" onchange="calculateScore()">
+                <option value="0">0 (Error)</option>
+                <option value="1">1 (Correcto)</option>
+            </select></p>
+        </div>
+        <div>
+            <p><strong>Pareja 3</strong> <select class="score-input" id="abstraccion3" onchange="calculateScore()">
+                <option value="0">0 (Error)</option>
+                <option value="1">1 (Correcto)</option>
+            </select></p>
+        </div>
+    </div>
+
+    <h3>10. Recuerdo Diferido (Memoria) <span class="max-points">Máx. 5 puntos</span></h3>
+    <p>Recordar las palabras de la sección 5 sin pistas:</p>
+    <div class="two-columns">
+        <div>
+            <p><strong>Cara</strong> <select class="score-input" id="recuerdo-cara" onchange="calculateScore()">
+                <option value="0">0 (Error)</option>
+                <option value="1">1 (Correcto)</option>
+            </select></p>
+            <p><strong>Velcro</strong> <select class="score-input" id="recuerdo-velcro" onchange="calculateScore()">
+                <option value="0">0 (Error)</option>
+                <option value="1">1 (Correcto)</option>
+            </select></p>
+        </div>
+        <div>
+            <p><strong>Iglesia</strong> <select class="score-input" id="recuerdo-iglesia" onchange="calculateScore()">
+                <option value="0">0 (Error)</option>
+                <option value="1">1 (Correcto)</option>
+            </select></p>
+            <p><strong>Azul</strong> <select class="score-input" id="recuerdo-azul" onchange="calculateScore()">
+                <option value="0">0 (Error)</option>
+                <option value="1">1 (Correcto)</option>
+            </select></p>
+            <p><strong>Cielo</strong> <select class="score-input" id="recuerdo-cielo" onchange="calculateScore()">
+                <option value="0">0 (Error)</option>
+                <option value="1">1 (Correcto)</option>
+            </select></p>
+        </div>
+    </div>
+
+    <h3>11. Orientación (Temporal/Espacial) <span class="max-points">Máx. 6 puntos</span></h3>
+    <div class="two-columns">
+        <div>
+            <p><strong>Fecha (día/mes/año)</strong> <select class="score-input" id="fecha" onchange="calculateScore()">
+                <option value="0">0 (Error)</option>
+                <option value="1">1 (Correcto)</option>
+            </select></p>
+            <p><strong>Día de la semana</strong> <select class="score-input" id="dia" onchange="calculateScore()">
+                <option value="0">0 (Error)</option>
+                <option value="1">1 (Correcto)</option>
+            </select></p>
+            <p><strong>Lugar (ciudad/hospital)</strong> <select class="score-input" id="lugar" onchange="calculateScore()">
+                <option value="0">0 (Error)</option>
+                <option value="1">1 (Correcto)</option>
+            </select></p>
+        </div>
+        <div>
+            <p><strong>Mes</strong> <select class="score-input" id="mes" onchange="calculateScore()">
+                <option value="0">0 (Error)</option>
+                <option value="1">1 (Correcto)</option>
+            </select></p>
+            <p><strong>Año</strong> <select class="score-input" id="ano" onchange="calculateScore()">
+                <option value="0">0 (Error)</option>
+                <option value="1">1 (Correcto)</option>
+            </select></p>
+            <p><strong>Piso/Planta</strong> <select class="score-input" id="piso" onchange="calculateScore()">
+                <option value="0">0 (Error)</option>
+                <option value="1">1 (Correcto)</option>
+            </select></p>
+        </div>
+    </div>
+
+    <div class="result-container">
+        <div class="total-score">
+            Puntuación TOTAL: <span id="totalScore">0</span>/30 puntos
+        </div>
+        <div class="interpretation normal" id="interpretation">
+            Interpretación: Normal (≥26 puntos)
+        </div>
+    </div>
+    
+    <button onclick="printEvaluation()">📄 Imprimir Evaluación</button>
+    
+    <p class="note">
+        <strong>Nota:</strong> Puntuaciones de referencia: ≥26 = normal | 18-25 = deterioro cognitivo leve | <18 = deterioro moderado/grave.<br>
+        Ajustar por educación: +1 punto si ≤12 años de escolaridad.
+    </p>
+
+    <script>
+        function calculateScore() {
+            // Sección 1: Alternancia
+            const alternancia = parseInt(document.getElementById('alternancia').value);
+            
+            // Sección 2: Cubo
+            const cubo = parseInt(document.getElementById('cubo').value);
+            
+            // Sección 3: Reloj
+            const relojContorno = parseInt(document.getElementById('reloj-contorno').value);
+            const relojNumeros = parseInt(document.getElementById('reloj-numeros').value);
+            const relojManecillas = parseInt(document.getElementById('reloj-manecillas').value);
+            const relojTotal = relojContorno + relojNumeros + relojManecillas;
+            
+            // Sección 4: Denominación
+            const leon = parseInt(document.getElementById('leon').value);
+            const rinoceronte = parseInt(document.getElementById('rinoceronte').value);
+            const camello = parseInt(document.getElementById('camello').value);
+            const denominacionTotal = leon + rinoceronte + camello;
+            
+            // Sección 5: Memoria Inmediata
+            const memoriaCara = parseInt(document.getElementById('memoria-cara').value);
+            const memoriaVelcro = parseInt(document.getElementById('memoria-velcro').value);
+            const memoriaIglesia = parseInt(document.getElementById('memoria-iglesia').value);
+            const memoriaAzul = parseInt(document.getElementById('memoria-azul').value);
+            const memoriaCielo = parseInt(document.getElementById('memoria-cielo').value);
+            const memoriaTotal = memoriaCara + memoriaVelcro + memoriaIglesia + memoriaAzul + memoriaCielo;
+            
+            // Sección 6: Atención
+            const serie1 = parseInt(document.getElementById('serie1').value);
+            const serie2 = parseInt(document.getElementById('serie2').value);
+            const serie3 = parseInt(document.getElementById('serie3').value);
+            const calculo = parseInt(document.getElementById('calculo').value);
+            const atencionTotal = serie1 + serie2 + serie3 + calculo;
+            
+            // Sección 7: Repetición de Frases
+            const frase1 = parseInt(document.getElementById('frase1').value);
+            const frase2 = parseInt(document.getElementById('frase2').value);
+            const frasesTotal = frase1 + frase2;
+            
+            // Sección 8: Fluidez Verbal
+            const fluidez = parseInt(document.getElementById('fluidez').value);
+            
+            // Sección 9: Abstracción
+            const abstraccion1 = parseInt(document.getElementById('abstraccion1').value);
+            const abstraccion2 = parseInt(document.getElementById('abstraccion2').value);
+            const abstraccion3 = parseInt(document.getElementById('abstraccion3').value);
+            const abstraccionTotal = abstraccion1 + abstraccion2 + abstraccion3;
+            
+            // Sección 10: Recuerdo Diferido
+            const recuerdoCara = parseInt(document.getElementById('recuerdo-cara').value);
+            const recuerdoVelcro = parseInt(document.getElementById('recuerdo-velcro').value);
+            const recuerdoIglesia = parseInt(document.getElementById('recuerdo-iglesia').value);
+            const recuerdoAzul = parseInt(document.getElementById('recuerdo-azul').value);
+            const recuerdoCielo = parseInt(document.getElementById('recuerdo-cielo').value);
+            const recuerdoTotal = recuerdoCara + recuerdoVelcro + recuerdoIglesia + recuerdoAzul + recuerdoCielo;
+            
+            // Sección 11: Orientación
+            const fecha = parseInt(document.getElementById('fecha').value);
+            const dia = parseInt(document.getElementById('dia').value);
+            const lugar = parseInt(document.getElementById('lugar').value);
+            const mes = parseInt(document.getElementById('mes').value);
+            const ano = parseInt(document.getElementById('ano').value);
+            const piso = parseInt(document.getElementById('piso').value);
+            const orientacionTotal = fecha + dia + lugar + mes + ano + piso;
+            
+            // TOTAL (30 puntos)
+            const totalScore = alternancia + cubo + relojTotal + denominacionTotal + memoriaTotal + 
+                              atencionTotal + frasesTotal + fluidez + abstraccionTotal + 
+                              recuerdoTotal + orientacionTotal;
+            
+            // Ajuste por educación (≤12 años: +1 punto)
+            const education = parseInt(document.getElementById('education').value);
+            const adjustedScore = education === 0 ? totalScore + 1 : totalScore;
+            
+            document.getElementById('totalScore').textContent = adjustedScore;
+            
+            // INTERPRETACIÓN
+            const interpretation = document.getElementById('interpretation');
+            if (adjustedScore >= 26) {
+                interpretation.textContent = "Interpretación: Normal (≥26 puntos)";
+                interpretation.className = "interpretation normal";
+            } else if (adjustedScore >= 18 && adjustedScore <= 25) {
+                interpretation.textContent = "Interpretación: Deterioro cognitivo leve (18-25 puntos)";
+                interpretation.className = "interpretation suspicious";
+            } else {
+                interpretation.textContent = "Interpretación: Deterioro cognitivo moderado/grave (<18 puntos)";
+                interpretation.className = "interpretation abnormal";
+            }
+        }
+        
+        function printEvaluation() {
+            window.print();
+        }
+        
+        // Calcular puntuación inicial
+        calculateScore();
+        
+        // Añadir tooltips a los elementos con clase 'tooltip'
+        document.querySelectorAll('.tooltip').forEach(element => {
+            const tooltipText = element.getAttribute('title');
+            if (tooltipText) {
+                element.removeAttribute('title');
+                const tooltipSpan = document.createElement('span');
+                tooltipSpan.className = 'tooltiptext';
+                tooltipSpan.textContent = tooltipText;
+                element.appendChild(tooltipSpan);
+            }
+        });
+    </script>
+</div>
+</body>
+</html>

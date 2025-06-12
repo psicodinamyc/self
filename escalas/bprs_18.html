@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escala BPRS-18 Premium</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=EB+Garamond:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- html2canvas -->
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-bg: #066ed6;
+            --dark-bg: #343a40;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f5f7fa;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: rgba(0, 0, 0, 0.645);
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-weight: 700;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+        
+        .form-section {
+            margin-bottom: 2.5rem;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 0.75rem;
+            border-left: 5px solid var(--primary-color);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .form-section:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(-3px);
+        }
+        
+        .form-section h1, .form-section h2, .form-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5rem;
+        }
+        
+        .table {
+            background-color: white;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .table thead th {
+            background: linear-gradient(135deg, var(--secondary-color), #1a252f);
+            color: white;
+            font-weight: 600;
+            border: none;
+        }
+        
+        .table td, .table th {
+            padding: 1rem;
+            vertical-align: middle;
+            border-color: #eee;
+        }
+        
+        .table tr:nth-child(even) {
+            background-color: rgba(52, 152, 219, 0.05);
+        }
+        
+        .table tr:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+        
+        .form-select {
+            font-family: 'Montserrat', sans-serif;
+            border-radius: 0.5rem;
+            padding: 0.5rem 1rem;
+            border: 1px solid #ddd;
+            transition: all 0.3s ease;
+            box-shadow: none;
+        }
+        
+        .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25);
+        }
+        
+        #total-score {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            padding: 0.5rem 1.5rem;
+            display: inline-block;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border: none;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, var(--success-color), #27ae60);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            opacity: 0.9;
+        }
+        
+        canvas {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-top: 2rem;
+        }
+        
+        .footer {
+            background: linear-gradient(135deg, var(--secondary-color), #1a252f);
+            color: rgb(92, 99, 104);
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 3rem;
+            border-radius: 10px 10px 0 0;
+        }
+        
+        .footer p {
+            margin-bottom: 0.5rem;
+        }
+        
+        .badge {
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+        }
+        
+        /* Dark mode toggle button */
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .dark-mode-toggle:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Dark mode styles */
+        .dark-mode {
+            background-color: #1a1a1a;
+            color: #f0f0f0;
+        }
+        
+        .dark-mode .container,
+        .dark-mode .form-section,
+        .dark-mode canvas {
+            background-color: #2d2d2d;
+            color: #f0f0f0;
+        }
+        
+        .dark-mode .table {
+            background-color: #2d2d2d;
+            color: #f0f0f0;
+        }
+        
+        .dark-mode .table thead th {
+            background: linear-gradient(135deg, #34495e, #2c3e50);
+        }
+        
+        .dark-mode .table tr:nth-child(even) {
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+        
+        .dark-mode .table tr:hover {
+            background-color: rgba(52, 152, 219, 0.2);
+        }
+        
+        .dark-mode .form-select {
+            background-color: #3d3d3d;
+            color: #f0f0f0;
+            border-color: #555;
+        }
+        
+        .dark-mode .form-section h1, 
+        .dark-mode .form-section h2, 
+        .dark-mode .form-section h3 {
+            color: #4a90e2;
+            border-bottom-color: #444;
+        }
+        
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            
+            body {
+                font-size: 12pt;
+                line-height: 1.5;
+                background: white;
+                color: black;
+            }
+            
+            .container {
+                box-shadow: none;
+                padding: 0;
+                max-width: 100%;
+            }
+            
+            .form-section {
+                page-break-inside: avoid;
+                border-left: none;
+                padding: 0;
+                background-color: transparent;
+                box-shadow: none;
+            }
+            
+            .header {
+                background: white !important;
+                color: black !important;
+                text-shadow: none !important;
+                box-shadow: none !important;
+            }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .form-section {
+                padding: 1.5rem;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .table td, .table th {
+                padding: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar Premium -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="/images/index_logo.png" alt="Logo" height="50" class="animate__animated animate__fadeIn">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/index.html"><i class="fas fa-home"></i> Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-concierge-bell"></i> Servicios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-envelope"></i> Contacto</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-info-circle"></i> Acerca de</a>
+                    </li>
+                </ul>
+                <div class="d-flex flex-wrap gap-2">
+                    <a href="https://wa.me/543625314001?text=Hola%20Dr.%20Villamandos%2C%20quisiera%20hacer%20una%20consulta" 
+                       target="_blank" class="btn btn-success btn-sm">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    </a>
+                    <a href="https://www.facebook.com/mauricio.villamandos?locale=es_LA" 
+                       target="_blank" class="btn btn-primary btn-sm">
+                        <i class="fab fa-facebook-f"></i> Facebook
+                    </a>
+                    <a href="https://www.instagram.com/elperrofenrir/" 
+                       target="_blank" class="btn btn-danger btn-sm">
+                        <i class="fab fa-instagram"></i> Instagram
+                    </a>
+                    <a href="https://twitter.com/tuusuario" 
+                       target="_blank" class="btn btn-dark btn-sm">
+                        <i class="fab fa-x-twitter"></i> X
+                    </a>
+                    <a href="https://www.linkedin.com/in/mauricio-villamandos-48b29a16a" 
+                       target="_blank" class="btn btn-info btn-sm">
+                        <i class="fab fa-linkedin-in"></i> LinkedIn
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Premium -->
+    <header class="header animate__animated animate__fadeIn">
+        <div class="container text-center">
+            <h1 class="display-5 fw-bold">Escala BPRS-18 Premium</h1>
+            <div class="doctor-info">
+                <p class="mb-1"><strong><i class="fas fa-user-md"></i> Dr. Mauricio Villamandos - Médico Especialista en Psiquiatría - MP: 07489</strong></p>
+                <p class="mb-0"><strong><i class="fas fa-map-marker-alt"></i> Posadas, Misiones – Argentina | <i class="fas fa-envelope"></i> infopsicodinamyc@gmail.com | <i class="fas fa-phone"></i> Teléfono: 3765 041832</strong></p>
+            </div>
+        </div>
+
+       
+
+    
+    <!-- Botonera de escalas e instrumentos -->
+    <div class="container scales-toolbar no-print">
+        <strong><h4 class="w-100 text-center mb-3">Instrumentos de Evaluación</h4></strong>
+        <button class="btn btn-outline-primary" onclick="window.open('https://gonzalov85.github.io/Inventario-SCL-90-R/', '_blank')">
+            <i class="fas fa-clipboard-list"></i> SCL-90-R
+        </button>
+        <button class="btn btn-outline-primary" onclick="window.open('escalas/ham_d.html', '_blank')">
+            <i class="fas fa-brain"></i> HAM-D
+        </button>
+        <button class="btn btn-outline-primary" onclick="window.open('escalas/ham_d.html', '_blank')">
+            <i class="fas fa-brain"></i> HAM-A
+        </button>
+        <button class="btn btn-outline-primary" onclick="window.open('escalas/moca.html', '_blank')">
+            <i class="fas fa-brain"></i> MoCA
+        </button>
+        <button class="btn btn-outline-primary" onclick="window.open('escalas/mmse.html', '_blank')">
+            <i class="fas fa-brain"></i> MMSE
+        </button>
+        <button class="btn btn-outline-primary" onclick="window.open('escalas/panss.html', '_blank')">
+            <i class="fas fa-brain"></i> PANSS
+        </button>
+        <button class="btn btn-outline-primary" onclick="window.open('escalas/whoqol_breef.html', '_blank')">
+            <i class="fas fa-brain"></i> WHOQOL-BREEF
+        </button>
+        <button class="btn btn-outline-primary" onclick="window.open('escalas/barrero_s.html', '_blank')">
+            <i class="fas fa-brain"></i> Barrero/S
+            
+        </button>
+        <button class="btn btn-outline-primary" onclick="window.open('escalas/audit.html', '_blank')">
+            <i class="fas fa-brain"></i> AUDIT
+        </button>
+    </div>
+
+    </header>
+
+    <!-- Main Content -->
+    <main class="container animate__animated animate__fadeIn">
+        <section class="form-section">
+            <h1><i class="fas fa-brain"></i> Escala Breve de Evaluación Psiquiátrica (BPRS-18)</h1>
+            <p class="text-muted mb-4">Complete cada ítem seleccionando la puntuación que mejor describa el estado del paciente (0-7).</p>
+            
+            <!-- CAPTURE ZONE: todo esto se incluirá en la imagen -->
+            <div id="capture-zone">
+                <div class="table-responsive">
+                    <table class="table table-bordered align-middle">
+                        <thead class="table-dark">
+                            <tr>
+                                <th style="width: 60%">Síntoma</th>
+                                <th class="text-center">Puntuación (0-7)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="symptom-table-body"></tbody>
+                    </table>
+                </div>
+
+                <canvas id="bprs-chart" height="120"></canvas>
+            </div>
+        </section>
+
+        <!-- Results and Actions -->
+        <section class="text-center my-4">
+            <h3 class="mb-3">Puntuación Total: <span class="badge bg-primary fs-4" id="total-score">0</span></h3>
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <button onclick="exportToImage()" class="btn btn-success">
+                    <i class="fas fa-camera"></i> Exportar como imagen
+                </button>
+                <button onclick="imprimirDocumento()" class="btn btn-primary no-print">
+                    <i class="fas fa-print"></i> Imprimir
+                </button>
+                <button onclick="guardarDocumento()" class="btn btn-warning no-print">
+                    <i class="fas fa-save"></i> Guardar
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Dark mode toggle button -->
+    <button class="dark-mode-toggle no-print" id="darkModeToggle">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <footer class="footer">
+        <div class="container">
+            <p><strong>[HCPE] v2.0 Premium® &copy; 2025 - [Historia Clínica Psiquiátrica Electrónica]</strong></p>
+            <p><strong>[Dr. Mauricio Villamandos / Ing. Fernando Gallardo]</strong></p>
+            <p><strong>Posadas, Misiones - Argentina</strong></p>
+            <div class="mt-3">
+                <small class="text-white-50">Versión 2.0.1 | Última actualización: 12/06/2025</small>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- SweetAlert2 para notificaciones bonitas -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        // Symptoms data
+        const symptoms = [
+            "Retraimiento emocional", 
+            "Ansiedad", 
+            "Sentimiento de culpa", 
+            "Tensión",
+            "Manejo pobre de la realidad", 
+            "Conducta extraña", 
+            "Pensamiento conceptual extraño",
+            "Grandiosidad", 
+            "Hostilidad", 
+            "Suspiciosidad", 
+            "Alucinaciones", 
+            "Excitación",
+            "Lenguaje incoherente", 
+            "Comportamiento motor", 
+            "Desorientación",
+            "Síntomas somáticos", 
+            "Conducta suicida", 
+            "Afecto embotado"
+        ];
+
+        // Initialize table
+        const tbody = document.getElementById('symptom-table-body');
+        symptoms.forEach((symptom, index) => {
+            const id = `symptom-${index}`;
+            const row = `
+                <tr>
+                    <td>${index + 1}. ${symptom}</td>
+                    <td class="text-center">
+                        <select class="form-select text-center" id="${id}" onchange="updateBPRS()" style="max-width: 100px; margin: 0 auto;">
+                            ${Array.from({ length: 8 }, (_, i) => `<option value="${i}">${i}</option>`).join('')}
+                        </select>
+                    </td>
+                </tr>
+            `;
+            tbody.insertAdjacentHTML('beforeend', row);
+        });
+
+        // Initialize chart
+        const ctx = document.getElementById('bprs-chart').getContext('2d');
+        const bprsChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: symptoms.map((_, i) => `S${i + 1}`),
+                datasets: [{
+                    label: 'Puntuación por síntoma',
+                    data: new Array(symptoms.length).fill(0),
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    fill: true,
+                    tension: 0.3,
+                    pointRadius: 5,
+                    pointBackgroundColor: 'rgba(75, 192, 192, 1)'
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            font: {
+                                family: 'Montserrat',
+                                size: 14,
+                                weight: 'bold'
+                            }
+                        }
+                    },
+                    tooltip: {
+                        bodyFont: {
+                            family: 'Montserrat',
+                            size: 14
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 7,
+                        title: {
+                            display: true,
+                            text: 'Puntuación',
+                            font: {
+                                family: 'Montserrat',
+                                size: 14,
+                                weight: 'bold'
+                            }
+                        },
+                        ticks: {
+                            font: {
+                                family: 'Montserrat',
+                                size: 12
+                            }
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Síntomas',
+                            font: {
+                                family: 'Montserrat',
+                                size: 14,
+                                weight: 'bold'
+                            }
+                        },
+                        ticks: {
+                            font: {
+                                family: 'Montserrat',
+                                size: 12
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Update BPRS scores and chart
+        function updateBPRS() {
+            const scores = [];
+            let total = 0;
+
+            symptoms.forEach((_, i) => {
+                const val = parseInt(document.getElementById(`symptom-${i}`).value);
+                scores.push(val);
+                total += val;
+            });
+
+            document.getElementById('total-score').textContent = total;
+            bprsChart.data.datasets[0].data = scores;
+            bprsChart.update();
+        }
+
+        // Export to image
+        function exportToImage() {
+            const captureZone = document.getElementById('capture-zone');
+            html2canvas(captureZone).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'bprs_resultado.png';
+                link.href = canvas.toDataURL();
+                link.click();
+            });
+        }
+
+        // Print document
+        function imprimirDocumento() {
+            window.print();
+        }
+
+        // Save document
+        function guardarDocumento() {
+            Swal.fire({
+                title: 'Documento guardado',
+                text: 'La evaluación BPRS ha sido guardada correctamente.',
+                icon: 'success',
+                confirmButtonText: 'Aceptar'
+            });
+        }
+
+        // Dark mode toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        darkModeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                localStorage.setItem('darkMode', 'disabled');
+            }
+            
+            // Update chart colors for dark mode
+            updateChartColors();
+        });
+
+        // Check for dark mode preference
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            document.body.classList.add('dark-mode');
+            darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            updateChartColors();
+        }
+
+        // Update chart colors for dark mode
+        function updateChartColors() {
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            
+            if (isDarkMode) {
+                bprsChart.options.scales.x.ticks.color = '#f0f0f0';
+                bprsChart.options.scales.y.ticks.color = '#f0f0f0';
+                bprsChart.options.scales.x.title.color = '#f0f0f0';
+                bprsChart.options.scales.y.title.color = '#f0f0f0';
+                bprsChart.options.plugins.legend.labels.color = '#f0f0f0';
+            } else {
+                bprsChart.options.scales.x.ticks.color = '#666';
+                bprsChart.options.scales.y.ticks.color = '#666';
+                bprsChart.options.scales.x.title.color = '#666';
+                bprsChart.options.scales.y.title.color = '#666';
+                bprsChart.options.plugins.legend.labels.color = '#666';
+            }
+            
+            bprsChart.update();
+        }
+
+        // Initialize
+        updateBPRS();
+    </script>
+</body>
+</html>

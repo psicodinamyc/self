@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escala de depresión de Hamilton [HAM-D] Premium</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=EB+Garamond:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-bg: #f8f9fa;
+            --dark-bg: #343a40;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background-color: #f5f7fa;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .navbar-brand img {
+            height: 50px;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-brand img:hover {
+            transform: scale(1.05);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: rgba(0, 0, 0, 0.621);
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-weight: 700;
+            text-shadow: 1px 1px 3px rgba(84, 93, 224, 0.2);
+        }
+        
+        .form-section {
+            margin-bottom: 2.5rem;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 0.75rem;
+            border-left: 5px solid var(--primary-color);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .form-section:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(-3px);
+        }
+        
+        .form-section h1, .form-section h2, .form-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5rem;
+        }
+        
+        .item-title {
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .options {
+            background-color: var(--light-bg);
+            padding: 1rem;
+            border-radius: 0.5rem;
+        }
+        
+        .option {
+            padding: 0.5rem;
+            margin-bottom: 0.5rem;
+            border-radius: 0.25rem;
+            transition: all 0.2s ease;
+        }
+        
+        .option:hover {
+            background-color: #e9ecef;
+        }
+        
+        .option input[type="radio"] {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+        
+        .option label {
+            cursor: pointer;
+            width: 100%;
+        }
+        
+        #calculateBtn {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            padding: 12px 30px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: block;
+            margin: 2rem auto;
+            width: fit-content;
+        }
+        
+        #calculateBtn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            background: linear-gradient(135deg, #2980b9, #34495e);
+        }
+        
+        #result {
+            text-align: center;
+            font-size: 18px;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 10px;
+            background: linear-gradient(to right, #f8f9fa, #e9ecef);
+            display: none;
+            border: 1px solid #dee2e6;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        #totalScore {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .interpretation {
+            margin-top: 15px;
+            font-weight: bold;
+            color: var(--secondary-color);
+            padding: 15px;
+            border-radius: 8px;
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+        
+        .reference {
+            font-style: italic;
+            color: #6c757d;
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+        
+        .footer {
+            background: linear-gradient(135deg, var(--secondary-color), #1a252f);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 3rem;
+            border-radius: 10px 10px 0 0;
+        }
+        
+        .footer p {
+            margin-bottom: 0.5rem;
+        }
+        
+        .btn-print, .btn-save, .btn-export, .btn-next {
+            margin: 0 10px;
+            padding: 10px 20px;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .btn-print:hover, .btn-save:hover, .btn-export:hover, .btn-next:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .scales-toolbar {
+            background: linear-gradient(to right, #e9ecef, #dee2e6);
+            padding: 1.5rem;
+            margin-bottom: 3rem;
+            border-radius: 0.75rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .scales-toolbar button {
+            white-space: nowrap;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .scales-toolbar button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .progress-container {
+            width: 100%;
+            background-color: #e9ecef;
+            border-radius: 10px;
+            margin: 20px 0;
+            height: 10px;
+            display: none;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            border-radius: 10px;
+            background: linear-gradient(to right, #3498db, #2ecc71);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media print {
+            .no-print, .scales-toolbar, .voice-controls {
+                display: none !important;
+            }
+            
+            body {
+                font-size: 12pt;
+                line-height: 1.5;
+                background: white;
+                color: black;
+            }
+            
+            .container {
+                box-shadow: none;
+                padding: 0;
+                max-width: 100%;
+            }
+            
+            .form-section {
+                page-break-inside: avoid;
+                border-left: none;
+                padding: 0;
+                background-color: transparent;
+                box-shadow: none;
+            }
+            
+            .header {
+                background: white !important;
+                color: black !important;
+                text-shadow: none !important;
+                box-shadow: none !important;
+            }
+            
+            #calculateBtn {
+                display: none;
+            }
+        }
+        
+        /* Tooltip styling */
+        .tooltip-inner {
+            max-width: 300px;
+            padding: 10px;
+            background-color: var(--secondary-color);
+            font-size: 0.9rem;
+        }
+        
+        .bs-tooltip-auto[data-popper-placement^=top] .tooltip-arrow::before, 
+        .bs-tooltip-top .tooltip-arrow::before {
+            border-top-color: var(--secondary-color);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .form-section {
+                padding: 1.5rem;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+        }
+        
+        /* Dark mode toggle */
+        .dark-mode {
+            background-color: #1a1a1a;
+            color: #f0f0f0;
+        }
+        
+        .dark-mode .form-section {
+            background-color: #2d2d2d;
+            border-left-color: #4a90e2;
+        }
+        
+        .dark-mode .options {
+            background-color: #3d3d3d;
+        }
+        
+        .dark-mode .item-title {
+            color: #f0f0f0;
+        }
+        
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .dark-mode-toggle:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar Premium -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="/images/index_logo.png" alt="Logo" height="50" class="animate__animated animate__fadeIn">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/index.html"><i class="fas fa-home"></i> Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-concierge-bell"></i> Servicios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-envelope"></i> Contacto</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-info-circle"></i> Acerca de</a>
+                    </li>
+                </ul>
+                <div class="d-flex flex-wrap gap-2">
+                    <a href="https://wa.me/543625314001?text=Hola%20Dr.%20Villamandos%2C%20quisiera%20hacer%20una%20consulta" 
+                       target="_blank" class="btn btn-success btn-sm">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    </a>
+                    <a href="https://www.facebook.com/mauricio.villamandos?locale=es_LA" 
+                       target="_blank" class="btn btn-primary btn-sm">
+                        <i class="fab fa-facebook-f"></i> Facebook
+                    </a>
+                    <a href="https://www.instagram.com/elperrofenrir/" 
+                       target="_blank" class="btn btn-danger btn-sm">
+                        <i class="fab fa-instagram"></i> Instagram
+                    </a>
+                    <a href="https://twitter.com/tuusuario" 
+                       target="_blank" class="btn btn-dark btn-sm">
+                        <i class="fab fa-x-twitter"></i> X
+                    </a>
+                    <a href="https://www.linkedin.com/in/mauricio-villamandos-48b29a16a" 
+                       target="_blank" class="btn btn-info btn-sm">
+                        <i class="fab fa-linkedin-in"></i> LinkedIn
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Premium -->
+    <header class="header animate__animated animate__fadeIn">
+        <div class="container text-center">
+            <h1 class="display-5 fw-bold">HCPE Premium - Historia Clínica Psiquiátrica</h1>
+            <div class="doctor-info">
+                <p class="mb-1"><strong><i class="fas fa-user-md"></i> Dr. Mauricio Villamandos - Médico Especialista en Psiquiatría - MP: 07489</strong></p>
+                <p class="mb-0"><strong><i class="fas fa-map-marker-alt"></i> Posadas, Misiones – Argentina | <i class="fas fa-envelope"></i> infopsicodinamyc@gmail.com | <i class="fas fa-phone"></i> Teléfono: 3765 041832</strong></p>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Botonera de escalas premium -->
+    <div class="container scales-toolbar no-print animate__animated animate__fadeInUp">
+        <h4 class="w-100 text-center mb-3"><i class="fas fa-clipboard-check"></i> Instrumentos de Evaluación Premium</h4>
+        <button class="btn btn-outline-primary" onclick="window.open('https://gonzalov85.github.io/Inventario-SCL-90-R/', '_blank')">
+            <i class="fas fa-clipboard-list"></i> SCL-90-R
+        </button>
+        <button class="btn btn-primary">
+            <i class="fas fa-brain"></i> HAM-D <span class="badge bg-light text-dark ms-1">Actual</span>
+        </button>
+        <button class="btn btn-outline-primary" onclick="window.open('self-main/escala_ham_a.html', '_blank')">
+            <i class="fas fa-brain"></i> HAM-A
+        </button>
+        <button class="btn btn-outline-primary" onclick="window.open('/escalas/moca.html', '_blank')">
+            <i class="fas fa-brain"></i> MoCA
+        </button>
+        <button class="btn btn-outline-primary" onclick="window.open('/escalas/mmse.html', '_blank')">
+            <i class="fas fa-brain"></i> MMSE
+        </button>
+        <button class="btn btn-outline-primary" onclick="window.open('/escalas/panss.html', '_blank')">
+            <i class="fas fa-brain"></i> PANSS
+        </button>
+        <button class="btn btn-outline-primary" onclick="window.open('/self-mainescala_ymrs.html', '_blank')">
+            <i class="fas fa-brain"></i> YMRS
+        </button>
+        <button class="btn btn-outline-primary" onclick="window.open('self-main/escala_cage.html', '_blank')">
+            <i class="fas fa-brain"></i> CAGE
+        </button>
+        <button class="btn btn-outline-primary" onclick="window.open('/self-main/escala_audit.html', '_blank')">
+            <i class="fas fa-brain"></i> AUDIT
+        </button>
+        <button class="btn btn-outline-success" data-bs-toggle="tooltip" data-bs-placement="top" title="Más escalas disponibles">
+            <i class="fas fa-plus"></i> Más
+        </button>
+    </div>
+    
+    <!-- Progress bar -->
+    <div class="container progress-container no-print">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <main class="container animate__animated animate__fadeIn">
+        <section class="form-section">
+            <h1><i class="fas fa-clipboard-list"></i> Escala de Depresión de Hamilton (HDRS)</h1>
+            <p class="text-muted">Complete cada ítem seleccionando la opción que mejor describa el estado del paciente.</p>
+            
+            <form id="hamiltonForm">
+                <div class="section">
+                    <div class="item">
+                        <div class="item-title">1. Humor depresivo (tristeza, desesperanza, desamparo, sentimiento de inutilidad)</div>
+                        <div class="options">
+                            <div class="option"><input type="radio" name="item1" value="0" required> <label>Ausente (0)</label></div>
+                            <div class="option"><input type="radio" name="item1" value="1"> <label>Estas sensaciones las expresa solamente si le preguntan como se siente (1)</label></div>
+                            <div class="option"><input type="radio" name="item1" value="2"> <label>Estas sensaciones las relata espontáneamente (2)</label></div>
+                            <div class="option"><input type="radio" name="item1" value="3"> <label>Sensaciones no comunicadas verbalmente (expresión facial, postura, voz, tendencia al llanto) (3)</label></div>
+                            <div class="option"><input type="radio" name="item1" value="4"> <label>Manifiesta estas sensaciones en su comunicación verbal y no verbal en forma espontánea (4)</label></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="item">
+                        <div class="item-title">2. Sentimientos de culpa</div>
+                        <div class="options">
+                            <div class="option"><input type="radio" name="item2" value="0" required> <label>Ausente (0)</label></div>
+                            <div class="option"><input type="radio" name="item2" value="1"> <label>Se culpa a sí mismo, cree haber decepcionado a la gente (1)</label></div>
+                            <div class="option"><input type="radio" name="item2" value="2"> <label>Tiene ideas de culpabilidad o medita sobre errores pasados o malas acciones (2)</label></div>
+                            <div class="option"><input type="radio" name="item2" value="3"> <label>Siente que la enfermedad actual es un castigo (3)</label></div>
+                            <div class="option"><input type="radio" name="item2" value="4"> <label>Oye voces acusatorias o de denuncia y/o experimenta alucinaciones visuales de amenaza (4)</label></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="item">
+                        <div class="item-title">3. Suicidio</div>
+                        <div class="options">
+                            <div class="option"><input type="radio" name="item3" value="0" required> <label>Ausente (0)</label></div>
+                            <div class="option"><input type="radio" name="item3" value="1"> <label>Le parece que la vida no vale la pena ser vivida (1)</label></div>
+                            <div class="option"><input type="radio" name="item3" value="2"> <label>Desearía estar muerto o tiene pensamientos sobre la posibilidad de morirse (2)</label></div>
+                            <div class="option"><input type="radio" name="item3" value="3"> <label>Ideas de suicidio o amenazas (3)</label></div>
+                            <div class="option"><input type="radio" name="item3" value="4"> <label>Intentos de suicidio (cualquier intento serio) (4)</label></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="item">
+                        <div class="item-title">4. Insomnio precoz</div>
+                        <div class="options">
+                            <div class="option"><input type="radio" name="item4" value="0" required> <label>No tiene dificultad (0)</label></div>
+                            <div class="option"><input type="radio" name="item4" value="1"> <label>Dificultad ocasional para dormir, por ej. más de media hora el conciliar el sueño (1)</label></div>
+                            <div class="option"><input type="radio" name="item4" value="2"> <label>Dificultad para dormir cada noche (2)</label></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="item">
+                        <div class="item-title">5. Insomnio intermedio</div>
+                        <div class="options">
+                            <div class="option"><input type="radio" name="item5" value="0" required> <label>No hay dificultad (0)</label></div>
+                            <div class="option"><input type="radio" name="item5" value="1"> <label>Esta desvelado e inquieto o se despierta varias veces durante la noche (1)</label></div>
+                            <div class="option"><input type="radio" name="item5" value="2"> <label>Esta despierto durante la noche, cualquier ocasión de levantarse de la cama se clasifica en 2 (excepto por motivos de evacuar) (2)</label></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="item">
+                        <div class="item-title">6. Insomnio tardío</div>
+                        <div class="options">
+                            <div class="option"><input type="radio" name="item6" value="0" required> <label>No hay dificultad (0)</label></div>
+                            <div class="option"><input type="radio" name="item6" value="1"> <label>Se despierta a primeras horas de la madrugada, pero se vuelve a dormir (1)</label></div>
+                            <div class="option"><input type="radio" name="item6" value="2"> <label>No puede volver a dormirse si se levanta de la cama (2)</label></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="item">
+                        <div class="item-title">7. Trabajo y actividades</div>
+                        <div class="options">
+                            <div class="option"><input type="radio" name="item7" value="0" required> <label>No hay dificultad (0)</label></div>
+                            <div class="option"><input type="radio" name="item7" value="1"> <label>Ideas y sentimientos de incapacidad, fatiga o debilidad (trabajos, pasatiempos) (1)</label></div>
+                            <div class="option"><input type="radio" name="item7" value="2"> <label>Pérdida de interés en su actividad (disminución de la atención, indecisión y vacilación) (2)</label></div>
+                            <div class="option"><input type="radio" name="item7" value="3"> <label>Disminución del tiempo actual dedicado a actividades o disminución de la productividad (3)</label></div>
+                            <div class="option"><input type="radio" name="item7" value="4"> <label>Dejó de trabajar por la presente enfermedad. Solo se compromete en las pequeñas tareas, o no puede realizar estas sin ayuda. (4)</label></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="item">
+                        <div class="item-title">8. Inhibición psicomotora (lentitud de pensamiento y lenguaje, facultad de concentración disminuida, disminución de la actividad motora)</div>
+                        <div class="options">
+                            <div class="option"><input type="radio" name="item8" value="0" required> <label>Palabra y pensamiento normales (0)</label></div>
+                            <div class="option"><input type="radio" name="item8" value="1"> <label>Ligero retraso en el habla (1)</label></div>
+                            <div class="option"><input type="radio" name="item8" value="2"> <label>Evidente retraso en el habla (2)</label></div>
+                            <div class="option"><input type="radio" name="item8" value="3"> <label>Dificultad para expresarse (3)</label></div>
+                            <div class="option"><input type="radio" name="item8" value="4"> <label>Incapacidad para expresarse (4)</label></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="item">
+                        <div class="item-title">9. Agitación psicomotora</div>
+                        <div class="options">
+                            <div class="option"><input type="radio" name="item9" value="0" required> <label>Ninguna (0)</label></div>
+                            <div class="option"><input type="radio" name="item9" value="1"> <label>Juega con sus dedos (1)</label></div>
+                            <div class="option"><input type="radio" name="item9" value="2"> <label>Juega con sus manos, cabello, etc. (2)</label></div>
+                            <div class="option"><input type="radio" name="item9" value="3"> <label>No puede quedarse quieto ni permanecer sentado (3)</label></div>
+                            <div class="option"><input type="radio" name="item9" value="4"> <label>Retuerce las manos, se muerde las uñas, se tira de los cabellos, se muerde los labios (4)</label></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="item">
+                        <div class="item-title">10. Ansiedad psíquica</div>
+                        <div class="options">
+                            <div class="option"><input type="radio" name="item10" value="0" required> <label>No hay dificultad (0)</label></div>
+                            <div class="option"><input type="radio" name="item10" value="1"> <label>Tensión subjetiva e irritabilidad (1)</label></div>
+                            <div class="option"><input type="radio" name="item10" value="2"> <label>Preocupación por pequeñas cosas (2)</label></div>
+                            <div class="option"><input type="radio" name="item10" value="3"> <label>Actitud aprensiva en la expresión o en el habla (3)</label></div>
+                            <div class="option"><input type="radio" name="item10" value="4"> <label>Expresa sus temores sin que le pregunten (4)</label></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="item">
+                        <div class="item-title">11. Ansiedad somática (signos físicos de ansiedad: gastrointestinales, cardiovasculares, respiratorios, etc.)</div>
+                        <div class="options">
+                            <div class="option"><input type="radio" name="item11" value="0" required> <label>Ausente (0)</label></div>
+                            <div class="option"><input type="radio" name="item11" value="1"> <label>Ligera (1)</label></div>
+                            <div class="option"><input type="radio" name="item11" value="2"> <label>Moderada (2)</label></div>
+                            <div class="option"><input type="radio" name="item11" value="3"> <label>Severa (3)</label></div>
+                            <div class="option"><input type="radio" name="item11" value="4"> <label>Incapacitante (4)</label></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="item">
+                        <div class="item-title">12. Síntomas somáticos gastrointestinales</div>
+                        <div class="options">
+                            <div class="option"><input type="radio" name="item12" value="0" required> <label>Ninguno (0)</label></div>
+                            <div class="option"><input type="radio" name="item12" value="1"> <label>Pérdida del apetito pero come sin necesidad de que lo estimulen. Sensación de pesadez en el abdomen (1)</label></div>
+                            <div class="option"><input type="radio" name="item12" value="2"> <label>Dificultad en comer si no se le insiste. Solicita laxantes o medicación intestinal para sus síntomas gastrointestinales (2)</label></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="item">
+                        <div class="item-title">13. Síntomas somáticos generales</div>
+                        <div class="options">
+                            <div class="option"><input type="radio" name="item13" value="0" required> <label>Ninguno (0)</label></div>
+                            <div class="option"><input type="radio" name="item13" value="1"> <label>Pesadez en las extremidades, espalda o cabeza. Dorsalgias. Cefaleas, algias musculares. (1)</label></div>
+                            <div class="option"><input type="radio" name="item13" value="2"> <label>Pérdida de energía y fatigabilidad. Cualquier síntoma bien definido (2)</label></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="item">
+                        <div class="item-title">14. Síntomas genitales (disminución de la libido y trastornos menstruales)</div>
+                        <div class="options">
+                            <div class="option"><input type="radio" name="item14" value="0" required> <label>Ausente (0)</label></div>
+                            <div class="option"><input type="radio" name="item14" value="1"> <label>Débil (1)</label></div>
+                            <div class="option"><input type="radio" name="item14" value="2"> <label>Grave (2)</label></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="item">
+                        <div class="item-title">15. Hipocondría</div>
+                        <div class="options">
+                            <div class="option"><input type="radio" name="item15" value="0" required> <label>Ausente (0)</label></div>
+                            <div class="option"><input type="radio" name="item15" value="1"> <label>Preocupado de si mismo (corporalmente) (1)</label></div>
+                            <div class="option"><input type="radio" name="item15" value="2"> <label>Preocupado por su salud (2)</label></div>
+                            <div class="option"><input type="radio" name="item15" value="3"> <label>Se lamenta constantemente, solicita ayuda (3)</label></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="item">
+                        <div class="item-title">16. Pérdida de peso</div>
+                        <div class="options">
+                            <div class="option"><input type="radio" name="item16" value="0" required> <label>Pérdida de peso inferior a 500 gr. en una semana (0)</label></div>
+                            <div class="option"><input type="radio" name="item16" value="1"> <label>Pérdida de más de 500 gr. en una semana (1)</label></div>
+                            <div class="option"><input type="radio" name="item16" value="2"> <label>Pérdida de más de 1 Kg. en una semana (2)</label></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="item">
+                        <div class="item-title">17. Introspección (insight)</div>
+                        <div class="options">
+                            <div class="option"><input type="radio" name="item17" value="0" required> <label>Se da cuenta que está deprimido y enfermo (0)</label></div>
+                            <div class="option"><input type="radio" name="item17" value="1"> <label>Se da cuenta de su enfermedad pero atribuye la causa a la mala alimentación, clima, exceso de trabajo, virus, necesidad de descanso, etc. (1)</label></div>
+                            <div class="option"><input type="radio" name="item17" value="2"> <label>No se da cuenta que está enfermo (2)</label></div>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" id="calculateBtn" class="animate__animated animate__pulse animate__infinite animate__slower">
+                    <i class="fas fa-calculator"></i> Calcular Puntuación
+                </button>
+            </form>
+
+            <div id="result">
+                <h3><i class="fas fa-chart-line"></i> Resultado de la Escala de Hamilton</h3>
+                <p>Puntuación total: <span id="totalScore">0</span>/52</p>
+                <div class="interpretation" id="interpretation"></div>
+                <div class="progress-container mt-3">
+                    <div class="progress">
+                        <div id="severityBar" class="progress-bar" role="progressbar" style="width: 0%"></div>
+                    </div>
+                    <div class="d-flex justify-content-between mt-1">
+                        <small>Normal</small>
+                        <small>Leve</small>
+                        <small>Moderado</small>
+                        <small>Severo</small>
+                        <small>Muy severo</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reference">
+                <p>Basado en la versión de 17 ítems recomendada por el Instituto Nacional de Salud Mental de los Estados Unidos</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Dark mode toggle button -->
+    <button class="dark-mode-toggle no-print" id="darkModeToggle">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="d-flex justify-content-center gap-3 mb-3 flex-wrap">
+                <button class="btn btn-primary btn-print no-print" onclick="imprimirDocumento()">
+                    <i class="fas fa-print"></i> Imprimir
+                </button>
+                <button class="btn btn-success btn-save no-print" onclick="guardarDocumento()">
+                    <i class="fas fa-save"></i> Guardar
+                </button>
+                <button class="btn btn-info btn-export no-print" onclick="exportarAWord()">
+                    <i class="fas fa-file-word"></i> Exportar a Word
+                </button>
+                <button class="btn btn-warning btn-next no-print" onclick="siguienteParte()">
+                    <i class="fas fa-arrow-right"></i> Siguiente Parte
+                </button>
+            </div>
+            <p><strong>[HCPE] v2.0 Premium® &copy; 2025 - [Historia Clínica Psiquiátrica Electrónica]</strong></p>
+            <p><strong>[Dr. Mauricio Villamandos / Ing. Fernando Gallardo]</strong></p>
+            <p><strong>Posadas, Misiones - Argentina</strong></p>
+            <div class="mt-3">
+                <small class="text-white-50">Versión 2.0.1 | Última actualización: 12/06/2025</small>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- FileSaver.js para exportar a Word -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    
+    <!-- Docx.js para generar documentos Word -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/7.1.0/docx.min.js"></script>
+
+    <!-- Chart.js para gráficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        // Inicializar tooltips de Bootstrap
+        document.addEventListener('DOMContentLoaded', function() {
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+            
+            // Mostrar progreso de completado
+            updateProgress();
+            
+            // Configurar eventos para actualizar progreso
+            const radioInputs = document.querySelectorAll('input[type="radio"]');
+            radioInputs.forEach(input => {
+                input.addEventListener('change', updateProgress);
+            });
+        });
+        
+        // Función para calcular la puntuación
+        document.getElementById('calculateBtn').addEventListener('click', function() {
+            let total = 0;
+            
+            // Sumar los valores de todos los ítems
+            for (let i = 1; i <= 17; i++) {
+                const selectedOption = document.querySelector(`input[name="item${i}"]:checked`);
+                if (selectedOption) {
+                    total += parseInt(selectedOption.value);
+                }
+            }
+            
+            // Mostrar el resultado
+            document.getElementById('totalScore').textContent = total;
+            document.getElementById('result').style.display = 'block';
+            
+            // Determinar la interpretación
+            let interpretation = "";
+            let severityClass = "";
+            
+            if (total <= 7) {
+                interpretation = "Normal - Sin depresión significativa";
+                severityClass = "bg-success";
+            } else if (total <= 16) {
+                interpretation = "Depresión leve";
+                severityClass = "bg-info";
+            } else if (total <= 23) {
+                interpretation = "Depresión moderada";
+                severityClass = "bg-warning";
+            } else if (total <= 35) {
+                interpretation = "Depresión severa";
+                severityClass = "bg-danger";
+            } else {
+                interpretation = "Depresión muy severa";
+                severityClass = "bg-dark";
+            }
+            
+            document.getElementById('interpretation').textContent = interpretation;
+            
+            // Actualizar la barra de severidad
+            const severityPercentage = Math.min(100, (total / 52) * 100);
+            const severityBar = document.getElementById('severityBar');
+            severityBar.style.width = severityPercentage + '%';
+            severityBar.className = 'progress-bar ' + severityClass;
+            
+            // Scroll suave al resultado
+            document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
+            
+            // Animación del resultado
+            document.getElementById('result').classList.add('animate__animated', 'animate__fadeInUp');
+        });
+        
+        // Función para actualizar la barra de progreso
+        function updateProgress() {
+            let answered = 0;
+            const totalItems = 17;
+            
+            for (let i = 1; i <= totalItems; i++) {
+                if (document.querySelector(`input[name="item${i}"]:checked`)) {
+                    answered++;
+                }
+            }
+            
+            const progressPercentage = (answered / totalItems) * 100;
+            const progressContainer = document.querySelector('.progress-container');
+            const progressBar = document.getElementById('progressBar');
+            
+            if (answered > 0) {
+                progressContainer.style.display = 'block';
+                progressBar.style.width = progressPercentage + '%';
+                
+                if (progressPercentage < 30) {
+                    progressBar.style.background = '#e74c3c';
+                } else if (progressPercentage < 70) {
+                    progressBar.style.background = '#f39c12';
+                } else {
+                    progressBar.style.background = '#2ecc71';
+                }
+            } else {
+                progressContainer.style.display = 'none';
+            }
+        }
+        
+        // Dark mode toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        darkModeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
+        
+        // Verificar preferencia de dark mode al cargar
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            document.body.classList.add('dark-mode');
+            darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+        
+        // Función para imprimir el documento
+        function imprimirDocumento() {
+            window.print();
+        }
+        
+        // Función para guardar el documento
+        function guardarDocumento() {
+            // Aquí puedes implementar la lógica para guardar en base de datos o localStorage
+            Swal.fire({
+                title: 'Documento guardado',
+                text: 'La evaluación ha sido guardada correctamente.',
+                icon: 'success',
+                confirmButtonText: 'Aceptar'
+            });
+        }
+        
+        // Función para exportar a Word
+        function exportarAWord() {
+            const { Document, Paragraph, TextRun, Packer } = docx;
+            
+            // Crear contenido del documento
+            const docContent = [];
+            
+            // Agregar título
+            docContent.push(
+                new Paragraph({
+                    children: [
+                        new TextRun({
+                            text: "Escala de Depresión de Hamilton (HDRS)",
+                            bold: true,
+                            size: 28,
+                        }),
+                    ],
+                    spacing: { after: 200 },
+                })
+            );
+            
+            // Agregar información del profesional
+            docContent.push(
+                new Paragraph({
+                    children: [
+                        new TextRun({
+                            text: "Dr. Mauricio Villamandos - Médico Especialista en Psiquiatría - MP: 07489",
+                            bold: true,
+                        }),
+                    ],
+                }),
+                new Paragraph({
+                    children: [
+                        new TextRun({
+                            text: "Posadas, Misiones – Argentina | infopsicodinamyc@gmail.com | Teléfono: 3765 041832",
+                        }),
+                    ],
+                    spacing: { after: 400 },
+                })
+            );
+            
+            // Agregar resultados
+            const totalScore = document.getElementById('totalScore').textContent;
+            const interpretation = document.getElementById('interpretation').textContent;
+            
+            docContent.push(
+                new Paragraph({
+                    children: [
+                        new TextRun({
+                            text: "Resultados de la Evaluación",
+                            bold: true,
+                            size: 22,
+                        }),
+                    ],
+                    spacing: { before: 400, after: 200 },
+                }),
+                new Paragraph({
+                    children: [
+                        new TextRun({
+                            text: `Puntuación total: ${totalScore}/52`,
+                            bold: true,
+                        }),
+                    ],
+                    spacing: { after: 100 },
+                }),
+                new Paragraph({
+                    children: [
+                        new TextRun({
+                            text: `Interpretación: ${interpretation}`,
+                        }),
+                    ],
+                    spacing: { after: 200 },
+                })
+            );
+            
+            // Agregar detalles de cada ítem
+            docContent.push(
+                new Paragraph({
+                    children: [
+                        new TextRun({
+                            text: "Detalle por Ítems",
+                            bold: true,
+                            size: 22,
+                        }),
+                    ],
+                    spacing: { before: 400, after: 200 },
+                })
+            );
+            
+            for (let i = 1; i <= 17; i++) {
+                const itemTitle = document.querySelector(`.item:nth-child(${i}) .item-title`).textContent;
+                const selectedOption = document.querySelector(`input[name="item${i}"]:checked`);
+                
+                if (selectedOption) {
+                    const optionText = selectedOption.nextElementSibling.textContent.trim();
+                    
+                    docContent.push(
+                        new Paragraph({
+                            children: [
+                                new TextRun({
+                                    text: `${i}. ${itemTitle}`,
+                                    bold: true,
+                                }),
+                            ],
+                            spacing: { before: 200 },
+                        }),
+                        new Paragraph({
+                            children: [
+                                new TextRun({
+                                    text: `Respuesta: ${optionText}`,
+                                }),
+                            ],
+                            indent: { left: 400 },
+                            spacing: { after: 100 },
+                        })
+                    );
+                }
+            }
+            
+            // Crear el documento
+            const doc = new Document({
+                sections: [{
+                    properties: {},
+                    children: docContent,
+                }],
+            });
+            
+            // Generar el archivo Word
+            Packer.toBlob(doc).then(blob => {
+                saveAs(blob, "HAM-D_Resultados.docx");
+            });
+        }
+        
+        // Función para ir a la siguiente parte
+        function siguienteParte() {
+            // Aquí puedes implementar la navegación a otra parte del formulario
+            Swal.fire({
+                title: 'Próximamente',
+                text: 'Esta funcionalidad estará disponible en la próxima actualización.',
+                icon: 'info',
+                confirmButtonText: 'Entendido'
+            });
+        }
+
+        // Dark mode toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        darkModeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                localStorage.setItem('darkMode', 'disabled');
+            }
+            
+            // Update chart colors for dark mode
+            updateChartColors();
+        });
+
+        // Check for dark mode preference
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            document.body.classList.add('dark-mode');
+            darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            updateChartColors();
+        }
+
+        // Update chart colors for dark mode
+        function updateChartColors() {
+            const isDarkMode = document.body.classList.contains('dark-mode');
+            
+            if (isDarkMode) {
+                bprsChart.options.scales.x.ticks.color = '#f0f0f0';
+                bprsChart.options.scales.y.ticks.color = '#f0f0f0';
+                bprsChart.options.scales.x.title.color = '#f0f0f0';
+                bprsChart.options.scales.y.title.color = '#f0f0f0';
+                bprsChart.options.plugins.legend.labels.color = '#f0f0f0';
+            } else {
+                bprsChart.options.scales.x.ticks.color = '#666';
+                bprsChart.options.scales.y.ticks.color = '#666';
+                bprsChart.options.scales.x.title.color = '#666';
+                bprsChart.options.scales.y.title.color = '#666';
+                bprsChart.options.plugins.legend.labels.color = '#666';
+            }
+            
+            bprsChart.update();
+        }
+
+        // Initialize
+        updateBPRS();
+    </script>
+
+    </script>
+    
+    <!-- SweetAlert2 para notificaciones bonitas -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+  const toggleBtn = document.getElementById('darkModeToggle');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const savedMode = localStorage.getItem('dark-mode');
+
+  if (savedMode === 'dark' || (!savedMode && prefersDark)) {
+    document.body.classList.add('dark-mode');
+  }
+
+  toggleBtn.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    const isDark = document.body.classList.contains('dark-mode');
+    localStorage.setItem('dark-mode', isDark ? 'dark' : 'light');
+  });
+</script>
+</body>
+</html>

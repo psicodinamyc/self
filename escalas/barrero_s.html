@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Evaluación del Riesgo Suicida - Barrero</title>
+    
+    <!-- Fuentes modernas -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Iconos modernos -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --secondary: #3f37c9;
+            --success: #4cc9f0;
+            --danger: #f72585;
+            --warning: #f8961e;
+            --info: #4895ef;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --white: #ffffff;
+            --bg-gradient: linear-gradient(135deg, #4361ee 0%, #3f37c9 100%);
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+            --card-shadow-hover: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Navbar moderna */
+        .navbar {
+            background: var(--bg-gradient);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 1rem 2rem;
+        }
+        
+        .navbar-brand img {
+            height: 40px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+        
+        .nav-link {
+            color: rgba(255,255,255,0.9);
+            font-weight: 500;
+            margin: 0 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+        
+        /* Header moderno */
+        .header {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            box-shadow: var(--card-shadow);
+            border-left: 4px solid var(--primary);
+        }
+        
+        .header h1 {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 2.2rem;
+        }
+        
+        .doctor-info {
+            background: rgba(67, 97, 238, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 3px solid var(--primary);
+        }
+        
+        /* Formulario moderno */
+        .form-section {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .form-section:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-shadow-hover);
+        }
+        
+        .form-section h1 {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 0.5rem;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+            background-color: #f9fafb;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+            background-color: var(--white);
+        }
+        
+        select.form-control {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%236c757d' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 16px 12px;
+            padding-right: 2.5rem;
+        }
+        
+        /* Tabla moderna */
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 2rem 0;
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+        }
+        
+        th {
+            background: var(--primary);
+            color: var(--white);
+            font-weight: 600;
+            padding: 1rem;
+            text-align: left;
+        }
+        
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #f0f0f0;
+            vertical-align: top;
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
+        
+        tr:hover {
+            background-color: rgba(67, 97, 238, 0.05);
+        }
+        
+        .question {
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .score-input {
+            padding: 0.5rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            background: var(--white);
+            font-weight: 600;
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+        
+        .score-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+        
+        /* Resultados */
+        .result-container {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: var(--card-shadow);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .result {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 1rem 0;
+            padding: 1.5rem;
+            border-radius: 10px;
+            width: 100%;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .result i {
+            font-size: 1.8rem;
+        }
+        
+        .low-risk {
+            background-color: rgba(76, 201, 240, 0.2);
+            color: #0a6b7e;
+            border-left: 5px solid var(--success);
+        }
+        
+        .medium-risk {
+            background-color: rgba(248, 150, 30, 0.2);
+            color: #8a4e0c;
+            border-left: 5px solid var(--warning);
+        }
+        
+        .high-risk {
+            background-color: rgba(247, 37, 133, 0.2);
+            color: #8a0a42;
+            border-left: 5px solid var(--danger);
+        }
+        
+        /* Botones modernos */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(67, 97, 238, 0.3);
+        }
+        
+        .btn-outline-primary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-outline-primary:hover {
+            background: var(--primary);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+        
+        /* Tarjetas de instrumentos */
+        .scales-toolbar {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .scales-toolbar .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+        
+        /* Sección de firma */
+        .signature-section {
+            margin: 3rem 0;
+            text-align: center;
+        }
+        
+        .signature-line {
+            width: 300px;
+            height: 1px;
+            background: #e0e0e0;
+            margin: 2rem auto;
+        }
+        
+        /* Footer moderno */
+        .footer {
+            background: var(--dark);
+            color: var(--white);
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        .footer .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .footer-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        /* Efectos modernos */
+        .hover-scale {
+            transition: transform 0.3s ease;
+        }
+        
+        .hover-scale:hover {
+            transform: scale(1.02);
+        }
+        
+        /* Animaciones */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-fade {
+            animation: fadeIn 0.5s ease forwards;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .scales-toolbar {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+        }
+        
+        /* Estilos para el modo oscuro */
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #121212;
+                color: #e0e0e0;
+            }
+            
+            .form-section, .header, table, .result-container {
+                background-color: #1e1e1e;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            }
+            
+            .form-control, select.form-control, .score-input {
+                background-color: #2d2d2d;
+                border-color: #444;
+                color: #e0e0e0;
+            }
+            
+            .form-control:focus, .score-input:focus {
+                background-color: #333;
+            }
+            
+            tr:nth-child(even) {
+                background-color: #252525;
+            }
+            
+            tr:hover {
+                background-color: rgba(67, 97, 238, 0.1);
+            }
+            
+            .question {
+                color: #f0f0f0;
+            }
+            
+            .footer {
+                background-color: #0a0a0a;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Navbar moderna -->
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <img alt="Logo" src="/images/logo.png"/> 
+                </a>
+                
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/index.html"><i class="ri-home-4-line"></i> Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><i class="ri-service-line"></i> Servicios</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><i class="ri-contacts-line"></i> Contacto</a>
+                        </li>
+                    </ul>
+                    <div class="d-flex flex-wrap gap-2">
+                        <a class="btn btn-outline-light btn-sm" href="https://wa.me/543625314001" target="_blank">
+                            <i class="ri-whatsapp-line"></i> WhatsApp
+                        </a>
+                        <a class="btn btn-outline-light btn-sm" href="https://www.facebook.com/mauricio.villamandos" target="_blank">
+                            <i class="ri-facebook-fill"></i>
+                        </a>
+                        <a class="btn btn-outline-light btn-sm" href="https://www.instagram.com/elperrofenrir/" target="_blank">
+                            <i class="ri-instagram-line"></i>
+                        </a>
+                        <a class="btn btn-outline-light btn-sm" href="https://twitter.com/tuusuario" target="_blank">
+                            <i class="ri-twitter-x-line"></i>
+                        </a>
+                        <a class="btn btn-outline-light btn-sm" href="https://www.linkedin.com/in/mauricio-villamandos-48b29a16a" target="_blank">
+                            <i class="ri-linkedin-fill"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Header moderno -->
+        <header class="header animate-fade">
+            <div class="text-center">
+                <h1>HCPE - Historia Clínica Psiquiátrica Electrónica</h1>
+                <div class="doctor-info">
+                    <p class="mb-1"><strong>Dr. Mauricio Villamandos - Médico Especialista en Psiquiatría - MP: 07489</strong></p>
+                    <p class="mb-0"><i class="ri-map-pin-line"></i> Posadas, Misiones – Argentina | <i class="ri-mail-line"></i> infopsicodinamyc@gmail.com | <i class="ri-phone-line"></i> Teléfono: 3765 041832</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Botonera de escalas moderna -->
+        <div class="scales-toolbar animate-fade">
+            <button class="btn btn-outline-primary" onclick="window.open('https://gonzalov85.github.io/Inventario-SCL-90-R/', '_blank')">
+                <i class="ri-clipboard-line"></i> SCL-90-R
+            </button>
+            <button class="btn btn-outline-primary" onclick="window.open('/escalas/ham_d.html', '_blank')">
+                <i class="ri-brain-line"></i> HAM-D
+            </button>
+            <button class="btn btn-outline-primary" onclick="window.open('/escalas/ham_a.html', '_blank')">
+                <i class="ri-brain-line"></i> HAM-A
+            </button>
+            <button class="btn btn-outline-primary" onclick="window.open('/escalas/moca.html', '_blank')">
+                <i class="ri-brain-line"></i> MoCA
+            </button>
+            <button class="btn btn-outline-primary" onclick="window.open('/escalas/mmse.html', '_blank')">
+                <i class="ri-brain-line"></i> MMSE
+            </button>
+            <button class="btn btn-outline-primary" onclick="window.open('/escalas/panss.html', '_blank')">
+                <i class="ri-brain-line"></i> PANSS
+            </button>
+            <button class="btn btn-outline-primary" onclick="window.open('escalas/whoqol_breef.html', '_blank')">
+                <i class="ri-brain-line"></i> WHOQOL-BREEF
+            </button>
+            <button class="btn btn-outline-primary active" onclick="window.open('escalas/barrero_s.html', '_blank')">
+                <i class="ri-mental-health-line"></i> Barrero/S
+            </button>
+            <button class="btn btn-outline-primary" onclick="window.open('/escalas/audit.html', '_blank')">
+                <i class="ri-brain-line"></i> AUDIT
+            </button>
+        </div>
+
+        <main>
+            <!-- Formulario moderno -->
+            <section class="form-section hover-scale animate-fade">
+                <h1><i class="ri-mental-health-line"></i> Escala de evaluación de riesgo suicida - [Barrero]</h1>
+                
+                <!-- Primera fila compacta -->
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label><i class="ri-map-pin-line"></i> Lugar de evaluación:</label>
+                        <input class="form-control" type="text"/>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="ri-calendar-line"></i> Fecha de evaluación:</label>
+                        <input class="form-control" type="date"/>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="ri-computer-line"></i> Modalidad:</label>
+                        <select class="form-control">
+                            <option value="">Presencial</option>
+                            <option value="virtual">Virtual</option>
+                            <option value="domicilio">Domicilio</option>
+                            <option value="urgencia">Urgencia</option>
+                            <option value="otros">Otros</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="ri-user-line"></i> Código del paciente:</label>
+                        <input class="form-control" type="text"/>
+                    </div>
+                </div>
+                
+                <!-- Datos personales agrupados -->
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label><i class="ri-user-3-line"></i> Nombre:</label>
+                        <input class="form-control" type="text"/>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="ri-user-3-line"></i> Apellido:</label>
+                        <input class="form-control" type="text"/>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="ri-id-card-line"></i> DNI:</label>
+                        <input class="form-control" type="text"/>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="ri-flag-line"></i> Nacionalidad:</label>
+                        <select class="form-control">
+                            <option value="">Seleccione...</option>
+                            <option value="Argentina">Argentino/a</option>
+                            <option value="Paraguay">Paraguayo/a</option>
+                            <option value="Brasil">Brasilero/a</option>
+                            <option value="Uruguay">Uruguayo/a</option>
+                            <option value="Otros">Otros</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Datos demográficos -->
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label><i class="ri-genderless-line"></i> Sexo/género:</label>
+                        <select class="form-control">
+                            <option value="">Seleccione...</option>
+                            <option value="masculino">Masculino</option>
+                            <option value="femenino">Femenino</option>
+                            <option value="otro">Otro</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="ri-calendar-event-line"></i> Fecha de nacimiento:</label>
+                        <input id="fecha-nacimiento" name="fecha-nacimiento" onchange="calcularEdad(this.value)" required="" type="date" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="ri-user-star-line"></i> Edad actual:</label>
+                        <input id="edad" name="edad" readonly="" type="text" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="ri-heart-line"></i> Estado civil:</label>
+                        <select class="form-control">
+                            <option value="">Seleccione...</option>
+                            <option value="soltero">Soltero</option>
+                            <option value="casado">Casado</option>
+                            <option value="viudo">Viudo</option>
+                            <option value="divorciado">Divorciado</option>
+                            <option value="concubinato">Concubinato</option>
+                            <option value="otros">Otros</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Información de contacto -->
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label><i class="ri-home-4-line"></i> Domicilio:</label>
+                        <input class="form-control" type="text"/>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="ri-mail-line"></i> C.P.:</label>
+                        <input class="form-control" type="text"/>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="ri-phone-line"></i> Celular:</label>
+                        <input class="form-control" type="tel"/>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="ri-mail-send-line"></i> Email:</label>
+                        <input class="form-control" type="email"/>
+                    </div>
+                </div>
+                
+                <!-- Información profesional y de salud -->
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label><i class="ri-briefcase-4-line"></i> Ocupación:</label>
+                        <input class="form-control" type="text"/>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="ri-graduation-cap-line"></i> Escolaridad:</label>
+                        <select class="form-control">
+                            <option value="">Seleccione...</option>
+                            <option value="primario">Primario</option>
+                            <option value="secundario">Secundario</option>
+                            <option value="terciario">Terciario</option>
+                            <option value="universitario">Universitario</option>
+                            <option value="otros">Otros</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="ri-heart-pulse-line"></i> Obra social:</label>
+                        <input class="form-control" type="text"/>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="ri-number-1"></i> Número:</label>
+                        <input class="form-control" type="text"/>
+                    </div>
+                </div>
+                
+                <!-- Contactos de referencia -->
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label><i class="ri-contacts-line"></i> Referente 1:</label>
+                        <input class="form-control" placeholder="nombre y apellido" type="text"/>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="ri-phone-line"></i> Contacto:</label>
+                        <input class="form-control" type="tel"/>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="ri-user-shared-line"></i> Relación:</label>
+                        <input class="form-control" type="text"/>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="ri-psychotherapy-line"></i> Psicólogo/a:</label>
+                        <input class="form-control" placeholder="nombre y apellido" type="text"/>
+                    </div>
+                </div>
+                
+                <!-- Observaciones con controles modernos -->
+                <div class="form-group">
+                    <label><i class="ri-edit-2-line"></i> Observaciones:</label>
+                    <textarea class="form-control" id="observaciones-generales" rows="4"></textarea>
+                    <div class="btn-group mt-2">
+                        <button class="btn btn-outline-primary" onclick="iniciarDictado('observaciones-generales')">
+                            <i class="ri-mic-line"></i> Dictar
+                        </button>
+                        <button class="btn btn-outline-primary" onclick="leer('observaciones-generales')">
+                            <i class="ri-volume-up-line"></i> Leer
+                        </button>
+                        <select class="form-control" id="vozSelect" style="max-width: 200px;">
+                            <option value="">Seleccionar voz...</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Sección de evaluación -->
+            <section class="form-section hover-scale animate-fade">
+                <h1><i class="ri-guide-line"></i> Guía práctica para evaluación del riesgo suicida</h1>
+                <p class="text-muted">Basado en estudios del Dr. Sergio Pérez Barrero y cols.</p>
+                <div class="alert alert-info" style="background: rgba(67, 97, 238, 0.1); border-left: 4px solid var(--primary); padding: 1rem;">
+                    <p><i class="ri-information-line"></i> Si bien no existe en la actualidad ningún instrumento de evaluación psicométrica que pueda predecir en un 100% el riesgo suicida de un paciente ya que estos se caracterizan por su imprevisibilidad muchas veces, algunos autores intentan abordar la problemática y diseñan algunas herramientas basándose en su experiencia clínica y estadísticas; además de algunos criterios que pueden ser de utilidad a la hora de evaluar a un paciente.</p>
+                </div>
+                
+                <h2><i class="ri-list-check-2"></i> Instrucciones:</h2>
+                <p>Para cada una de las siguientes preguntas, seleccione el puntaje correspondiente según la observación. El sistema calculará automáticamente el total.</p>
+                <div class="alert alert-warning" style="background: rgba(248, 150, 30, 0.1); border-left: 4px solid var(--warning); padding: 1rem;">
+                    <p><i class="ri-alert-line"></i> <strong>Nota importante:</strong> Si la suma de la puntuación de todos los ítems sobrepasa los <strong>18 puntos</strong> el sujeto debe ser trasladado a recibir atención psiquiátrica de urgencia ya que el peligro de suicidio es muy elevado.</p>
+                </div>
+                
+                <!-- Tabla moderna -->
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Pregunta</th>
+                                <th>Observación</th>
+                                <th>Puntaje</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="question">1) ¿Los familiares temen que el sujeto realice un intento de suicidio?</td>
+                                <td>Mediante esta pregunta se recabará cualquier conducta anómala o expresión verbal que haga sospechar a los familiares la posibilidad. Por su estrecha vinculación con las familias este aspecto es de fácil abordaje por los médicos de familia, aunque también por amigos íntimos, familiares y otros parientes.</td>
+                                <td>
+                                    <select class="score-input form-control" id="q1" onchange="calculateScore()">
+                                        <option value="0">0</option>
+                                        <option value="3">3</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="question">2) ¿Actitud poco colaboradora del sujeto durante la entrevista?</td>
+                                <td>La ambivalencia o el negativismo al entrevistar a un individuo con riesgo suicida es muy importante a tener en cuenta. En este ítem se propone no calificar la conducta del individuo en términos que pudieran ser poco usuales o desconocidos para el entrevistador.</td>
+                                <td>
+                                    <select class="score-input form-control" id="q2" onchange="calculateScore()">
+                                        <option value="0">0</option>
+                                        <option value="3">3</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="question">3) ¿El sujeto manifiesta deseos de morir?</td>
+                                <td>Si el sujeto coopera, puede manifestar tales deseos, lo cual denota inconformidad del mismo con su propia existencia y es el preludio de una futura ideación suicida.</td>
+                                <td>
+                                    <select class="score-input form-control" id="q3" onchange="calculateScore()">
+                                        <option value="0">0</option>
+                                        <option value="2">2</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="question">4) ¿El individuo manifiesta ideas suicidas?</td>
+                                <td>Mediante este ítem se intenta evaluar la presencia de ideas suicidas en el sujeto en el momento presente (el "aquí y ahora").</td>
+                                <td>
+                                    <select class="score-input form-control" id="q4" onchange="calculateScore()">
+                                        <option value="0">0</option>
+                                        <option value="4">4</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="question">5) ¿El sujeto expone un plan suicida?</td>
+                                <td>Evidentemente no es lo mismo tener deseos de morir o pensar en quitarse la vida sin precisar como hacerlo, que elaborar o planificar como llevarlo a vías de hecho, lo cual es de extrema gravead para la supervivencia de la persona.</td>
+                                <td>
+                                    <select class="score-input form-control" id="q5" onchange="calculateScore()">
+                                        <option value="0">0</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="question">6) ¿El individuo tiene antecedentes de trastornos psiquiátricos?</td>
+                                <td>Mediante este ítem se recaban los antecedentes patológicos personales de la enfermedad mental sin que el medico u otro personal paramédico o voluntario se enfrenten a la necesidad de realizar un diagnóstico psiquiátrico preciso.</td>
+                                <td>
+                                    <select class="score-input form-control" id="q6" onchange="calculateScore()">
+                                        <option value="0">0</option>
+                                        <option value="4">4</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="question">7) ¿El sujeto tiene antecedentes de hospitalización psiquiátrica reciente?</td>
+                                <td>Este ítem se tiene en cuenta debido a la frecuencia con que ocurre en los egresados de un servicio psiquiátrico, principalmente durante los primeros 6 meses.</td>
+                                <td>
+                                    <select class="score-input form-control" id="q7" onchange="calculateScore()">
+                                        <option value="0">0</option>
+                                        <option value="2">2</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="question">8) ¿El individuo tiene antecedentes de intento de suicidio?</td>
+                                <td>Es reconocido que entre el 1% a 2% de los sujetos que realizan un acto suicida, se suicidan durante el primer año y entre un 10% a 20% en el resto de sus vidas lo que justifica su inclusión en esta guía.</td>
+                                <td>
+                                    <select class="score-input form-control" id="q8" onchange="calculateScore()">
+                                        <option value="0">0</option>
+                                        <option value="3">3</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="question">9) ¿El sujeto tiene antecedentes familiares de conducta suicida?</td>
+                                <td>William Farr en 1841 sentenció: "No hay un hecho mejor establecido que el efecto imitativo en la conducta suicida" y en la actualidad se menciona el papel que juegan los medios de difusión masiva en la génesis del suicidio cuando esta temática no es bien tratada.</td>
+                                <td>
+                                    <select class="score-input form-control" id="q9" onchange="calculateScore()">
+                                        <option value="0">0</option>
+                                        <option value="3">3</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="question">10) ¿Presencia de un conflicto actual familiar o de pareja?</td>
+                                <td>Independientemente de que no son estos los únicos conflictos que pueden precipitar un intento de suicidio o un suicidio, las evidencias los consideran entre los más frecuentes en cualquier latitud y cultura.</td>
+                                <td>
+                                    <select class="score-input form-control" id="q10" onchange="calculateScore()">
+                                        <option value="0">0</option>
+                                        <option value="2">2</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Resultados con diseño moderno -->
+                <div class="result-container">
+                    <h3><i class="ri-bar-chart-2-line"></i> Resultados de la evaluación</h3>
+                    <div class="result" id="result">
+                        <i class="ri-calculator-line"></i> Puntuación total: <span id="totalScore">0</span> puntos
+                    </div>
+                    <div class="result low-risk" id="recommendation">
+                        <i class="ri-checkbox-circle-line"></i> Riesgo bajo: El paciente no presenta un riesgo suicida significativo según esta evaluación.
+                    </div>
+                    
+                    <div class="btn-group">
+                        <button class="btn btn-primary" onclick="printEvaluation()">
+                            <i class="ri-printer-line"></i> Imprimir Evaluación
+                        </button>
+                        <button class="btn btn-outline-primary" onclick="guardarDocumento()">
+                            <i class="ri-save-line"></i> Guardar
+                        </button>
+                        <button class="btn btn-outline-primary" onclick="exportarAWord()">
+                            <i class="ri-file-word-line"></i> Exportar
+                        </button>
+                    </div>
+                    
+                    <p class="text-muted mt-3"><i class="ri-information-line"></i> Nota: Este instrumento no sustituye el juicio clínico profesional. Siempre considere el contexto completo del paciente.</p>
+                </div>
+            </section>
+            
+            <!-- Sección de firma -->
+            <div class="signature-section">
+                <br/><br/><br/>
+                <div class="signature-line"></div>
+                <p>Firma y sello profesional</p>
+                <p><strong>Dr. Mauricio Villamandos</strong></p>
+                <p>Psiquiatra - M.P.: 07489</p>
+            </div>
+        </main>
+        
+        <!-- Footer moderno -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-buttons">
+                    <button class="btn btn-light" onclick="imprimirDocumento()">
+                        <i class="ri-printer-line"></i> Imprimir
+                    </button>
+                    <button class="btn btn-light" onclick="guardarDocumento()">
+                        <i class="ri-save-line"></i> Guardar
+                    </button>
+                    <button class="btn btn-light" onclick="exportarAWord()">
+                        <i class="ri-file-word-line"></i> Exportar a Word
+                    </button>
+                    <button class="btn btn-light" onclick="siguienteParte()">
+                        <i class="ri-arrow-right-line"></i> Loading...
+                    </button>
+                </div>
+                <p><strong>[HCPE]® v2.0 © 2025 - [Historia Clínica Psiquiátrica Electrónica]</strong></p>
+                <p><strong>Dr. Mauricio Villamandos / Ing. Fernando Gallardo</strong></p>
+                <p><strong>Posadas, Misiones- Argentina</strong></p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Función para calcular la edad
+        function calcularEdad(fechaNacimiento) {
+            const fechaNac = new Date(fechaNacimiento);
+            const hoy = new Date();
+            let edad = hoy.getFullYear() - fechaNac.getFullYear();
+            const mes = hoy.getMonth() - fechaNac.getMonth();
+            
+            if (mes < 0 || (mes === 0 && hoy.getDate() < fechaNac.getDate())) {
+                edad--;
+            }
+            
+            document.getElementById('edad').value = edad;
+        }
+        
+        // Función para calcular el puntaje
+        function calculateScore() {
+            let total = 0;
+            
+            // Sumar todos los valores seleccionados
+            for (let i = 1; i <= 10; i++) {
+                const value = parseInt(document.getElementById(`q${i}`).value);
+                total += value;
+            }
+            
+            // Actualizar el total
+            document.getElementById('totalScore').textContent = total;
+            
+            // Actualizar la recomendación según el puntaje
+            const recommendation = document.getElementById('recommendation');
+            
+            if (total === 0) {
+                recommendation.innerHTML = '<i class="ri-checkbox-circle-line"></i> Riesgo bajo: El paciente no presenta un riesgo suicida significativo según esta evaluación.';
+                recommendation.className = "result low-risk";
+            } else if (total <= 18) {
+                recommendation.innerHTML = '<i class="ri-alert-line"></i> Riesgo moderado: El paciente muestra algunos factores de riesgo que requieren atención y seguimiento.';
+                recommendation.className = "result medium-risk";
+            } else {
+                recommendation.innerHTML = '<i class="ri-error-warning-line"></i> RIESGO ALTO: El paciente debe ser trasladado a recibir atención psiquiátrica de urgencia. El peligro de suicidio es muy elevado (puntuación > 18).';
+                recommendation.className = "result high-risk";
+                
+                // Mostrar alerta de emergencia
+                showEmergencyAlert();
+            }
+        }
+        
+        // Función para mostrar alerta de emergencia
+        function showEmergencyAlert() {
+            const alertDiv = document.createElement('div');
+            alertDiv.style.position = 'fixed';
+            alertDiv.style.top = '20px';
+            alertDiv.style.right = '20px';
+            alertDiv.style.zIndex = '1000';
+            alertDiv.style.padding = '1rem';
+            alertDiv.style.borderRadius = '8px';
+            alertDiv.style.backgroundColor = 'rgba(247, 37, 133, 0.9)';
+            alertDiv.style.color = 'white';
+            alertDiv.style.boxShadow = '0 4px 20px rgba(247, 37, 133, 0.5)';
+            alertDiv.style.display = 'flex';
+            alertDiv.style.alignItems = 'center';
+            alertDiv.style.gap = '0.5rem';
+            alertDiv.style.animation = 'fadeIn 0.5s ease forwards';
+            
+            alertDiv.innerHTML = `
+                <i class="ri-alarm-warning-fill" style="font-size: 1.5rem;"></i>
+                <div>
+                    <strong>¡RIESGO SUICIDA ALTO!</strong><br>
+                    Se recomienda atención psiquiátrica inmediata.
+                </div>
+                <button onclick="this.parentElement.remove()" style="background: none; border: none; color: white; cursor: pointer; margin-left: 0.5rem;">
+                    <i class="ri-close-line"></i>
+                </button>
+            `;
+            
+            document.body.appendChild(alertDiv);
+            
+            // Sonido de alerta
+            playAlertSound();
+        }
+        
+        // Función para reproducir sonido de alerta
+        function playAlertSound() {
+            const audio = new Audio('data:audio/wav;base64,UklGRl9vT19XQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YU...');
+            audio.volume = 0.3;
+            audio.play().catch(e => console.log('No se pudo reproducir el sonido:', e));
+        }
+        
+        // Funciones de impresión y exportación
+        function printEvaluation() {
+            window.print();
+        }
+        
+        function guardarDocumento() {
+            // Aquí puedes implementar la lógica para guardar en base de datos o localStorage
+            showToast('Documento guardado correctamente', 'success');
+        }
+        
+        function exportarAWord() {
+            // Implementación simplificada para el ejemplo
+            showToast('Exportando a Word...', 'info');
+            setTimeout(() => showToast('Documento exportado correctamente', 'success'), 1500);
+        }
+        
+        function siguienteParte() {
+            showToast('Redirigiendo a la siguiente sección...', 'info');
+        }
+        
+        // Función para mostrar notificaciones tipo toast
+        function showToast(message, type) {
+            const toast = document.createElement('div');
+            toast.style.position = 'fixed';
+            toast.style.bottom = '20px';
+            toast.style.right = '20px';
+            toast.style.padding = '0.75rem 1.25rem';
+            toast.style.borderRadius = '8px';
+            toast.style.backgroundColor = type === 'success' ? 'rgba(76, 201, 240, 0.9)' : 
+                                          type === 'info' ? 'rgba(67, 97, 238, 0.9)' : 
+                                          'rgba(248, 150, 30, 0.9)';
+            toast.style.color = 'white';
+            toast.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
+            toast.style.display = 'flex';
+            toast.style.alignItems = 'center';
+            toast.style.gap = '0.5rem';
+            toast.style.zIndex = '1000';
+            toast.style.animation = 'fadeIn 0.3s ease forwards';
+            
+            toast.innerHTML = `
+                <i class="ri-${type === 'success' ? 'checkbox-circle-line' : type === 'info' ? 'information-line' : 'alert-line'}"></i>
+                ${message}
+            `;
+            
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = 'fadeOut 0.3s ease forwards';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+        
+        // Variables para reconocimiento de voz
+        let reconocimiento;
+        let vocesDisponibles = [];
+        
+        // Función para iniciar dictado
+        function iniciarDictado(idCampo) {
+            const campo = document.getElementById(idCampo);
+            window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        
+            if (!window.SpeechRecognition) {
+                showToast("Tu navegador no soporta reconocimiento de voz", 'warning');
+                return;
+            }
+        
+            reconocimiento = new SpeechRecognition();
+            reconocimiento.lang = 'es-ES';
+            reconocimiento.continuous = false;
+            reconocimiento.interimResults = false;
+        
+            reconocimiento.onresult = (event) => {
+                const resultado = event.results[0][0].transcript;
+                campo.value += (campo.value ? " " : "") + resultado;
+                showToast("Texto dictado correctamente", 'success');
+            };
+        
+            reconocimiento.onerror = (event) => {
+                console.error('Error en el reconocimiento de voz:', event.error);
+                showToast("Error en el reconocimiento de voz", 'warning');
+            };
+        
+            reconocimiento.start();
+            showToast("Escuchando... Habla ahora", 'info');
+        }
+        
+        // Función para cargar las voces disponibles
+        function cargarVoces() {
+            vocesDisponibles = window.speechSynthesis.getVoices();
+            const select = document.getElementById("vozSelect");
+            select.innerHTML = '';
+            
+            const opcionDefault = document.createElement("option");
+            opcionDefault.value = "";
+            opcionDefault.textContent = "Seleccionar voz...";
+            select.appendChild(opcionDefault);
+            
+            vocesDisponibles.forEach((voz, i) => {
+                const option = document.createElement("option");
+                option.value = i;
+                option.textContent = `${voz.name} (${voz.lang})`;
+                select.appendChild(option);
+            });
+        }
+        
+        // Evento cuando las voces cambian
+        window.speechSynthesis.onvoiceschanged = cargarVoces;
+        
+        // Función para leer texto
+        function leer(idCampo) {
+            const texto = document.getElementById(idCampo).value;
+            if (!texto.trim()) {
+                showToast("El campo está vacío", 'warning');
+                return;
+            }
+        
+            const mensaje = new SpeechSynthesisUtterance(texto);
+            const vozSeleccionada = document.getElementById("vozSelect").value;
+            
+            if (vozSeleccionada && vocesDisponibles[vozSeleccionada]) {
+                mensaje.voice = vocesDisponibles[vozSeleccionada];
+                mensaje.lang = vocesDisponibles[vozSeleccionada].lang;
+            } else {
+                // Buscar una voz en español por defecto
+                const vozEspanol = vocesDisponibles.find(voz => voz.lang.includes('es'));
+                if (vozEspanol) {
+                    mensaje.voice = vozEspanol;
+                    mensaje.lang = vozEspanol.lang;
+                }
+            }
+            
+            window.speechSynthesis.speak(mensaje);
+            showToast("Leyendo texto...", 'info');
+        }
+        
+        // Cargar voces al inicio
+        document.addEventListener('DOMContentLoaded', cargarVoces);
+        
+        // Animación de entrada para los elementos
+        document.addEventListener('DOMContentLoaded', () => {
+            const elements = document.querySelectorAll('.animate-fade');
+            elements.forEach((el, index) => {
+                el.style.opacity = '0';
+                setTimeout(() => {
+                    el.style.animation = 'fadeIn 0.5s ease forwards';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>
