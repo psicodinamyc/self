@@ -232,6 +232,44 @@
     </style>
 </head>
 
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark shadow sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="/images/index_logo.png" alt="Logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="/index.html">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Servicios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
+                </ul>
+                <div class="d-flex flex-wrap gap-2">
+                    <a href="https://wa.me/543625314001" class="btn btn-success btn-sm" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                    <a href="https://facebook.com/mauricio.villamandos" class="btn btn-primary btn-sm" target="_blank"><i class="fab fa-facebook-f"></i> Facebook</a>
+                    <a href="https://www.instagram.com/elperrofenrir/" class="btn btn-danger btn-sm" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+                    <a href="https://twitter.com/tuusuario" class="btn btn-dark btn-sm" target="_blank"><i class="fab fa-x-twitter"></i> X</a>
+                    <a href="https://linkedin.com/in/mauricio-villamandos-48b29a16a" class="btn btn-info btn-sm" target="_blank"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="bg-light py-4 mb-4 border-bottom">
+        <div class="container text-center">
+            <h1 class="display-5 fw-bold">Cuestionario DAST</h1>
+            <div class="doctor-info">
+                <p class="mb-1"><strong>Dr. Mauricio Villamandos - Médico Especialista en Psiquiatría - MP: 07489</strong></p>
+                <p class="mb-0"><strong>Santa Ana, Corrientes – Argentina | infopsicodinamyc@gmail.com | Teléfono: 3765 041832</strong></p>
+            </div>
+        </div>
+    </header>
+
 <body class="bg-light">
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -728,22 +766,37 @@
     document.getElementById("print-date").textContent = document.getElementById("patientDate").value;
 }
 
-document.getElementById("print-btn").addEventListener("click", updatePrintableData);
+    document.getElementById("print-btn").addEventListener("click", updatePrintableData);
 
     </script>
+    
     <div class="container mt-5 d-print-block">
-    <hr>
-    <div class="row">
-        <div class="col-md-6">
-            <p><strong>Paciente:</strong> <span id="print-name"></span></p>
-            <p><strong>DNI:</strong> <span id="print-dni"></span></p>
-            <p><strong>Fecha:</strong> <span id="print-date"></span></p>
-        </div>
-        <div class="col-md-6 text-end">
-            <p><strong>Firma profesional:</strong></p>
-            <div style="border-top: 1px solid #000; width: 60%; margin-left: auto;"></div>
+        <hr>
+        <div class="row">
+            <div class="col-md-6">
+                <p><strong>Paciente:</strong> <span id="print-name"></span></p>
+                <p><strong>DNI:</strong> <span id="print-dni"></span></p>
+                <p><strong>Fecha:</strong> <span id="print-date"></span></p>
+            </div>
+            <div class="col-md-6 text-end">
+                <p><strong>Firma profesional:</strong></p>
+                <div style="border-top: 1px solid #000; width: 60%; margin-left: auto;"></div>
+            </div>
         </div>
     </div>
-</div>
+
+    <!-- Dark mode toggle button -->
+    <button class="dark-mode-toggle no-print" id="darkModeToggle" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; background: #2c3e50; color: white; border: none; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,0.2); transition: all 0.3s ease;">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <footer class="bg-dark text-white py-3 mt-auto text-center">
+        <div class="container">
+            <p class="mb-1 small"><strong>[HCPE] v2.0® &copy; 2025 - [Historia Clínica Psiquiátrica Electrónica]</strong></p>
+            <p class="mb-0 small"><strong>Dr. Mauricio Villamandos</strong></p>
+            <p class="mb-2 small"><strong>Santa Ana, Corrientes - Argentina</strong></p>
+        </div>
+    </footer>
+
 </body>
 </html>
