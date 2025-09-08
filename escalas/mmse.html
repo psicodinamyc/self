@@ -1,107 +1,246 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Mini Examen del Estado Mental (MMSE)</title>
-<style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Examen del Estado Mental (MMSE) - HCPE</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <style>
         body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            color: #333;
+            font-family: 'EB Garamond', serif;
+            background: linear-gradient(135deg, #dbe6f6, #727b88);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
-        h1 {
-            color: #2c3e50;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 5px;
-            text-align: center;
+        
+        /* Navbar styling to match main project */
+        .navbar {
+            backdrop-filter: blur(10px);
+            background-color: rgba(0, 0, 0, 0.6) !important;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
+        .navbar-brand img {
+            max-height: 40px;
+            transition: transform 0.4s ease-in-out;
+        }
+        .navbar-brand img:hover {
+            transform: scale(1.1);
+        }
+        
+        .main-container {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+            margin: 2rem auto;
+            max-width: 1000px;
+            padding: 2rem;
+        }
+        
         .header-info {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
             margin-bottom: 20px;
+            background-color: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            border-left: 4px solid #0d6efd;
         }
+        
         .header-info div {
             margin-bottom: 10px;
         }
+        
         table {
             width: 100%;
             border-collapse: collapse;
             margin: 20px 0;
         }
+        
         th, td {
             border: 1px solid #ddd;
-            padding: 8px;
+            padding: 12px;
             text-align: left;
         }
+        
         th {
-            background-color: #f2f2f2;
+            background-color: #0d6efd;
+            color: white;
+            font-weight: 600;
         }
+        
         .section-title {
             font-weight: bold;
-            background-color: #f2f2f2;
+            background-color: #e9ecef;
+            color: #0d6efd;
         }
+        
         .score-input {
-            width: 40px;
+            width: 60px;
             text-align: center;
+            border: 1px solid #ced4da;
+            border-radius: 0.375rem;
+            padding: 0.375rem;
         }
+        
         .result {
             font-size: 1.2em;
             font-weight: bold;
             margin: 20px 0;
-            padding: 15px;
-            border-radius: 5px;
+            padding: 20px;
+            border-radius: 0.5rem;
             text-align: center;
         }
+        
         .normal {
             background-color: #d4edda;
             color: #155724;
+            border: 1px solid #c3e6cb;
         }
+        
         .suspicious {
             background-color: #fff3cd;
             color: #856404;
+            border: 1px solid #ffeaa7;
         }
+        
         .abnormal {
             background-color: #f8d7da;
             color: #721c24;
+            border: 1px solid #f5c6cb;
         }
-        button {
-            background-color: #3498db;
-            color: white;
+        
+        .btn-calculate {
+            background: linear-gradient(45deg, #007bff, #0e77e0);
             border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
+            color: white;
+            padding: 12px 30px;
             font-size: 16px;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             display: block;
             margin: 20px auto;
         }
-        button:hover {
-            background-color: #2980b9;
+        
+        .btn-calculate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            background: linear-gradient(45deg, #519eef, #393636);
         }
+        
         .note {
             font-style: italic;
-            color: #666;
+            color: #6c757d;
             text-align: center;
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border-left: 4px solid #6c757d;
         }
+        
         .two-columns {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
         }
+        
         .centered {
             text-align: center;
+        }
+        
+        .form-section {
+            background-color: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            border-left: 4px solid #0d6efd;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-section h3 {
+            color: #0d6efd;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        /* Dark mode styles */
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: #2c3e50;
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .dark-mode-toggle:hover {
+            transform: scale(1.1);
         }
     </style>
 </head>
 <body>
-<div class="container my-5">
-<h1>MINI MENTAL STATE EXAMINATION (MMSE)</h1>
-<p class="centered"><strong>Basado en Foistein et al. (1975), Lobo et al. (1979)</strong></p>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark shadow sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="/images/index_logo.png" alt="Logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="/index.html">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Servicios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
+                </ul>
+                <div class="d-flex flex-wrap gap-2">
+                    <a href="https://wa.me/543625314001" class="btn btn-success btn-sm" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                    <a href="https://facebook.com/mauricio.villamandos" class="btn btn-primary btn-sm" target="_blank"><i class="fab fa-facebook-f"></i> Facebook</a>
+                    <a href="https://www.instagram.com/elperrofenrir/" class="btn btn-danger btn-sm" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+                    <a href="https://twitter.com/tuusuario" class="btn btn-dark btn-sm" target="_blank"><i class="fab fa-x-twitter"></i> X</a>
+                    <a href="https://linkedin.com/in/mauricio-villamandos-48b29a16a" class="btn btn-info btn-sm" target="_blank"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="bg-light py-4 mb-4 border-bottom">
+        <div class="container text-center">
+            <h1 class="display-5 fw-bold">Mini Examen del Estado Mental (MMSE)</h1>
+            <div class="doctor-info">
+                <p class="mb-1"><strong>Dr. Mauricio Villamandos - Médico Especialista en Psiquiatría - MP: 07489</strong></p>
+                <p class="mb-0"><strong>Santa Ana, Corrientes – Argentina | infopsicodinamyc@gmail.com | Teléfono: 3765 041832</strong></p>
+            </div>
+        </div>
+    </header>
+
+    <div class="container main-container">
+        <div class="text-center mb-4">
+            <p class="centered"><strong>Basado en Foistein et al. (1975), Lobo et al. (1979)</strong></p>
+        </div>
 <div class="header-info">
 <div>
 <strong>NOMBRE:</strong> <input style="width: 200px;" type="text"/><br/>
@@ -450,119 +589,183 @@
         // Calcular puntuación inicial
         calculateScore();
     </script>
-</div>
+    
+    <div class="form-section">
+        <p><strong>Dibujo del paciente (subir o escanear):</strong></p>
+        <input type="file" class="form-control" id="drawingUpload" accept="image/*" onchange="previewDrawing()" />
+        <div class="text-center mt-3">
+            <img id="drawingPreview" style="max-width: 100%; max-height: 300px; border: 1px solid #ddd; border-radius: 0.375rem;" />
+        </div>
+    </div>
 
-<div style="margin-top: 30px;">
-    <p><strong>Dibujo del paciente (subir o escanear):</strong></p>
-    <input type="file" id="drawingUpload" accept="image/*" onchange="previewDrawing()" />
-    <div><img id="drawingPreview" style="max-width: 100%; max-height: 300px;" /></div>
-</div>
+    <div class="form-section">
+        <p><strong>Firma del profesional:</strong></p>
+        <div class="text-center">
+            <canvas id="signature-pad" width="400" height="150" style="border:2px solid #0d6efd; border-radius: 0.375rem;"></canvas><br>
+            <button type="button" class="btn btn-secondary mt-2" onclick="clearSignature()">
+                <i class="fas fa-eraser"></i> Borrar firma
+            </button>
+        </div>
+    </div>
 
-<div style="margin-top: 30px;">
-    <p><strong>Firma del profesional:</strong></p>
-    <canvas id="signature-pad" width="300" height="100" style="border:1px solid #ccc;"></canvas><br>
-    <button type="button" onclick="clearSignature()">Borrar firma</button>
-</div>
+    <div class="text-center mb-4">
+        <button class="btn btn-primary me-2" onclick="exportToWord()">
+            <i class="fas fa-file-word"></i> Exportar a Word
+        </button>
+        <button class="btn btn-danger me-2" onclick="exportToPDF()">
+            <i class="fas fa-file-pdf"></i> Exportar a PDF
+        </button>
+        <button class="btn btn-success" onclick="printEvaluation()">
+            <i class="fas fa-print"></i> Imprimir
+        </button>
+    </div>
+    </div>
 
-<div style="text-align:center; margin-top: 20px;">
-    <button onclick="exportToWord()">Exportar a Word</button>
-    <button onclick="exportToPDF()">Exportar a PDF</button>
-</div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-<script>
-function previewDrawing() {
-    const fileInput = document.getElementById('drawingUpload');
-    const preview = document.getElementById('drawingPreview');
-    if (fileInput.files && fileInput.files[0]) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            preview.src = e.target.result;
-        };
-        reader.readAsDataURL(fileInput.files[0]);
-    }
-}
-const canvas = document.getElementById('signature-pad');
-const ctx = canvas.getContext('2d');
-let drawing = false;
-canvas.addEventListener('mousedown', startDraw);
-canvas.addEventListener('mousemove', draw);
-canvas.addEventListener('mouseup', endDraw);
-canvas.addEventListener('mouseleave', endDraw);
-canvas.addEventListener('touchstart', (e) => startDraw(e.touches[0]));
-canvas.addEventListener('touchmove', (e) => { e.preventDefault(); draw(e.touches[0]); });
-canvas.addEventListener('touchend', endDraw);
-function startDraw(e) {
-    drawing = true;
-    ctx.beginPath();
-    ctx.moveTo(e.offsetX ?? e.clientX - canvas.getBoundingClientRect().left,
-               e.offsetY ?? e.clientY - canvas.getBoundingClientRect().top);
-}
-function draw(e) {
-    if (!drawing) return;
-    ctx.lineTo(e.offsetX ?? e.clientX - canvas.getBoundingClientRect().left,
-               e.offsetY ?? e.clientY - canvas.getBoundingClientRect().top);
-    ctx.stroke();
-}
-function endDraw() { drawing = false; }
-function clearSignature() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
+    <!-- Dark mode toggle button -->
+    <button class="dark-mode-toggle no-print" id="darkModeToggle">
+        <i class="fas fa-moon"></i>
+    </button>
 
-function exportToWord() {
-    const name = document.querySelector('input[type="text"]').value || "Paciente";
-    const date = document.querySelector('input[type="date"]').value;
-    const score = document.getElementById('totalScore').textContent;
-    const interpretation = document.getElementById('interpretation').textContent;
-    const drawingImage = document.getElementById('drawingPreview').src;
-    const signatureImage = canvas.toDataURL("image/png");
-    let html = "<html><head><meta charset='utf-8'><title>MMSE</title></head><body>";
-    html += "<h2>Mini Mental State Examination (MMSE)</h2>";
-    html += `<p><strong>Nombre:</strong> ${name}</p>`;
-    html += `<p><strong>Fecha:</strong> ${date}</p>`;
-    html += `<p><strong>Puntuación total:</strong> ${score}/30</p>`;
-    html += `<p><strong>Interpretación:</strong> ${interpretation}</p>`;
-    if (drawingImage && drawingImage.startsWith("data:image")) {
-        html += `<p><strong>Dibujo copiado:</strong><br><img src="${drawingImage}" style="max-width:100%;"></p>`;
-    }
-    html += `<p><strong>Firma digital:</strong><br><img src="${signatureImage}" style="max-width:300px;"></p>`;
-    html += "</body></html>";
-    const blob = new Blob(['﻿', html], { type: 'application/msword' });
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = `MMSE_${name}.doc`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-}
+    <footer class="bg-dark text-white py-3 mt-auto text-center">
+        <div class="container">
+            <p class="mb-1 small"><strong>[HCPE] v2.0® &copy; 2025 - [Historia Clínica Psiquiátrica Electrónica]</strong></p>
+            <p class="mb-0 small"><strong>Dr. Mauricio Villamandos</strong></p>
+            <p class="mb-2 small"><strong>Santa Ana, Corrientes - Argentina</strong></p>
+        </div>
+    </footer>
 
-function exportToPDF() {
-    const content = document.createElement('div');
-    content.innerHTML = `
-        <h2 style="text-align:center;">Mini Mental State Examination (MMSE)</h2>
-        <p><strong>Nombre:</strong> ${document.querySelector('input[type="text"]').value}</p>
-        <p><strong>Fecha:</strong> ${document.querySelector('input[type="date"]').value}</p>
-        <p><strong>Puntuación total:</strong> ${document.getElementById('totalScore').textContent}/30</p>
-        <p><strong>Interpretación:</strong> ${document.getElementById('interpretation').textContent}</p>`;
-    const drawImg = document.getElementById('drawingPreview').src;
-    if (drawImg && drawImg.startsWith("data:image")) {
-        const img = document.createElement('img');
-        img.src = drawImg;
-        img.style.maxWidth = '100%';
-        content.appendChild(document.createElement('p')).textContent = 'Dibujo del paciente:';
-        content.appendChild(img);
-    }
-    const sigImg = new Image();
-    sigImg.src = canvas.toDataURL("image/png");
-    sigImg.style.maxWidth = '300px';
-    content.appendChild(document.createElement('p')).textContent = 'Firma del profesional:';
-    content.appendChild(sigImg);
-    html2pdf().set({
-        margin: 10,
-        filename: `MMSE_${Date.now()}.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    }).from(content).save();
-}
-</script>
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+    <script>
+        function previewDrawing() {
+            const fileInput = document.getElementById('drawingUpload');
+            const preview = document.getElementById('drawingPreview');
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        }
+        
+        const canvas = document.getElementById('signature-pad');
+        const ctx = canvas.getContext('2d');
+        let drawing = false;
+        
+        canvas.addEventListener('mousedown', startDraw);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', endDraw);
+        canvas.addEventListener('mouseleave', endDraw);
+        canvas.addEventListener('touchstart', (e) => startDraw(e.touches[0]));
+        canvas.addEventListener('touchmove', (e) => { e.preventDefault(); draw(e.touches[0]); });
+        canvas.addEventListener('touchend', endDraw);
+        
+        function startDraw(e) {
+            drawing = true;
+            ctx.beginPath();
+            ctx.moveTo(e.offsetX ?? e.clientX - canvas.getBoundingClientRect().left,
+                       e.offsetY ?? e.clientY - canvas.getBoundingClientRect().top);
+        }
+        
+        function draw(e) {
+            if (!drawing) return;
+            ctx.lineTo(e.offsetX ?? e.clientX - canvas.getBoundingClientRect().left,
+                       e.offsetY ?? e.clientY - canvas.getBoundingClientRect().top);
+            ctx.stroke();
+        }
+        
+        function endDraw() { drawing = false; }
+        function clearSignature() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
+
+        function exportToWord() {
+            const name = document.querySelector('input[type="text"]').value || "Paciente";
+            const date = document.querySelector('input[type="date"]').value;
+            const score = document.getElementById('totalScore').textContent;
+            const interpretation = document.getElementById('interpretation').textContent;
+            const drawingImage = document.getElementById('drawingPreview').src;
+            const signatureImage = canvas.toDataURL("image/png");
+            
+            let html = "<html><head><meta charset='utf-8'><title>MMSE - HCPE</title></head><body>";
+            html += "<h2>Mini Mental State Examination (MMSE)</h2>";
+            html += "<p><strong>Dr. Mauricio Villamandos - MP: 07489</strong></p>";
+            html += "<p><strong>Santa Ana, Corrientes - Argentina</strong></p>";
+            html += `<p><strong>Nombre:</strong> ${name}</p>`;
+            html += `<p><strong>Fecha:</strong> ${date}</p>`;
+            html += `<p><strong>Puntuación total:</strong> ${score}/30</p>`;
+            html += `<p><strong>Interpretación:</strong> ${interpretation}</p>`;
+            if (drawingImage && drawingImage.startsWith("data:image")) {
+                html += `<p><strong>Dibujo copiado:</strong><br><img src="${drawingImage}" style="max-width:100%;"></p>`;
+            }
+            html += `<p><strong>Firma digital:</strong><br><img src="${signatureImage}" style="max-width:300px;"></p>`;
+            html += "</body></html>";
+            
+            const blob = new Blob(['﻿', html], { type: 'application/msword' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `MMSE_${name}.doc`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function exportToPDF() {
+            const content = document.createElement('div');
+            content.innerHTML = `
+                <h2 style="text-align:center;">Mini Mental State Examination (MMSE)</h2>
+                <p><strong>Dr. Mauricio Villamandos - MP: 07489</strong></p>
+                <p><strong>Santa Ana, Corrientes - Argentina</strong></p>
+                <p><strong>Nombre:</strong> ${document.querySelector('input[type="text"]').value}</p>
+                <p><strong>Fecha:</strong> ${document.querySelector('input[type="date"]').value}</p>
+                <p><strong>Puntuación total:</strong> ${document.getElementById('totalScore').textContent}/30</p>
+                <p><strong>Interpretación:</strong> ${document.getElementById('interpretation').textContent}</p>`;
+                
+            const drawImg = document.getElementById('drawingPreview').src;
+            if (drawImg && drawImg.startsWith("data:image")) {
+                const img = document.createElement('img');
+                img.src = drawImg;
+                img.style.maxWidth = '100%';
+                content.appendChild(document.createElement('p')).textContent = 'Dibujo del paciente:';
+                content.appendChild(img);
+            }
+            
+            const sigImg = new Image();
+            sigImg.src = canvas.toDataURL("image/png");
+            sigImg.style.maxWidth = '300px';
+            content.appendChild(document.createElement('p')).textContent = 'Firma del profesional:';
+            content.appendChild(sigImg);
+            
+            html2pdf().set({
+                margin: 10,
+                filename: `MMSE_${Date.now()}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            }).from(content).save();
+        }
+
+        // Dark mode toggle
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        darkModeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
+
+        // Check for dark mode preference
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            document.body.classList.add('dark-mode');
+            darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+    </script>
 
 </body>
 </html>
