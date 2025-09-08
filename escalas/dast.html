@@ -202,6 +202,8 @@
             margin-bottom: 1.5rem;
         }
     </style>
+    <!-- Common CSS -->
+    <link rel="stylesheet" href="../css/common.css">
 </head>
 
 <body class="bg-light">
@@ -551,30 +553,9 @@
                             <i class="bi bi-arrow-counterclockwise"></i> Reiniciar
                         </button>
                     </div>
-                     <footer class="footer">
-        <div class="container">
-            <div class="d-flex justify-content-center gap-3 mb-3">
-                <button class="btn btn-primary btn-print no-print" onclick="imprimirDocumento()">
-                    <i class="fas fa-print"></i> Imprimir
-                </button>
-                <button class="btn btn-success btn-save no-print" onclick="guardarDocumento()">
-                    <i class="fas fa-save"></i> Guardar
-                </button>
-                <button class="btn btn-info btn-export no-print" onclick="exportarAWord()">
-                    <i class="fas fa-file-word"></i> Exportar a Word
-                </button>
-                <button class="btn btn-warning btn-next no-print" onclick="siguienteParte()">
-                    <i class="fas fa-arrow-right"></i> Siguiente Parte
-                </button>
-            </div>
-            
-            <div>
-            <p><strong>[HCPE] v2.0® &copy; 2025 - [Historia Clínica Psiquiátrica Electrónica]</strong></p>
-            <p><strong>[Dr. Mauricio Villamandos / Ing. Fernando Gallardo]</strong></p>
-            <p><strong>Posadas, Misiones - Argentina</strong></p>
-            </div>
-        </div>
-    </footer>
+                             <!-- Footer -->
+    <div id="footer-container"></div>
+    <div id="footer-container"></div>
                 </div>
             </div>
         </div>
@@ -717,5 +698,8 @@ document.getElementById("print-btn").addEventListener("click", updatePrintableDa
         </div>
     </div>
 </div>
+
+    <!-- Common JS -->
+    <script src="../js/common.js"></script>
 </body>
 </html>

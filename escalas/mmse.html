@@ -97,8 +97,17 @@
             text-align: center;
         }
     </style>
+    <!-- Common CSS -->
+    <link rel="stylesheet" href="../css/common.css">
 </head>
 <body>
+    <!-- Navbar -->
+    <div id="navbar-container"></div>
+
+    <!-- Header -->
+    <div id="header-container"></div>
+
+    
 <div class="container my-5">
 <h1>MINI MENTAL STATE EXAMINATION (MMSE)</h1>
 <p class="centered"><strong>Basado en Foistein et al. (1975), Lobo et al. (1979)</strong></p>
@@ -513,7 +522,9 @@ function exportToWord() {
     const interpretation = document.getElementById('interpretation').textContent;
     const drawingImage = document.getElementById('drawingPreview').src;
     const signatureImage = canvas.toDataURL("image/png");
-    let html = "<html><head><meta charset='utf-8'><title>MMSE</title></head><body>";
+    let html = "<html><head><meta charset='utf-8'><title>MMSE</title>    <!-- Common CSS -->
+    <link rel="stylesheet" href="../css/common.css">
+</head><body>";
     html += "<h2>Mini Mental State Examination (MMSE)</h2>";
     html += `<p><strong>Nombre:</strong> ${name}</p>`;
     html += `<p><strong>Fecha:</strong> ${date}</p>`;
@@ -523,7 +534,10 @@ function exportToWord() {
         html += `<p><strong>Dibujo copiado:</strong><br><img src="${drawingImage}" style="max-width:100%;"></p>`;
     }
     html += `<p><strong>Firma digital:</strong><br><img src="${signatureImage}" style="max-width:300px;"></p>`;
-    html += "</body></html>";
+    html += "
+    <!-- Common JS -->
+    <script src="../js/common.js"></script>
+</body></html>";
     const blob = new Blob(['﻿', html], { type: 'application/msword' });
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
@@ -564,5 +578,8 @@ function exportToPDF() {
 }
 </script>
 
+
+    <!-- Common JS -->
+    <script src="../js/common.js"></script>
 </body>
 </html>

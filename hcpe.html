@@ -8,8 +8,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;700&family=Consolas&display=swap" rel="stylesheet">
+    <!-- Common CSS -->
+    <link rel="stylesheet" href="/css/common.css">
     <!-- Custom CSS -->
-     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
     <style>
         body {
             font-family: 'EB Garamond', serif;
@@ -156,64 +160,10 @@
 <body>
     
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-               
-
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/index.html">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Servicios</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contacto</a>
-                    </li>
-                </ul>
-                <div class="d-flex flex-wrap gap-2">
-                    <a href="https://wa.me/543625314001?text=Hola%20Dr.%20Villamandos%2C%20quisiera%20hacer%20una%20consulta" 
-                       target="_blank" class="btn btn-success btn-sm">
-                        <i class="fab fa-whatsapp"></i> WhatsApp
-                    </a>
-                    <a href="https://www.facebook.com/mauricio.villamandos?locale=es_LA" 
-                       target="_blank" class="btn btn-primary btn-sm">
-                        <i class="fab fa-facebook-f"></i> Facebook
-                    </a>
-                    <a href="https://www.instagram.com/elperrofenrir/" 
-                       target="_blank" class="btn btn-danger btn-sm">
-                        <i class="fab fa-instagram"></i> Instagram
-                    </a>
-                    <a href="https://twitter.com/tuusuario" 
-                       target="_blank" class="btn btn-dark btn-sm">
-                        <i class="fab fa-x-twitter"></i> X
-                    </a>
-                    <a href="https://www.linkedin.com/in/mauricio-villamandos-48b29a16a" 
-                       target="_blank" class="btn btn-info btn-sm">
-                        <i class="fab fa-linkedin-in"></i> LinkedIn
-                    </a>
-                    
-                </div>
-            </div>
-        </div>
-    </nav>
+    <div id="navbar-container"></div>
 
     <!-- Header -->
-    <header class="bg-light py-4 mb-4 border-bottom">
-        <div class="container text-center">
-            <h1 class="display-5 fw-bold">HCPE - Historia Clínica Psiquiátrica</h1>
-            <div class="doctor-info">
-                <p class="mb-1"><strong>Dr. Mauricio Villamandos - Médico Especialista en Psiquiatría - MP: 07489</strong></p>
-                <p class="mb-0"><strong>Santa Ana, Corrientes – Argentina | infopsicodinamyc@gmail.com | Teléfono: 3765 041832</strong></p>
-            </div>
-        </div>
-    </header>
+    <div id="header-container"></div>
     
     <!-- Botonera de escalas e instrumentos -->
     <div class="container scales-toolbar no-print">
@@ -1737,30 +1687,8 @@
         </div>
     </main>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="d-flex justify-content-center gap-3 mb-3">
-                <button class="btn btn-primary btn-print no-print" onclick="imprimirDocumento()">
-                    <i class="fas fa-print"></i> Imprimir
-                </button>
-                <button class="btn btn-success btn-save no-print" onclick="guardarDocumento()">
-                    <i class="fas fa-save"></i> Guardar
-                </button>
-                <button class="btn btn-info btn-export no-print" onclick="exportarAWord()">
-                    <i class="fas fa-file-word"></i> Exportar a Word
-                </button>
-                <button class="btn btn-warning btn-next no-print" onclick="siguienteParte()">
-                    <i class="fas fa-arrow-right"></i> Siguiente Parte
-                </button>
-            </div>
-            
-            <div>
-            <p><strong>[HCPE] v2.0® &copy; 2025 - [Historia Clínica Psiquiátrica Electrónica]</strong></p>
-            <p><strong>[Dr. Mauricio Villamandos]</strong></p>
-            <p><strong>Santa Ana, Corrientes - Argentina</strong></p>
-            </div>
-        </div>
-    </footer>
+    <!-- Footer -->
+    <div id="footer-container"></div>
 
     <!-- Bootstrap 5 JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -1771,7 +1699,11 @@
     <!-- Docx.js para generar documentos Word -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/7.1.0/docx.min.js"></script>
     
-    <script>
+    <!-- Common JS -->
+    <script src="/js/common.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="/js/script.js"></script>
         // Función para calcular la edad
         function calcularEdad(fechaNacimiento) {
             const fechaNac = new Date(fechaNacimiento);

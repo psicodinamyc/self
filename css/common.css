@@ -1,0 +1,211 @@
+/* Common styles for all pages */
+:root {
+  --primary-color: #007bff;
+  --secondary-color: #6c757d;
+  --success-color: #28a745;
+  --info-color: #17a2b8;
+  --warning-color: #ffc107;
+  --danger-color: #dc3545;
+  --light-color: #f8f9fa;
+  --dark-color: #343a40;
+}
+
+/* Body and layout */
+body {
+  font-family: 'EB Garamond', serif;
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Navbar styles */
+.navbar {
+  backdrop-filter: blur(10px);
+  background-color: rgba(0, 0, 0, 0.6) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.navbar-brand img {
+  max-height: 40px;
+  transition: transform 0.4s ease-in-out;
+}
+
+.navbar-brand img:hover {
+  transform: scale(1.1);
+}
+
+.navbar .btn-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+}
+
+/* Header styles */
+header {
+  background-color: var(--light-color) !important;
+}
+
+.doctor-info {
+  font-size: 0.9rem;
+}
+
+/* Dark mode toggle */
+.dark-mode-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  background: var(--secondary-color);
+  color: white;
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+.dark-mode-toggle:hover {
+  transform: scale(1.1);
+}
+
+/* Dark mode styles */
+.dark-mode {
+  background-color: #1a1a1a;
+  color: #f0f0f0;
+}
+
+.dark-mode .container,
+.dark-mode .form-section,
+.dark-mode canvas {
+  background-color: #2d2d2d;
+  color: #f0f0f0;
+}
+
+.dark-mode .table {
+  background-color: #2d2d2d;
+  color: #f0f0f0;
+}
+
+.dark-mode .table thead th {
+  background: linear-gradient(135deg, #34495e, #2c3e50);
+}
+
+.dark-mode .table tr:nth-child(even) {
+  background-color: rgba(52, 152, 219, 0.1);
+}
+
+.dark-mode .table tr:hover {
+  background-color: rgba(52, 152, 219, 0.2);
+}
+
+.dark-mode .form-select {
+  background-color: #3d3d3d;
+  color: #f0f0f0;
+  border-color: #555;
+}
+
+.dark-mode .form-section h1, 
+.dark-mode .form-section h2, 
+.dark-mode .form-section h3 {
+  color: #4a90e2;
+  border-bottom-color: #444;
+}
+
+/* Main content area */
+main {
+  flex: 1;
+}
+
+/* Footer styles */
+footer {
+  margin-top: auto;
+  background-color: var(--dark-color) !important;
+  color: white !important;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .navbar .d-flex {
+    margin-top: 10px;
+  }
+  
+  .doctor-info {
+    font-size: 0.8rem;
+  }
+  
+  .dark-mode-toggle {
+    width: 45px;
+    height: 45px;
+    bottom: 15px;
+    right: 15px;
+  }
+}
+
+/* Print styles */
+@media print {
+  .no-print, 
+  .navbar, 
+  .dark-mode-toggle,
+  #hcpeActions {
+    display: none !important;
+  }
+  
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  
+  header {
+    background: white !important;
+    border-bottom: 2px solid #000 !important;
+  }
+}
+
+/* Login page specific styles */
+.login-body {
+  background: linear-gradient(135deg, #dbe6f6, #727b88);
+  min-height: 100vh;
+}
+
+.login-card {
+  border: none;
+  border-radius: 1rem;
+  background-color: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.2);
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+}
+
+.btn-primary {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  background: linear-gradient(45deg, #007bff, #0e77e0);
+  border: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-primary:hover {
+  transform: scale(1.05);
+  background: linear-gradient(45deg, #519eef, #393636);
+}
+
+.form-control::placeholder {
+  font-style: italic;
+}
+
+.toggle-password {
+  cursor: pointer;
+}
