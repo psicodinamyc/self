@@ -159,8 +159,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-               
-
+                <i class="fas fa-chart-line me-2"></i>HCPE Dashboard
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -168,13 +167,16 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/index.html">Inicio</a>
+                        <a class="nav-link active" href="#"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Servicios</a>
+                        <a class="nav-link" href="/index.html"><i class="fas fa-sign-out-alt me-2"></i>Cerrar Sesión</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contacto</a>
+                        <a class="nav-link" href="#"><i class="fas fa-cog me-2"></i>Servicios</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-envelope me-2"></i>Contacto</a>
                     </li>
                 </ul>
                 <div class="d-flex flex-wrap gap-2">
@@ -207,7 +209,8 @@
     <!-- Header -->
     <header class="bg-light py-4 mb-4 border-bottom">
         <div class="container text-center">
-            <h1 class="display-5 fw-bold">HCPE - Historia Clínica Psiquiátrica</h1>
+            <h1 class="display-5 fw-bold">HCPE - Dashboard Central</h1>
+            <p class="lead text-muted">Historia Clínica Psiquiátrica Electrónica - Panel de Control</p>
             <div class="doctor-info">
                 <p class="mb-1"><strong>Dr. Mauricio Villamandos - Médico Especialista en Psiquiatría - MP: 07489</strong></p>
                 <p class="mb-0"><strong>Santa Ana, Corrientes – Argentina | infopsicodinamyc@gmail.com | Teléfono: 3765 041832</strong></p>
@@ -215,37 +218,82 @@
         </div>
     </header>
     
-    <!-- Botonera de escalas e instrumentos -->
+    <!-- Dashboard de Escalas e Instrumentos -->
     <div class="container scales-toolbar no-print">
-        <h4 class="w-100 text-center mb-3">Instrumentos de Evaluación</h4>
-        <button class="btn btn-outline-primary" onclick="window.open('https://gonzalov85.github.io/Inventario-SCL-90-R/', '_blank')">
-            <i class="fas fa-clipboard-list"></i> SCL-90-R
-        </button>
-        <button class="btn btn-outline-primary" onclick="window.open('escalas/ham_d.html', '_blank')">
-            <i class="fas fa-brain"></i> HAM-D
-        </button>
-        <button class="btn btn-outline-primary" onclick="window.open('escalas/ham_d.html', '_blank')">
-            <i class="fas fa-brain"></i> HAM-A
-        </button>
-        <button class="btn btn-outline-primary" onclick="window.open('escalas/moca.html', '_blank')">
-            <i class="fas fa-brain"></i> MoCA
-        </button>
-        <button class="btn btn-outline-primary" onclick="window.open('escalas/mmse.html', '_blank')">
-            <i class="fas fa-brain"></i> MMSE
-        </button>
-        <button class="btn btn-outline-primary" onclick="window.open('escalas/panss.html', '_blank')">
-            <i class="fas fa-brain"></i> PANSS
-        </button>
-        <button class="btn btn-outline-primary" onclick="window.open('escalas/whoqol_breef.html', '_blank')">
-            <i class="fas fa-brain"></i> WHOQOL-BREEF
-        </button>
-        <button class="btn btn-outline-primary" onclick="window.open('escalas/barrero_s.html', '_blank')">
-            <i class="fas fa-brain"></i> Barrero/S
-            
-        </button>
-        <button class="btn btn-outline-primary" onclick="window.open('escalas/audit.html', '_blank')">
-            <i class="fas fa-brain"></i> AUDIT
-        </button>
+        <div class="row mb-4">
+            <div class="col-12 text-center">
+                <h2 class="display-6 fw-bold text-primary mb-3">
+                    <i class="fas fa-tachometer-alt me-2"></i>Dashboard de Instrumentos de Evaluación
+                </h2>
+                <p class="lead text-muted">Acceda rápidamente a las escalas y cuestionarios más utilizados en la práctica clínica</p>
+            </div>
+        </div>
+        
+        <!-- Escalas de Evaluación Cognitiva -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h4 class="fw-bold text-secondary mb-3"><i class="fas fa-brain me-2"></i>Evaluación Cognitiva</h4>
+                <div class="d-flex flex-wrap gap-2">
+                    <button class="btn btn-outline-primary" onclick="window.open('escalas/moca.html', '_blank')">
+                        <i class="fas fa-brain"></i> MoCA
+                    </button>
+                    <button class="btn btn-outline-primary" onclick="window.open('escalas/mmse.html', '_blank')">
+                        <i class="fas fa-brain"></i> MMSE
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Escalas de Evaluación del Estado de Ánimo -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h4 class="fw-bold text-secondary mb-3"><i class="fas fa-heart me-2"></i>Estado de Ánimo</h4>
+                <div class="d-flex flex-wrap gap-2">
+                    <button class="btn btn-outline-success" onclick="window.open('escalas/ham_d.html', '_blank')">
+                        <i class="fas fa-chart-line"></i> HAM-D
+                    </button>
+                    <button class="btn btn-outline-success" onclick="window.open('escalas/ham_d.html', '_blank')">
+                        <i class="fas fa-chart-line"></i> HAM-A
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Escalas de Síntomas Psicóticos -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h4 class="fw-bold text-secondary mb-3"><i class="fas fa-user-md me-2"></i>Síntomas Psicóticos</h4>
+                <div class="d-flex flex-wrap gap-2">
+                    <button class="btn btn-outline-warning" onclick="window.open('escalas/panss.html', '_blank')">
+                        <i class="fas fa-clipboard-check"></i> PANSS
+                    </button>
+                    <button class="btn btn-outline-warning" onclick="window.open('escalas/bprs_18.html', '_blank')">
+                        <i class="fas fa-clipboard-check"></i> BPRS-18
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Escalas de Calidad de Vida y Adicciones -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h4 class="fw-bold text-secondary mb-3"><i class="fas fa-balance-scale me-2"></i>Calidad de Vida y Adicciones</h4>
+                <div class="d-flex flex-wrap gap-2">
+                    <button class="btn btn-outline-info" onclick="window.open('escalas/whoqol_breef.html', '_blank')">
+                        <i class="fas fa-smile"></i> WHOQOL-BREEF
+                    </button>
+                    <button class="btn btn-outline-info" onclick="window.open('escalas/dast.html', '_blank')">
+                        <i class="fas fa-pills"></i> DAST
+                    </button>
+                    <button class="btn btn-outline-info" onclick="window.open('escalas/barrero_s.html', '_blank')">
+                        <i class="fas fa-clipboard-list"></i> Barrero/S
+                    </button>
+                    <button class="btn btn-outline-info" onclick="window.open('https://gonzalov85.github.io/Inventario-SCL-90-R/', '_blank')">
+                        <i class="fas fa-clipboard-list"></i> SCL-90-R
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
         
     <main class="container">
